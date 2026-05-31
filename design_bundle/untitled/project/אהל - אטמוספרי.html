@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>אֹהֶל · כתבו מכתב לרבי</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Assistant:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night:#0c1730;
+    --night-2:#11203f;
+    --cream:#f6f2ea;
+    --cream-soft:#ece6d8;
+    --ink:#15233f;
+    --ink-soft:#41506e;
+    --blue:#3a5a8c;
+    --mist:#aeb9cc;
+    --gold:#d8bd84;
+    --gold-deep:#c0a056;
+    --serif:"Frank Ruhl Libre",Georgia,serif;
+    --sans:"Assistant",-apple-system,system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--night);color:var(--cream);font-family:var(--sans);line-height:1.7;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+  .label{font-size:13px;font-weight:600;letter-spacing:.22em;color:var(--gold)}
+  .btn{font-family:var(--sans);font-size:15.5px;font-weight:600;cursor:pointer;border:none;border-radius:2px;transition:all .25s ease;display:inline-flex;align-items:center;gap:10px;text-decoration:none}
+  .btn-gold{background:var(--gold);color:var(--night);padding:14px 32px}
+  .btn-gold:hover{background:#e8cf9a;transform:translateY(-1px)}
+  .btn-line{background:transparent;color:var(--cream);padding:13px 0;border-bottom:1.5px solid rgba(216,189,132,.6)}
+  .btn-line:hover{color:var(--gold);border-color:var(--gold)}
+
+  /* header */
+  header.top{position:absolute;top:0;left:0;right:0;z-index:50}
+  .top-inner{display:flex;align-items:center;justify-content:space-between;height:84px}
+  .brand{display:flex;align-items:baseline;gap:12px}
+  .brand .mark{font-family:var(--serif);font-weight:700;font-size:30px;color:var(--cream)}
+  .brand .sub{font-size:13px;color:var(--mist);letter-spacing:.06em}
+  nav.menu{display:flex;gap:34px;align-items:center}
+  nav.menu a{color:var(--mist);text-decoration:none;font-size:15px;font-weight:500;transition:color .2s}
+  nav.menu a:hover{color:var(--cream)}
+
+  /* hero */
+  .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:130px 0 90px}
+  .hero::before{content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(60% 45% at 50% 34%, rgba(216,189,132,.20), transparent 70%),
+      radial-gradient(90% 70% at 50% 50%, var(--night-2), var(--night) 78%);
+  }
+  .hero::after{content:"";position:absolute;inset:0;box-shadow:inset 0 -120px 120px -60px var(--night), inset 0 120px 120px -90px rgba(0,0,0,.4);pointer-events:none}
+  .stars{position:absolute;inset:0;opacity:.5;pointer-events:none;
+    background-image:radial-gradient(1px 1px at 18% 30%, rgba(255,255,255,.5), transparent),
+      radial-gradient(1px 1px at 72% 22%, rgba(255,255,255,.4), transparent),
+      radial-gradient(1px 1px at 84% 55%, rgba(255,255,255,.35), transparent),
+      radial-gradient(1px 1px at 30% 68%, rgba(255,255,255,.3), transparent),
+      radial-gradient(1px 1px at 56% 80%, rgba(255,255,255,.25), transparent);}
+  .hero-inner{position:relative;z-index:2;max-width:680px}
+  .eyebrow{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:40px}
+  .eyebrow .dot{width:5px;height:5px;background:var(--gold);transform:rotate(45deg)}
+
+  .arch{position:relative;width:248px;margin:0 auto 40px}
+  .arch .halo{position:absolute;inset:-50px;border-radius:50%;
+    background:radial-gradient(closest-side, rgba(216,189,132,.45), transparent 72%);filter:blur(6px);z-index:0}
+  .arch .frame{position:relative;z-index:2;padding:9px;
+    border-radius:124px 124px 10px 10px;
+    background:linear-gradient(180deg, rgba(216,189,132,.55), rgba(216,189,132,.12));
+    box-shadow:0 24px 60px -30px rgba(0,0,0,.7)}
+  .arch .inner{border-radius:118px 118px 6px 6px;overflow:hidden;background:#0a1228}
+  .arch image-slot{display:block;width:100%;height:296px}
+
+  .hero h1{font-family:var(--serif);font-weight:500;font-size:60px;line-height:1.12;color:var(--cream);letter-spacing:-.01em;margin-bottom:24px}
+  .hero h1 em{font-style:normal;color:var(--gold)}
+  .hero .lede{font-size:19.5px;color:var(--mist);max-width:33em;margin:0 auto 40px}
+  .hero-actions{display:flex;align-items:center;justify-content:center;gap:34px}
+  .scrollcue{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:3;color:var(--mist);font-size:12px;letter-spacing:.2em;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.8}
+  .scrollcue .ln{width:1px;height:34px;background:linear-gradient(var(--gold),transparent)}
+
+  /* quote on dark */
+  .quote{padding:120px 0;text-align:center;position:relative;border-top:1px solid rgba(216,189,132,.18)}
+  .quote .glyph{font-family:var(--serif);font-size:78px;color:var(--gold-deep);line-height:0;height:36px;display:block;margin-bottom:8px;opacity:.7}
+  .quote blockquote{font-family:var(--serif);font-weight:500;font-size:48px;line-height:1.35;color:var(--cream);max-width:13em;margin:0 auto 28px}
+  .quote blockquote .lit{color:var(--gold)}
+  .quote cite{font-style:normal;font-size:14px;letter-spacing:.2em;color:var(--mist);font-weight:600}
+
+  /* light panel */
+  .panel{background:var(--cream);color:var(--ink)}
+  .intro{padding:96px 0 30px;max-width:780px;margin:0 auto;text-align:center}
+  .intro .label{color:var(--blue);margin-bottom:22px;display:inline-block}
+  .intro p{font-family:var(--serif);font-size:28px;line-height:1.6;color:var(--ink);font-weight:400}
+  .intro p .accent{color:var(--gold-deep)}
+
+  .steps{padding:80px 0 104px}
+  .steps-head{text-align:center;margin-bottom:60px}
+  .steps-head h2{font-family:var(--serif);font-weight:500;font-size:42px;color:var(--ink)}
+  .steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .step{background:#fff;border:1px solid #e7e1d4;border-radius:6px;padding:38px 32px;text-align:center;transition:transform .25s,box-shadow .25s}
+  .step:hover{transform:translateY(-4px);box-shadow:0 24px 50px -34px rgba(20,34,63,.5)}
+  .step .num{display:inline-flex;align-items:center;justify-content:center;width:60px;height:60px;border-radius:50%;background:var(--night);color:var(--gold);font-family:var(--serif);font-size:26px;font-weight:700;margin-bottom:22px}
+  .step h3{font-family:var(--serif);font-size:25px;font-weight:500;color:var(--ink);margin-bottom:12px}
+  .step p{font-size:16px;color:var(--ink-soft)}
+
+  /* closing */
+  .closing{text-align:center;padding:110px 0;position:relative;overflow:hidden}
+  .closing::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 80% at 50% 0%, rgba(216,189,132,.16), transparent 70%)}
+  .closing-inner{position:relative;z-index:2}
+  .closing h2{font-family:var(--serif);font-weight:500;font-size:50px;margin-bottom:18px;color:var(--cream)}
+  .closing p{font-size:18px;color:var(--mist);margin:0 auto 40px;max-width:28em}
+
+  footer{padding:48px 0;text-align:center;border-top:1px solid rgba(216,189,132,.18)}
+  footer .mark{font-family:var(--serif);font-size:22px;color:var(--cream);margin-bottom:8px}
+  footer .fine{font-size:13px;color:var(--mist);letter-spacing:.05em}
+
+  @media (max-width:900px){
+    .hero h1{font-size:42px}
+    .steps-grid{grid-template-columns:1fr}
+    nav.menu{display:none}
+    .quote blockquote{font-size:34px}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-inner">
+    <div class="brand"><span class="mark">אֹהֶל</span><span class="sub">מכתב אל הרבי</span></div>
+    <nav class="menu">
+      <a href="#about">אודות</a>
+      <a href="#how">איך כותבים</a>
+      <a href="כתיבת מכתב.html" class="btn-line">כתיבת מכתב</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="stars"></div>
+    <div class="hero-inner">
+      <div class="eyebrow"><span class="dot"></span><span class="label">מקום של קרבה ושל אור</span><span class="dot"></span></div>
+      <div class="arch">
+        <div class="halo"></div>
+        <div class="frame"><div class="inner">
+          <image-slot id="rebbe-portrait" shape="rect" placeholder="גררו לכאן תמונה של הרבי" fit="cover"></image-slot>
+        </div></div>
+      </div>
+      <h1>כִּתְבוּ אֶל הָרֶבִּי,<br><em>וְשִׁפְכוּ אֶת לִבְּכֶם</em></h1>
+      <p class="lede">בקשה, תודה, כאב או תפילה — יש מילים שמחכות להיאמר. כתבו את מכתבכם, והוא יונח על ציון הרבי מליובאוויטש.</p>
+      <div class="hero-actions">
+        <a href="כתיבת מכתב.html" class="btn btn-gold">לכתיבת המכתב&nbsp;&nbsp;←</a>
+        <a href="#about" class="btn btn-line">מה זה אוֹהל?</a>
+      </div>
+    </div>
+    <div class="scrollcue"><span>גללו</span><span class="ln"></span></div>
+  </section>
+
+  <section class="quote">
+    <div class="wrap">
+      <span class="glyph">״</span>
+      <blockquote>מְעַט מִן הָ<span class="lit">אוֹר</span> דּוֹחֶה הַרְבֵּה מִן הַחֹשֶׁךְ</blockquote>
+      <cite>מאמרת חכמינו · מתורת החסידות</cite>
+    </div>
+  </section>
+
+  <div class="panel">
+    <section class="intro" id="about">
+      <div class="wrap">
+        <span class="label">מהו המקום הזה</span>
+        <p>במשך עשרות שנים נהגו אנשים מכל העולם לכתוב אל הרבי — לבקש ברכה, להתייעץ, או פשוט לשתף את הלב. <span class="accent">המנהג לא פסק.</span> כאן תכתבו את מכתבכם, והוא יודפס ויונח על הציון באוהל.</p>
+      </div>
+    </section>
+    <section class="steps" id="how">
+      <div class="wrap">
+        <div class="steps-head"><h2>איך כותבים מכתב</h2></div>
+        <div class="steps-grid">
+          <div class="step"><div class="num">א</div><h3>מִתְכּוֹנְנִים</h3><p>נטילת ידיים, רגע של כוונה, וקבלת החלטה טובה — 'כלי' לברכה.</p></div>
+          <div class="step"><div class="num">ב</div><h3>כּוֹתְבִים</h3><p>פותחים את הלב וכותבים בלשונכם — בקשה, תודה או תפילה.</p></div>
+          <div class="step"><div class="num">ג</div><h3>מֻנָּח בָּאֹהֶל</h3><p>המכתב מודפס ומונח על ציון הרבי — המקום שאליו פונים בתפילה.</p></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="closing" id="write">
+    <div class="wrap closing-inner">
+      <h2>הלב שלכם מחכה להישמע</h2>
+      <p>קחו רגע לעצמכם. שבו, נשמו, וכתבו את מה שבאמת חשוב לכם.</p>
+      <a href="כתיבת מכתב.html" class="btn btn-gold">פתיחת מכתב חדש&nbsp;&nbsp;←</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap"><div class="mark">אֹהֶל</div><div class="fine">מקום לכתוב · לבקש · להתחבר</div></div>
+</footer>
+
+<script src="image-slot.js"></script>
+</body>
+</html>
