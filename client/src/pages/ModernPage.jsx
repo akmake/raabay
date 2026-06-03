@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useIsMobile } from '@/hooks/useIsMobile';
+import Navbar from '@/components/layout/Navbar';
 
 const V = {
   bg: '#f5f6f8', white: '#fff', ink: '#0f1c33', inkSoft: '#46556f',
@@ -11,9 +12,9 @@ const V = {
 export default function ModernPage() {
   const m = useIsMobile();
   const wrap = { maxWidth: 1180, margin: '0 auto', padding: m ? '0 18px' : '0 44px' };
-
   return (
     <div dir="rtl" style={{ background: V.bg, color: V.ink, fontFamily: V.sans, lineHeight: 1.6, WebkitFontSmoothing: 'antialiased' }}>
+      <Navbar />
 
       {/* Split Hero */}
       <section style={{ display: 'grid', gridTemplateColumns: m ? '1fr' : '1.04fr 1fr', minHeight: m ? 'auto' : '100vh' }}>
@@ -27,37 +28,31 @@ export default function ModernPage() {
         )}
 
         {/* Text panel */}
-        <div style={{ background: V.navy, color: '#fff', position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', padding: m ? '24px 18px 40px' : '30px 6vw 48px', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(70% 60% at 85% 0%, rgba(201,168,92,.12), transparent 60%)', pointerEvents: 'none' }} />
-
-          {/* Header */}
-          <div style={{ position: 'relative', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', zIndex: 5, marginBottom: m ? 28 : 40 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <span style={{ width: m ? 34 : 40, height: m ? 34 : 40, borderRadius: 9, background: V.gold, color: V.navy, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontFamily: V.serif, fontWeight: 700, fontSize: m ? 19 : 23 }}>א</span>
-              <span style={{ fontFamily: V.serif, fontWeight: 700, fontSize: m ? 21 : 25, color: '#fff' }}>אֹהֶל</span>
-            </div>
-            <Link to="/write" style={{ color: '#fff', padding: m ? '9px 14px' : '11px 22px', border: '1.5px solid rgba(255,255,255,.28)', borderRadius: 8, textDecoration: 'none', fontWeight: 600, fontSize: m ? 13 : 14.5 }}>כתיבת מכתב ←</Link>
-          </div>
+        <div style={{ background: '#fff', color: V.ink, position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: m ? '100px 18px 48px' : '68px 6vw 48px', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(70% 60% at 15% 100%, rgba(201,168,92,.18), transparent 60%)', pointerEvents: 'none' }} />
 
           {/* Text */}
-          <div style={{ position: 'relative', zIndex: 2, marginTop: m ? 0 : 'auto', marginBottom: m ? 0 : 'auto' }}>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13, fontWeight: 600, color: V.gold, background: 'rgba(201,168,92,.1)', border: '1px solid rgba(201,168,92,.28)', padding: '7px 14px', borderRadius: 100, marginBottom: m ? 20 : 30 }}>
-              <span style={{ width: 5, height: 5, borderRadius: '50%', background: V.gold, display: 'inline-block' }} />
+          <div style={{ position: 'relative', zIndex: 2 }}>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 14, fontWeight: 600, color: V.gold, background: 'rgba(201,168,92,.12)', border: '1px solid rgba(201,168,92,.35)', padding: '8px 16px', borderRadius: 100, marginBottom: m ? 22 : 34 }}>
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: V.gold, display: 'inline-block' }} />
               מכתב אל הרבי מליובאוויטש
             </span>
-            <h1 style={{ fontFamily: V.serif, fontWeight: 700, fontSize: m ? 40 : 74, lineHeight: 1.06, letterSpacing: '-.02em', color: '#fff', marginBottom: m ? 18 : 26 }}>
+            <h1 style={{ fontFamily: V.serif, fontWeight: 700, fontSize: m ? 48 : 86, lineHeight: 1.04, letterSpacing: '-.02em', color: V.ink, marginBottom: m ? 20 : 30 }}>
               כותבים מכתב,<br />
               <span style={{ color: V.gold }}>ושופכים את הלב</span>
             </h1>
-            <p style={{ fontSize: m ? 16 : 20, color: V.mist, marginBottom: m ? 28 : 40 }}>
-              בקשה, תודה, כאב או תפילה — יש מילים שמחכות להיאמר. כתבו את מכתבכם בפרטיות מלאה, והוא יונח על ציון הרבי באוהל הקדוש.
+            <p style={{ fontSize: m ? 17 : 22, color: V.inkSoft, marginBottom: m ? 10 : 14, lineHeight: 1.65 }}>
+              בקשה, תודה, כאב או תפילה — יש מילים שמחכות להיאמר.
+            </p>
+            <p style={{ fontSize: m ? 16 : 19, color: V.mist, marginBottom: m ? 32 : 48, lineHeight: 1.8 }}>
+              הרבי האזין לכל אחד ואחת — לצעיר ולמבוגר, לשמח ולשבור לב. גם היום, אנשים מכל העולם ממשיכים לכתוב אליו: שואלים בעצה, מבקשים ברכה, מתחלקים בשמחה ובצרה. הכתיבה עצמה היא מעשה — רגע של כנות מול עצמך, שיחה פנימית שמקבלת צורה במילים. פתחו דף, שבו ברוגע, וכתבו מה שבאמת על הלב.
             </p>
             <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
-              <Link to="/write" style={{ background: V.gold, color: V.navy, padding: m ? '12px 22px' : '15px 30px', borderRadius: 8, textDecoration: 'none', fontWeight: 600, fontSize: m ? 14 : 16 }}>לכתיבת המכתב &nbsp;←</Link>
-              <a href="#how" style={{ color: '#fff', padding: m ? '11px 18px' : '14px 26px', border: '1.5px solid rgba(255,255,255,.28)', borderRadius: 8, textDecoration: 'none', fontWeight: 600, fontSize: m ? 13 : 16 }}>איך זה עובד?</a>
+              <Link to="/write" style={{ background: V.navy, color: '#fff', padding: m ? '12px 22px' : '15px 30px', borderRadius: 8, textDecoration: 'none', fontWeight: 600, fontSize: m ? 14 : 16 }}>לכתיבת המכתב &nbsp;←</Link>
+              <a href="#how" style={{ color: V.ink, padding: m ? '11px 18px' : '14px 26px', border: '1.5px solid rgba(15,28,51,.2)', borderRadius: 8, textDecoration: 'none', fontWeight: 600, fontSize: m ? 13 : 16 }}>איך זה עובד?</a>
             </div>
             <div style={{ marginTop: 20 }}>
-              <Link to="/" style={{ fontSize: 13, color: V.mist, textDecoration: 'none', opacity: .6 }}>← חזרה לבחירת עיצוב</Link>
+              <Link to="/" style={{ fontSize: 13, color: V.inkSoft, textDecoration: 'none', opacity: .6 }}>← חזרה לבחירת עיצוב</Link>
             </div>
           </div>
         </div>
@@ -66,8 +61,8 @@ export default function ModernPage() {
         {!m && (
           <div style={{ position: 'relative', background: '#0a1426', overflow: 'hidden' }}>
             <img src="/הרבי.webp" alt="הרבי" style={{ display: 'block', width: '100%', height: '100%', minHeight: '100vh', objectFit: 'cover', objectPosition: 'top' }} />
-            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to left, transparent 60%, rgba(16,30,56,.55)), linear-gradient(to top, rgba(10,20,38,.6), transparent 40%)', pointerEvents: 'none' }} />
-            <div style={{ position: 'absolute', zIndex: 3, bottom: 34, right: 34, background: 'rgba(16,30,56,.72)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,.12)', borderRadius: 12, padding: '13px 18px' }}>
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to left, transparent 55%, rgba(253,246,232,.75)), linear-gradient(to top, rgba(10,20,38,.5), transparent 40%)', pointerEvents: 'none' }} />
+            <div style={{ position: 'absolute', zIndex: 3, bottom: 90, right: 34, background: 'rgba(16,30,56,.72)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,.12)', borderRadius: 12, padding: '13px 18px' }}>
               <div style={{ fontFamily: V.serif, fontWeight: 600, fontSize: 18, color: '#fff' }}>הרבי מליובאוויטש</div>
               <div style={{ fontSize: 12.5, color: V.mist, letterSpacing: '.04em' }}>הרב מנחם מענדל שניאורסון</div>
             </div>

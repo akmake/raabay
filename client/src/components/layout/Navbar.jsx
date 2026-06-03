@@ -1,158 +1,163 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { useAuthStore } from '@/stores/authStore';
-import { BusFront, Phone, LogOut, LayoutDashboard, Menu, X, Clock } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Menu, X } from 'lucide-react';
+
+const V = {
+  ink: '#0f1c33', inkSoft: '#46556f',
+  navy: '#101e38', gold: '#c9a85c',
+  serif: '"Frank Ruhl Libre", Georgia, serif',
+  sans: '"Assistant", system-ui, sans-serif',
+};
+
+const LINKS = [
+  { label: 'איך זה עובד', href: '/#how' },
+  { label: 'אודות', href: '/#about' },
+  { label: 'איך כותבים פ"נ', href: '/pidyon', isRoute: true },
+];
 
 export default function Navbar() {
-  const { user, logout } = useAuthStore();
-  const location = useLocation();
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('hero');
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
 
-  // הגדרת אזורי הגלילה
-  const MENU_ITEMS = [
-    { id: 'hero', label: 'ראשי' },
-    { id: 'services', label: 'שירותים' },
-    { id: 'reviews', label: 'לקוחות ממליצים' },
-    { id: 'contact', label: 'צור קשר' },
-  ];
-
-  const scrollToSection = (id) => {
-    setMobileMenuOpen(false);
-    
-    if (location.pathname !== '/') {
-        window.location.href = `/#${id}`;
-        return;
-    }
-
-    const element = document.getElementById(id);
-    if (element) {
-      const offset = 80; // קיזוז גובה הנאבר
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
-  };
-
-  // מנגנון Scroll Spy וזיהוי גלילה
   useEffect(() => {
-    const handleScroll = () => {
-      // 1. שינוי עיצוב הנאבר בגלילה
-      setIsScrolled(window.scrollY > 50);
-
-      // 2. זיהוי האזור הפעיל
-      if (location.pathname === '/') {
-        let current = '';
-        const sections = MENU_ITEMS.map(item => item.id);
-        
-        for (const section of sections) {
-          const element = document.getElementById(section);
-          if (element) {
-             const rect = element.getBoundingClientRect();
-             // אם אזור נמצא בטווח הראייה
-             if (rect.top <= 150 && rect.bottom >= 150) {
-               current = section;
-             }
-          }
-        }
-        if (current) setActiveSection(current);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [location.pathname]);
+    const fn = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', fn, { passive: true });
+    return () => window.removeEventListener('scroll', fn);
+  }, []);
 
   return (
-    <nav className={`fixed w-full top-0 z-50 transition-all duration-300 border-b ${isScrolled ? 'bg-slate-900/95 backdrop-blur-md py-2 border-slate-800 shadow-xl' : 'bg-slate-900 py-4 border-transparent'}`}>
-      <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center h-14">
+    <>
+      <nav
+        dir="rtl"
+        style={{
+          position: 'fixed', top: 0, right: 0, left: 0, zIndex: 200,
+          height: 68,
+          fontFamily: V.sans,
+          background: scrolled
+            ? 'rgba(255,255,255,0.88)'
+            : 'rgba(255,255,255,0.60)',
+          backdropFilter: 'blur(22px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(22px) saturate(180%)',
+          borderBottom: scrolled
+            ? '1px solid rgba(15,28,51,0.09)'
+            : '1px solid rgba(255,255,255,0.35)',
+          boxShadow: scrolled ? '0 4px 32px rgba(15,28,51,0.08)' : 'none',
+          transition: 'background .35s, box-shadow .35s, border-color .35s',
+        }}
+      >
+        <div style={{
+          padding: '0 32px',
+          height: '100%',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        }}>
 
-          {/* לוגו */}
-          <Link to="/" onClick={() => scrollToSection('hero')} className="text-xl md:text-2xl font-bold flex items-center gap-3 hover:opacity-90 transition text-white">
-            <div className="bg-white/10 p-2 rounded-lg">
-              <BusFront size={24} className="text-blue-400" />
-            </div>
-            <span className="tracking-wide hidden sm:block">CityLine <span className="text-blue-400 font-light">Systems</span></span>
+          {/* Logo */}
+          <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', flexShrink: 0 }}>
+            <span style={{
+              width: 38, height: 38, borderRadius: 10,
+              background: V.gold, color: V.navy,
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              fontFamily: V.serif, fontWeight: 700, fontSize: 21,
+              boxShadow: '0 2px 10px rgba(201,168,92,0.35)',
+            }}>א</span>
+            <span style={{ fontFamily: V.serif, fontWeight: 700, fontSize: 22, color: V.ink }}>אֹהֶל</span>
           </Link>
 
-          {/* תפריט דסקטופ (גלולות) */}
-          <div className="hidden md:flex items-center gap-1 bg-white/5 p-1 rounded-full border border-white/10 backdrop-blur-sm">
-             {MENU_ITEMS.map((item) => (
-               <button
-                 key={item.id}
-                 onClick={() => scrollToSection(item.id)}
-                 className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300
-                   ${activeSection === item.id 
-                     ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/50' 
-                     : 'text-gray-300 hover:text-white hover:bg-white/10'}`}
-               >
-                 {item.label}
-               </button>
-             ))}
-          </div>
+          {/* Desktop nav */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 2 }} className="ohel-desktop">
+            {LINKS.map(l => {
+              const linkStyle = {
+                color: V.inkSoft, padding: '8px 18px', borderRadius: 8,
+                textDecoration: 'none', fontWeight: 500, fontSize: 15.5,
+                transition: 'color .2s, background .2s',
+              };
+              const enter = e => { e.currentTarget.style.color = V.ink; e.currentTarget.style.background = 'rgba(15,28,51,.06)'; };
+              const leave = e => { e.currentTarget.style.color = V.inkSoft; e.currentTarget.style.background = 'transparent'; };
+              return l.isRoute
+                ? <Link key={l.href} to={l.href} style={linkStyle} onMouseEnter={enter} onMouseLeave={leave}>{l.label}</Link>
+                : <a key={l.href} href={l.href} style={linkStyle} onMouseEnter={enter} onMouseLeave={leave}>{l.label}</a>;
+            })}
 
-          {/* כפתורי צד */}
-          <div className="flex items-center gap-3">
-            <a href="tel:088587626" className="flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold transition shadow-lg shadow-green-900/20">
-               <Phone size={16} /> <span className="hidden lg:inline">08-8587626</span>
-            </a>
+            <div style={{ width: 1, height: 22, background: 'rgba(15,28,51,.12)', margin: '0 10px' }} />
 
             <Link
-              to="/buses"
-              className="flex items-center gap-1.5 bg-blue-700 hover:bg-blue-600 text-white px-3 py-2 rounded-full text-sm font-medium transition"
-              title="לוח זמנים לאוטובוסים"
+              to="/write"
+              style={{
+                background: V.navy, color: '#fff',
+                padding: '10px 24px', borderRadius: 9,
+                textDecoration: 'none', fontWeight: 600, fontSize: 14.5,
+                boxShadow: '0 2px 12px rgba(15,28,51,0.20)',
+                transition: 'opacity .2s, transform .2s',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.opacity = '.87'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
+              onMouseLeave={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.transform = 'translateY(0)'; }}
             >
-              <Clock size={15} />
-              <span className="hidden lg:inline">לוח זמנים</span>
+              כתיבת מכתב ←
             </Link>
-
-            {user?.role === 'admin' && (
-              <Link to="/admin" className="text-gray-300 hover:text-white p-2 transition" title="ניהול">
-                <LayoutDashboard size={20} />
-              </Link>
-            )}
-
-            {user && (
-               <button onClick={logout} className="text-gray-300 hover:text-red-400 p-2 transition" title="התנתק">
-                  <LogOut size={20} />
-               </button>
-            )}
-
-            <button 
-              className="md:hidden text-white p-2"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? <X /> : <Menu />}
-            </button>
           </div>
-        </div>
-      </div>
 
-      {/* תפריט מובייל */}
-      {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-slate-900 border-t border-slate-800 shadow-2xl animate-fade-in">
-           <div className="flex flex-col p-4 space-y-2">
-             {MENU_ITEMS.map((item) => (
-               <button
-                 key={item.id}
-                 onClick={() => scrollToSection(item.id)}
-                 className={`text-right px-4 py-3 rounded-lg text-sm font-medium transition-colors
-                   ${activeSection === item.id ? 'bg-blue-600/20 text-blue-400' : 'text-gray-300 hover:bg-white/5'}`}
-               >
-                 {item.label}
-               </button>
-             ))}
-           </div>
+          {/* Mobile burger */}
+          <button
+            onClick={() => setOpen(o => !o)}
+            className="ohel-burger"
+            style={{
+              display: 'none', background: 'none', border: 'none',
+              cursor: 'pointer', padding: 6, color: V.ink, lineHeight: 0,
+            }}
+          >
+            {open ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile menu */}
+      {open && (
+        <div
+          dir="rtl"
+          style={{
+            position: 'fixed', top: 68, right: 0, left: 0, zIndex: 199,
+            background: 'rgba(255,255,255,0.97)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            borderBottom: '1px solid rgba(15,28,51,.09)',
+            padding: '16px 24px 28px',
+            fontFamily: V.sans,
+            boxShadow: '0 8px 32px rgba(15,28,51,.1)',
+          }}
+        >
+          {LINKS.map(l => {
+            const mStyle = {
+              display: 'block', color: V.inkSoft,
+              padding: '14px 4px', textDecoration: 'none',
+              fontWeight: 500, fontSize: 16,
+              borderBottom: '1px solid rgba(15,28,51,.07)',
+            };
+            return l.isRoute
+              ? <Link key={l.href} to={l.href} onClick={() => setOpen(false)} style={mStyle}>{l.label}</Link>
+              : <a key={l.href} href={l.href} onClick={() => setOpen(false)} style={mStyle}>{l.label}</a>;
+          })}
+          <Link
+            to="/write"
+            onClick={() => setOpen(false)}
+            style={{
+              display: 'block', marginTop: 16,
+              background: V.navy, color: '#fff',
+              padding: '14px 22px', borderRadius: 9,
+              textDecoration: 'none', fontWeight: 600,
+              fontSize: 15, textAlign: 'center',
+            }}
+          >
+            כתיבת מכתב ←
+          </Link>
         </div>
       )}
-    </nav>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .ohel-desktop { display: none !important; }
+          .ohel-burger { display: block !important; }
+        }
+      `}</style>
+    </>
   );
 }
