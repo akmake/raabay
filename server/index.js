@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 import connectDB from './config/db.js';
 import globalErrorHandler from './middlewares/errorMiddleware.js';
 import AppError from './utils/AppError.js';
+import letterRoutes from './routes/letterRoutes.js';
 
 dotenv.config();
 
@@ -33,11 +34,13 @@ app.use('/api', cors({
   credentials: true,
 }));
 
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
 });
+
+app.use('/api/letter', letterRoutes);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(clientDistPath));

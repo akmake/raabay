@@ -3,16 +3,14 @@ import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
 const V = {
-  ink: '#0f1c33', inkSoft: '#46556f',
-  navy: '#101e38', gold: '#c9a85c',
+  ink: '#1e1a17', inkSoft: '#5c5550',
+  navy: '#1e1a17', gold: '#b5864a',
   serif: '"Frank Ruhl Libre", Georgia, serif',
   sans: '"Assistant", system-ui, sans-serif',
 };
 
 const LINKS = [
   { label: 'איך זה עובד', href: '/#how' },
-  { label: 'אודות', href: '/#about' },
-  { label: 'איך כותבים פ"נ', href: '/pidyon', isRoute: true },
 ];
 
 export default function Navbar() {

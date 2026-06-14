@@ -64,7 +64,7 @@ export default function ModernPage() {
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to left, transparent 55%, rgba(253,246,232,.75)), linear-gradient(to top, rgba(10,20,38,.5), transparent 40%)', pointerEvents: 'none' }} />
             <div style={{ position: 'absolute', zIndex: 3, bottom: 90, right: 34, background: 'rgba(16,30,56,.72)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,.12)', borderRadius: 12, padding: '13px 18px' }}>
               <div style={{ fontFamily: V.serif, fontWeight: 600, fontSize: 18, color: '#fff' }}>הרבי מליובאוויטש</div>
-              <div style={{ fontSize: 12.5, color: V.mist, letterSpacing: '.04em' }}>הרב מנחם מענדל שניאורסון</div>
+              <div style={{ fontSize: 12.5, color: V.mist, letterSpacing: '.04em' }}></div>
             </div>
           </div>
         )}

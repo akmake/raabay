@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 import { useIsMobile } from '@/hooks/useIsMobile';
 
 const V = {
-  paper: '#ffffff', paper2: '#f8f8f8', ink: '#14223f', inkSoft: '#3a4a68',
-  blue: '#3a5a8c', blueMist: '#c4cdd9', gold: '#b08d4a', goldSoft: '#cdb074', line: '#e8e8e8',
+  paper: '#fdfaf5', paper2: '#f5f0e8', ink: '#1e1a17', inkSoft: '#5c5550',
+  blue: '#7a6b5a', blueMist: '#d4c8b8', gold: '#b5864a', goldSoft: '#c9a070', line: '#e4dcd0',
   serif: '"Frank Ruhl Libre", Georgia, serif', sans: '"Assistant", system-ui, sans-serif',
 };
 
@@ -23,15 +23,12 @@ export default function ClassicPage() {
           </div>
           {!m && (
             <nav style={{ display: 'flex', gap: 34, alignItems: 'center' }}>
-              <a href="#about" style={{ color: V.inkSoft, textDecoration: 'none', fontSize: 15, fontWeight: 500 }}>אודות</a>
               <a href="#how" style={{ color: V.inkSoft, textDecoration: 'none', fontSize: 15, fontWeight: 500 }}>איך כותבים</a>
-              <Link to="/pidyon" style={{ color: V.inkSoft, textDecoration: 'none', fontSize: 15, fontWeight: 500 }}>כיצד כותבים פ"נ</Link>
               <Link to="/write" style={{ color: V.ink, padding: '10px 0', borderBottom: `1.5px solid ${V.gold}`, textDecoration: 'none', fontWeight: 600, fontSize: 15 }}>כתיבת מכתב</Link>
             </nav>
           )}
           {m && (
             <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-              <Link to="/pidyon" style={{ color: V.inkSoft, textDecoration: 'none', fontWeight: 500, fontSize: 14 }}>פ"נ</Link>
               <Link to="/write" style={{ background: V.ink, color: V.paper, padding: '10px 18px', borderRadius: 6, textDecoration: 'none', fontWeight: 600, fontSize: 14 }}>כתיבת מכתב ←</Link>
             </div>
           )}
@@ -64,11 +61,11 @@ export default function ClassicPage() {
             <div>
               <div style={{ position: 'relative', padding: m ? 8 : 14, background: V.paper, border: `1px solid ${V.line}`, boxShadow: '0 30px 70px -40px rgba(20,34,63,.5)' }}>
                 <div style={{ position: 'absolute', inset: m ? 4 : 6, border: `1px solid ${V.goldSoft}`, pointerEvents: 'none', zIndex: 2 }} />
-                <img src="/הרבי.webp" alt="הרבי" style={{ display: 'block', width: '100%', height: m ? 280 : 470, objectFit: 'cover', objectPosition: 'top' }} />
+                <img src="/הרבי.jpg" alt="הרבי" style={{ display: 'block', width: '100%', height: m ? 280 : 470, objectFit: 'cover', objectPosition: 'top' }} />
               </div>
               <div style={{ marginTop: 14, textAlign: 'center', fontFamily: V.serif, fontSize: 16, color: V.ink }}>
                 הרבי מליובאוויטש
-                <span style={{ display: 'block', fontFamily: V.sans, fontSize: 12, color: V.inkSoft, letterSpacing: '.08em', marginTop: 3 }}>הרב מנחם מענדל שניאורסון</span>
+                <span style={{ display: 'block', fontFamily: V.sans, fontSize: 12, color: V.inkSoft, letterSpacing: '.08em', marginTop: 3 }}></span>
               </div>
             </div>
           </div>
@@ -81,22 +78,13 @@ export default function ClassicPage() {
             <p style={{ fontFamily: V.serif, fontSize: m ? 20 : 27, lineHeight: 1.6, color: V.ink }}>
               במשך עשרות שנים נהגו אנשים מכל קצוות העולם לכתוב אל הרבי — לבקש ברכה, להתייעץ, או פשוט לשתף את אשר על לבם.{' '}
               <span style={{ color: V.blue }}>המנהג לא פסק.</span>{' '}
-              כאן תוכלו לכתוב את מכתבכם, והוא יודפס ויונח על הציון באוהל.
+              כאן תוכלו לכתוב את מכתבכם,והוא ישלח לאהל הקדוש.
             </p>
           </div>
         </section>
 
         {/* Quote */}
-        <section style={{ padding: m ? '64px 0' : '104px 0', textAlign: 'center' }}>
-          <div style={wrap}>
-            <span style={{ fontFamily: V.serif, fontSize: m ? 56 : 80, color: V.goldSoft, lineHeight: 0, height: 30, display: 'block', marginBottom: 10 }}>״</span>
-            <blockquote style={{ fontFamily: V.serif, fontWeight: 500, fontSize: m ? 26 : 46, lineHeight: 1.35, color: V.ink, margin: '0 auto 24px', letterSpacing: '-.01em' }}>
-              מְעַט מִן הָאוֹר דּוֹחֶה הַרְבֵּה מִן הַחֹשֶׁךְ
-            </blockquote>
-            <cite style={{ fontStyle: 'normal', fontSize: 14, letterSpacing: '.14em', color: V.blue, fontWeight: 600 }}>מאמרת חכמינו · מתורת החסידות</cite>
-            <div style={{ width: 48, height: 1, background: V.gold, margin: '28px auto 0' }} />
-          </div>
-        </section>
+
 
         {/* Steps */}
         <section id="how" style={{ padding: m ? '48px 0 64px' : '96px 0 110px', borderTop: `1px solid ${V.line}` }}>

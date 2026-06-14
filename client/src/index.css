@@ -19,27 +19,27 @@ body {
     --brand-dark-purple: #4a2c48;
 
     /* אהל design tokens */
-    --oh-paper: #fbfaf7;
-    --oh-paper-2: #f4f1ea;
-    --oh-ink: #14223f;
-    --oh-ink-soft: #3a4a68;
-    --oh-blue: #3a5a8c;
-    --oh-blue-mist: #c4cdd9;
-    --oh-gold: #b08d4a;
-    --oh-gold-soft: #cdb074;
-    --oh-line: #e2ddd2;
+    --oh-paper: #fdfaf5;
+    --oh-paper-2: #f5f0e8;
+    --oh-ink: #1e1a17;
+    --oh-ink-soft: #5c5550;
+    --oh-blue: #7a6b5a;
+    --oh-blue-mist: #d4c8b8;
+    --oh-gold: #b5864a;
+    --oh-gold-soft: #c9a070;
+    --oh-line: #e4dcd0;
     --oh-serif: "Frank Ruhl Libre", Georgia, serif;
     --oh-sans: "Assistant", system-ui, sans-serif;
 
     /* letter page */
-    --oh-night: #0b1426;
-    --oh-night-2: #13233f;
-    --oh-paper-warm: #fbf8f1;
-    --oh-paper-edge: #efe9da;
-    --oh-ghost: #b9bcc4;
-    --oh-gold-deep: #b08d4a;
-    --oh-mist: #aeb9cc;
-    --oh-gold-letter: #c9a85c;
+    --oh-night: #1a1715;
+    --oh-night-2: #2a2420;
+    --oh-paper-warm: #f5f0e6;
+    --oh-paper-edge: #ece4d6;
+    --oh-ghost: #c0b8b0;
+    --oh-gold-deep: #b5864a;
+    --oh-mist: #b8afa6;
+    --oh-gold-letter: #c9a070;
   }
 }
 

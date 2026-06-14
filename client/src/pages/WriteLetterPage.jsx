@@ -20,9 +20,8 @@ const LETTER_STEPS = [
     body: 'נהוג לקבל על עצמכם החלטה טובה אחת — אפילו קטנה. היא נעשית ה\'כלי\' שמחזיק את הברכה שאתם מבקשים.',
   },
   {
-    title: 'נוסח הפתיחה',
-    body: 'אפשר לפתוח את המכתב בנוסח המקובל, ולאחריו לכתוב בלשונכם שלכם:',
-    nusach: true,
+    title: <>כתבו <em style={{ fontStyle: 'normal', color: 'var(--oh-gold-letter)' }}>בלשונכם שלכם</em></>,
+    body: 'אין נוסח נכון ואין מילים נכונות. כתבו מה שבאמת על הלב — בקשה, תודה, שאלה, שיתוף. הרבי קרא כל מילה.',
   },
 ];
 
@@ -50,31 +49,6 @@ const PAN_STEPS = [
   },
 ];
 
-function Candle() {
-  return (
-    <div style={{ width: 54, height: 54, margin: '0 auto 30px', position: 'relative' }}>
-      <span className="oh-flick-slow" style={{
-        position: 'absolute', inset: -22, borderRadius: '50%',
-        background: 'radial-gradient(closest-side, rgba(201,168,92,.55), transparent 70%)',
-        display: 'block',
-      }} />
-      <span className="oh-flick" style={{
-        position: 'absolute', left: '50%', top: 6, width: 16, height: 30,
-        transform: 'translateX(-50%)',
-        background: 'linear-gradient(180deg,#fff3d0,#e9b94e 55%,#c9882a)',
-        borderRadius: '50% 50% 48% 48% / 62% 62% 38% 38%',
-        boxShadow: '0 0 18px 4px rgba(233,185,78,.6)',
-        display: 'block',
-      }} />
-      <span style={{
-        position: 'absolute', left: '50%', bottom: 2, width: 3, height: 14,
-        transform: 'translateX(-50%)',
-        background: 'linear-gradient(#e9d8a8,#bda874)',
-        display: 'block',
-      }} />
-    </div>
-  );
-}
 
 function getHebrewDate() {
   try {
@@ -93,7 +67,9 @@ export default function WriteLetterPage() {
   const [motherName, setMotherName] = useState('');
   const [gender, setGender] = useState('בן');
   const [letterText, setLetterText] = useState('');
-  const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [toast, setToast] = useState(null); // { message, type }
+  const [uploadedFile, setUploadedFile] = useState(null); // { base64, mimetype, filename, preview }
   const textareaRef = useRef(null);
   const nameRef = useRef(null);
   const hebrewDate = getHebrewDate();
@@ -129,9 +105,54 @@ export default function WriteLetterPage() {
 
   useEffect(() => { growTextarea(); }, [letterText, mode]);
 
-  const handleSend = () => {
-    if (!letterText.trim()) { textareaRef.current?.focus(); return; }
-    setSent(true);
+  const handleFileUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const dataUrl = ev.target.result;
+      const base64 = dataUrl.split(',')[1];
+      setUploadedFile({
+        base64,
+        mimetype: file.type,
+        filename: file.name,
+        preview: file.type.startsWith('image/') ? dataUrl : null,
+      });
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const showToast = (message, type = 'success') => {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 4000);
+  };
+
+  const handleSend = async () => {
+    if (!letterText.trim() && !uploadedFile) { textareaRef.current?.focus(); return; }
+    setSending(true);
+    try {
+      const payload = {
+        mode,
+        name: fullName,
+        motherName,
+        gender,
+        text: letterText.trim() || undefined,
+        image: uploadedFile
+          ? { data: uploadedFile.base64, mimetype: uploadedFile.mimetype, filename: uploadedFile.filename }
+          : undefined,
+      };
+      const res = await fetch('/api/letter/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error('send failed');
+      showToast(mode === 'pan' ? 'הפ"נ נשלח לאוהל הקדוש ✓' : 'המכתב נשלח לאוהל הקדוש ✓');
+    } catch {
+      showToast('שגיאה בשליחה — נסו שוב', 'error');
+    } finally {
+      setSending(false);
+    }
   };
 
   const nusachName = fullName.trim() || '[שמכם]';
@@ -147,45 +168,6 @@ export default function WriteLetterPage() {
         paddingTop: 68,
         paddingBottom: 80,
       }}>
-        {/* Topbar */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', maxWidth: 1080, margin: '0 auto', padding: '22px 32px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 11 }}>
-            <div style={{ width: 40, height: 40, borderRadius: '50%', overflow: 'hidden', border: '1.5px solid var(--oh-gold)' }}>
-              <img src="/הרבי.webp" alt="הרבי" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
-            </div>
-            <div>
-              <div style={{ fontFamily: 'var(--oh-serif)', fontWeight: 700, fontSize: 24, color: 'var(--oh-ink)' }}>כתיבה לרבי</div>
-              <div style={{ fontFamily: 'var(--oh-sans)', fontSize: 11.5, fontWeight: 500, color: 'var(--oh-ink-soft)', letterSpacing: '.04em', marginTop: -3 }}>
-                {mode === 'pan' ? 'כתיבת פדיון נפש' : mode === 'letter' ? 'מכתב אל הרבי' : 'כתיבה אל הרבי'}
-              </div>
-            </div>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
-            {mode && (
-              <button onClick={openPrep} style={{
-                background: 'none', border: 'none', cursor: 'pointer',
-                fontFamily: 'var(--oh-sans)', fontSize: 14.5, fontWeight: 600,
-                color: 'var(--oh-ink-soft)', display: 'inline-flex', alignItems: 'center', gap: 7,
-              }}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 2a7 7 0 0 1 7 7c0 3-2 4-2 6H7c0-2-2-3-2-6a7 7 0 0 1 7-7Z" />
-                  <path d="M9 19h6M10 22h4" />
-                </svg>
-                ההכנות לכתיבה
-              </button>
-            )}
-            <Link to="/" style={{
-              background: 'none', color: 'var(--oh-ink-soft)', textDecoration: 'none',
-              fontFamily: 'var(--oh-sans)', fontSize: 14.5, fontWeight: 600,
-              display: 'inline-flex', alignItems: 'center', gap: 7,
-            }}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M3 11l9-8 9 8M5 10v10h14V10" />
-              </svg>
-              לדף הבית
-            </Link>
-          </div>
-        </div>
 
         {/* Mode chooser */}
         {!mode && (
@@ -193,8 +175,7 @@ export default function WriteLetterPage() {
             <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: '.2em', color: 'var(--oh-gold-deep)', textTransform: 'uppercase', marginBottom: 14 }}>רגע של קרבה</div>
             <h1 style={{ fontFamily: 'var(--oh-serif)', fontWeight: 500, fontSize: 38, color: 'var(--oh-ink)', marginBottom: 10 }}>מה תרצו לכתוב?</h1>
             <p style={{ fontSize: 16, color: 'var(--oh-ink-soft)', maxWidth: '34em', margin: '0 auto 52px', lineHeight: 1.9 }}>
-              <strong style={{ color: 'var(--oh-ink)' }}>מכתב</strong> — כשרוצים לפנות לרבי בלשון חופשית: לשתף, לשאול, להודות.{' '}
-              <strong style={{ color: 'var(--oh-ink)' }}>פ"נ</strong> — בזמנים מיוחדים כמו ערב ראש השנה, יום הולדת, או בעת בקשת ברכה ממוקדת.
+              לא בטוחים מה לבחור? בחרו לפי <strong style={{ color: 'var(--oh-ink)' }}>מתי</strong> אתם כותבים.
             </p>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
@@ -202,16 +183,16 @@ export default function WriteLetterPage() {
                 {
                   key: 'letter',
                   title: 'מכתב',
-                  sub: 'כתיבה חופשית',
-                  desc: 'בקשה, תודה, שיתוף — בלשון אישית לחלוטין, ללא נוסח קבוע.',
+                  sub: 'בכל עת',
+                  desc: 'כשאין אירוע מיוחד — רוצים לפנות לרבי, לשתף, לבקש או להודות. בלשון חופשית לחלוטין.',
                   infoTo: '/mikhtav',
                   infoLabel: 'מה זה מכתב?',
                 },
                 {
                   key: 'pan',
                   title: 'פ"נ',
-                  sub: 'פדיון נפש',
-                  desc: 'כתיבה בנוסח חסידי מסורתי — פתיחה קבועה עם שם ושם האם.',
+                  sub: 'בזמנים מיוחדים',
+                  desc: 'ערב ראש השנה · יום הולדת · י"ט כסלו · י"ב תמוז · ג׳ תמוז · יו"ד שבט',
                   infoTo: '/pidyon',
                   infoLabel: 'מה זה פ"נ?',
                 },
@@ -389,31 +370,80 @@ export default function WriteLetterPage() {
                 />
               </div>
 
+              {/* Handwritten upload */}
+              <div style={{ marginTop: 32, paddingTop: 28, borderTop: '1px solid var(--oh-line)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 18 }}>
+                  <span style={{ flex: 1, height: 1, background: 'var(--oh-line)' }} />
+                  <span style={{ fontSize: 13, color: 'var(--oh-ink-soft)', fontWeight: 600, whiteSpace: 'nowrap' }}>
+                    כתבתם בכתב יד? העלו תמונה
+                  </span>
+                  <span style={{ flex: 1, height: 1, background: 'var(--oh-line)' }} />
+                </div>
+                <label style={{
+                  display: 'block', border: `2px dashed ${uploadedFile ? 'var(--oh-gold-deep)' : 'var(--oh-line)'}`,
+                  borderRadius: 12, padding: uploadedFile ? '16px' : '28px 20px',
+                  cursor: 'pointer', textAlign: 'center', transition: 'border-color .2s',
+                  background: uploadedFile ? 'rgba(181,134,74,.04)' : 'transparent',
+                }}>
+                  <input
+                    type="file"
+                    accept="image/*,.pdf"
+                    onChange={handleFileUpload}
+                    style={{ display: 'none' }}
+                  />
+                  {uploadedFile ? (
+                    <div>
+                      {uploadedFile.preview && (
+                        <img src={uploadedFile.preview} alt="כתב יד" style={{ maxHeight: 220, maxWidth: '100%', borderRadius: 8, marginBottom: 10 }} />
+                      )}
+                      <div style={{ fontSize: 14, color: 'var(--oh-ink)', fontWeight: 600, marginBottom: 6 }}>{uploadedFile.filename}</div>
+                      <button
+                        onClick={(e) => { e.preventDefault(); setUploadedFile(null); }}
+                        style={{ fontSize: 13, color: 'var(--oh-ink-soft)', background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline' }}
+                      >
+                        הסר קובץ
+                      </button>
+                    </div>
+                  ) : (
+                    <div>
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--oh-gold-deep)" strokeWidth="1.5" style={{ marginBottom: 10 }}>
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="17 8 12 3 7 8" />
+                        <line x1="12" y1="3" x2="12" y2="15" />
+                      </svg>
+                      <div style={{ fontSize: 15, color: 'var(--oh-ink)', fontWeight: 600, marginBottom: 4 }}>לחצו להעלאת תמונה או קובץ</div>
+                      <div style={{ fontSize: 13, color: 'var(--oh-ink-soft)' }}>תמונה של כתב יד, סריקה או PDF</div>
+                    </div>
+                  )}
+                </label>
+              </div>
+
               {/* Footer */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 20, marginTop: 30, paddingTop: 26, borderTop: '1px solid var(--oh-line)', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 20, marginTop: 28, paddingTop: 24, borderTop: '1px solid var(--oh-line)', flexWrap: 'wrap' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 9, fontSize: 13.5, color: 'var(--oh-ink-soft)' }}>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--oh-gold-deep)" strokeWidth="2">
                     <rect x="4" y="10" width="16" height="11" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3" />
                   </svg>
                   פרטי לחלוטין · בינכם לבין הרבי
                 </div>
-                <button
-                  onClick={handleSend}
-                  style={{
-                    fontFamily: 'var(--oh-sans)', fontSize: 16, fontWeight: 600, cursor: 'pointer', border: 'none',
-                    background: sent ? '#1f8a5b' : 'var(--oh-night)', color: 'var(--oh-paper-warm)',
-                    padding: '14px 30px', borderRadius: 6,
-                    display: 'inline-flex', alignItems: 'center', gap: 10,
-                    transition: 'all .22s ease',
-                  }}
-                >
-                  {sent ? 'נשלח בהצלחה ✓' : <>
-                    {mode === 'pan' ? 'שליחת הפ"נ' : 'שליחת המכתב'}
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7Z" />
-                    </svg>
-                  </>}
-                </button>
+                  <button
+                    onClick={handleSend}
+                    disabled={sending}
+                    style={{
+                      fontFamily: 'var(--oh-sans)', fontSize: 16, fontWeight: 600, cursor: sending ? 'default' : 'pointer', border: 'none',
+                      background: sending ? '#7a6b5a' : 'var(--oh-night)', color: 'var(--oh-paper-warm)',
+                      padding: '14px 30px', borderRadius: 6,
+                      display: 'inline-flex', alignItems: 'center', gap: 10,
+                      transition: 'all .22s ease', opacity: sending ? .8 : 1,
+                    }}
+                  >
+                    {sending ? 'שולח...' : <>
+                      {mode === 'pan' ? 'שליחת הפ"נ' : 'שליחת המכתב'}
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7Z" />
+                      </svg>
+                    </>}
+                  </button>
               </div>
             </div>
 
@@ -432,121 +462,112 @@ export default function WriteLetterPage() {
         <div style={{
           position: 'fixed', inset: 0, zIndex: 100,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          background: 'rgba(10,18,36,0.5)',
-          backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)',
+          background: 'rgba(20,16,12,0.65)',
+          backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)',
           padding: 32,
           opacity: prepHiding ? 0 : 1,
           transition: 'opacity .5s ease',
           pointerEvents: prepHiding ? 'none' : 'auto',
         }}>
           <div style={{
-            background: 'var(--oh-night)',
-            borderRadius: 20,
-            width: '100%', maxWidth: 560,
-            padding: '40px 44px',
+            background: '#fff',
+            borderRadius: 18,
+            width: '100%', maxWidth: 540,
+            padding: '44px 44px 36px',
             position: 'relative',
-            boxShadow: '0 24px 80px rgba(0,0,0,0.5)',
-            border: '1px solid rgba(255,255,255,.08)',
+            boxShadow: '0 20px 60px rgba(20,16,12,.22)',
+            border: '1px solid #e4dcd0',
             animation: prepHiding ? 'none' : 'modalIn .35s cubic-bezier(.4,0,.2,1)',
           }}>
-            <div style={{ position: 'absolute', inset: 0, borderRadius: 20, background: 'radial-gradient(60% 50% at 80% 0%, rgba(201,168,92,.12), transparent)', pointerEvents: 'none' }} />
-            <div style={{
-              position: 'absolute', inset: 0, borderRadius: 20, opacity: .5, pointerEvents: 'none',
-              backgroundImage: `
-                radial-gradient(1.2px 1.2px at 16% 26%, rgba(255,255,255,.5), transparent),
-                radial-gradient(1.2px 1.2px at 74% 20%, rgba(255,255,255,.4), transparent),
-                radial-gradient(1.2px 1.2px at 86% 58%, rgba(255,255,255,.32), transparent),
-                radial-gradient(1.2px 1.2px at 28% 70%, rgba(255,255,255,.3), transparent),
-                radial-gradient(1.2px 1.2px at 58% 82%, rgba(255,255,255,.22), transparent)`,
-            }} />
+            {/* gold top accent */}
+            <div style={{ position: 'absolute', top: 0, right: 44, left: 44, height: 3, borderRadius: '0 0 3px 3px', background: 'linear-gradient(90deg, transparent, #b5864a, transparent)' }} />
 
-            <div style={{ position: 'relative', zIndex: 2, textAlign: 'center', color: 'var(--oh-paper-warm)' }}>
-              <Candle />
-              <div style={{ fontSize: 13, fontWeight: 600, letterSpacing: '.22em', color: 'var(--oh-gold-letter)', marginBottom: 18 }}>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.28em', color: '#b5864a', marginBottom: 24, textTransform: 'uppercase' }}>
                 הכנה {step + 1} מתוך {STEPS.length}
               </div>
 
               <div key={step} className="oh-rise">
-                <h2 style={{ fontFamily: 'var(--oh-serif)', fontWeight: 500, fontSize: 38, lineHeight: 1.18, color: '#fff', marginBottom: 18 }}>
+                <h2 style={{ fontFamily: 'var(--oh-serif)', fontWeight: 500, fontSize: 34, lineHeight: 1.2, color: '#1e1a17', marginBottom: 14 }}>
                   {STEPS[step].title}
                 </h2>
-                <p style={{ fontSize: 18, color: 'var(--oh-mist)', maxWidth: '30em', margin: '0 auto' }}>
+                <p style={{ fontSize: 17, color: '#5c5550', maxWidth: '28em', margin: '0 auto', lineHeight: 1.85 }}>
                   {STEPS[step].body}
                 </p>
                 {STEPS[step].nusach && (
                   <div style={{
-                    marginTop: 22, background: 'rgba(255,255,255,.05)',
-                    border: '1px solid rgba(201,168,92,.3)', borderRadius: 10,
-                    padding: '18px 22px', fontFamily: 'var(--oh-serif)', fontSize: 18,
-                    color: '#e9e3d3', lineHeight: 1.7,
+                    marginTop: 20, background: '#faf6ee',
+                    border: '1px solid #e4dcd0', borderRadius: 10,
+                    padding: '16px 20px', fontFamily: 'var(--oh-serif)', fontSize: 17,
+                    color: '#1e1a17', lineHeight: 1.8,
                   }}>
                     ״אָנָּא לְעוֹרֵר רַחֲמִים רַבִּים עַל נפש רוח נשמה של{' '}
-                    <span style={{ color: 'var(--oh-gold-letter)' }}>[שם]</span>{' '}
+                    <span style={{ color: '#b5864a' }}>[שם]</span>{' '}
                     בן/בת{' '}
-                    <span style={{ color: 'var(--oh-gold-letter)' }}>[שם האם]</span>
+                    <span style={{ color: '#b5864a' }}>[שם האם]</span>
                     ״
                   </div>
                 )}
                 {STEPS[step].nusachPan && (
                   <div style={{
-                    marginTop: 22, background: 'rgba(255,255,255,.05)',
-                    border: '1px solid rgba(201,168,92,.3)', borderRadius: 10,
-                    padding: '18px 22px', fontFamily: 'var(--oh-serif)', fontSize: 18,
-                    color: '#e9e3d3', lineHeight: 1.7,
+                    marginTop: 20, background: '#faf6ee',
+                    border: '1px solid #e4dcd0', borderRadius: 10,
+                    padding: '16px 20px', fontFamily: 'var(--oh-serif)', fontSize: 17,
+                    color: '#1e1a17', lineHeight: 1.8,
                   }}>
                     ״אָנָּא לְעוֹרֵר רַחֲמִים רַבִּים עַל{' '}
-                    <span style={{ color: 'var(--oh-gold-letter)' }}>[שם]</span>{' '}
+                    <span style={{ color: '#b5864a' }}>[שם]</span>{' '}
                     בן/בת{' '}
-                    <span style={{ color: 'var(--oh-gold-letter)' }}>[שם האם]</span>
+                    <span style={{ color: '#b5864a' }}>[שם האם]</span>
                     ״
                   </div>
                 )}
               </div>
 
-              <div style={{ display: 'flex', gap: 9, justifyContent: 'center', margin: '36px 0 28px' }}>
+              <div style={{ display: 'flex', gap: 7, justifyContent: 'center', margin: '28px 0 24px' }}>
                 {STEPS.map((_, i) => (
                   <span key={i} style={{
                     display: 'inline-block',
-                    width: i === step ? 24 : 8, height: 8,
-                    borderRadius: i === step ? 5 : '50%',
-                    background: i === step ? 'var(--oh-gold-letter)' : 'rgba(255,255,255,.22)',
+                    width: i === step ? 28 : 8, height: 4,
+                    borderRadius: 4,
+                    background: i === step ? '#b5864a' : '#e4dcd0',
                     transition: 'all .3s',
                   }} />
                 ))}
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14 }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12 }}>
                 {step > 0 && (
                   <button onClick={() => setStep(s => s - 1)} style={{
-                    background: 'transparent', border: '1px solid rgba(255,255,255,.18)',
-                    color: 'var(--oh-mist)', cursor: 'pointer',
+                    background: 'transparent', border: '1px solid #e4dcd0',
+                    color: '#5c5550', cursor: 'pointer',
                     fontFamily: 'var(--oh-sans)', fontSize: 15, fontWeight: 600,
-                    padding: '13px 22px', borderRadius: 7,
+                    padding: '12px 22px', borderRadius: 8,
                   }}>הקודם</button>
                 )}
                 <button
                   onClick={() => step < STEPS.length - 1 ? setStep(s => s + 1) : closePrep(true)}
                   style={{
-                    background: 'var(--oh-gold-letter)', color: 'var(--oh-night)',
+                    background: '#1e1a17', color: '#f5f0e6',
                     border: 'none', cursor: 'pointer',
-                    fontFamily: 'var(--oh-sans)', fontSize: 16, fontWeight: 600,
-                    padding: '14px 32px', borderRadius: 7,
+                    fontFamily: 'var(--oh-sans)', fontSize: 15.5, fontWeight: 700,
+                    padding: '13px 30px', borderRadius: 8,
                     display: 'inline-flex', alignItems: 'center', gap: 10,
                   }}
                 >
                   {step === STEPS.length - 1 ? (mode === 'pan' ? 'לכתיבת הפ"נ ' : 'להתחיל לכתוב ') : 'הבא '}
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M19 12H5M12 19l-7-7 7-7" />
                   </svg>
                 </button>
               </div>
 
               <button onClick={() => closePrep(true)} style={{
-                display: 'block', margin: '26px auto 0',
+                display: 'block', margin: '20px auto 0',
                 background: 'none', border: 'none',
-                color: 'var(--oh-mist)', cursor: 'pointer',
-                fontFamily: 'var(--oh-sans)', fontSize: 14, fontWeight: 500,
-                letterSpacing: '.02em', textDecoration: 'underline', textUnderlineOffset: 4, opacity: .8,
+                color: '#1e1a17', cursor: 'pointer',
+                fontFamily: 'var(--oh-sans)', fontSize: 14.5, fontWeight: 700,
+                textDecoration: 'underline', textUnderlineOffset: 3,
               }}>
                 דלג והתחל לכתוב
               </button>
@@ -555,8 +576,31 @@ export default function WriteLetterPage() {
         </div>
       )}
 
+      {/* Toast */}
+      {toast && (
+        <div style={{
+          position: 'fixed', bottom: 36, left: '50%', transform: 'translateX(-50%)',
+          zIndex: 300, direction: 'rtl',
+          background: toast.type === 'error' ? '#2d1a1a' : '#1a1715',
+          color: toast.type === 'error' ? '#e8a0a0' : '#f5f0e6',
+          padding: '16px 28px', borderRadius: 12,
+          fontSize: 16, fontWeight: 600, fontFamily: 'var(--oh-sans)',
+          boxShadow: '0 8px 32px rgba(0,0,0,.3)',
+          border: `1px solid ${toast.type === 'error' ? 'rgba(220,80,80,.3)' : 'rgba(181,134,74,.3)'}`,
+          display: 'flex', alignItems: 'center', gap: 12,
+          animation: 'toastIn .3s cubic-bezier(.4,0,.2,1)',
+        }}>
+          {toast.type === 'error'
+            ? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e07070" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            : <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#b5864a" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          }
+          {toast.message}
+        </div>
+      )}
+
       <style>{`
         @keyframes modalIn { from { transform: scale(.95) translateY(12px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
+        @keyframes toastIn { from { transform: translateX(-50%) translateY(16px); opacity: 0; } to { transform: translateX(-50%) translateY(0); opacity: 1; } }
         .oh-mode-card { transition: transform .22s ease, box-shadow .22s ease; }
         .oh-mode-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(20,34,63,.12); }
       `}</style>
