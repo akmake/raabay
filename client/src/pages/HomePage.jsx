@@ -10,7 +10,7 @@ export default function HomePage() {
         <div style={{ textAlign: 'center', padding: m ? '48px 0 36px' : '76px 0 56px' }}>
           <div style={{ fontSize: 13, fontWeight: 600, letterSpacing: '.2em', color: '#3a5a8c', marginBottom: 18 }}>דף הבית · שני כיוונים</div>
           <h1 style={{ fontFamily: '"Frank Ruhl Libre", Georgia, serif', fontWeight: 500, fontSize: m ? 34 : 50, color: '#15233f', marginBottom: 16 }}>
-            פרויקט <span style={{ fontWeight: 700, color: '#b08d4a' }}>אֹהֶל</span>
+            פרויקט <span style={{ fontWeight: 700, color: '#b08d4a' }}>כתיבה לרבי</span>
           </h1>
           <p style={{ fontSize: m ? 16 : 18, color: '#525f78', maxWidth: '34em', margin: '0 auto' }}>
             שני כיווני עיצוב לדף הבית, להשוואה ובחירה. כל אחד בנוי במלואו — לחצו לצפייה.
@@ -24,7 +24,7 @@ export default function HomePage() {
 
           <Link to="/classic" style={{ background: '#fff', border: '1px solid #dcd9d0', borderRadius: 16, overflow: 'hidden', textDecoration: 'none', color: 'inherit', display: 'flex', flexDirection: 'column' }}>
             <div style={{ height: 160, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fbfaf7', borderBottom: '1px solid #dcd9d0', position: 'relative' }}>
-              <span style={{ fontFamily: '"Frank Ruhl Libre", Georgia, serif', fontSize: 36, fontWeight: 700, color: '#14223f' }}>אֹהֶל</span>
+              <span style={{ fontFamily: '"Frank Ruhl Libre", Georgia, serif', fontSize: 36, fontWeight: 700, color: '#14223f' }}>כתיבה לרבי</span>
               <span style={{ position: 'absolute', bottom: 22, width: 44, height: 2, background: '#b08d4a' }} />
             </div>
             <div style={{ padding: '22px 24px 26px', display: 'flex', flexDirection: 'column', flex: 1 }}>
@@ -39,7 +39,7 @@ export default function HomePage() {
             <div style={{ height: 160, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#3a5a8c', position: 'relative' }}>
               <span style={{ position: 'absolute', width: 50, height: 50, borderRadius: 7, background: 'rgba(255,255,255,.14)', top: 24, left: 32 }} />
               <span style={{ position: 'absolute', width: 28, height: 28, border: '2px solid rgba(255,255,255,.3)', borderRadius: 7, bottom: 28, right: 40 }} />
-              <span style={{ fontFamily: '"Frank Ruhl Libre", Georgia, serif', fontSize: 36, fontWeight: 700, color: '#fff', position: 'relative' }}>אֹהֶל</span>
+              <span style={{ fontFamily: '"Frank Ruhl Libre", Georgia, serif', fontSize: 36, fontWeight: 700, color: '#fff', position: 'relative' }}>כתיבה לרבי</span>
             </div>
             <div style={{ padding: '22px 24px 26px', display: 'flex', flexDirection: 'column', flex: 1 }}>
               <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: '.14em', color: '#3a5a8c', marginBottom: 8 }}>כיוון 03</div>

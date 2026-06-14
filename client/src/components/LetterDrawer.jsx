@@ -78,7 +78,7 @@ export default function LetterDrawer({ open, onClose }) {
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <span style={{ width: 34, height: 34, borderRadius: 8, background: V.gold, color: V.navy, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontFamily: V.serif, fontWeight: 700, fontSize: 18 }}>א</span>
             <div>
-              <div style={{ fontFamily: V.serif, fontWeight: 700, fontSize: 18, color: V.ink, lineHeight: 1 }}>אֹהֶל</div>
+              <div style={{ fontFamily: V.serif, fontWeight: 700, fontSize: 18, color: V.ink, lineHeight: 1 }}></div>
               <div style={{ fontSize: 11, color: V.mist, marginTop: 2 }}>מכתב אל הרבי</div>
             </div>
           </div>

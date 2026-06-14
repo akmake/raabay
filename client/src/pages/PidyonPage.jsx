@@ -3,9 +3,9 @@ import { useIsMobile } from '@/hooks/useIsMobile';
 import Navbar from '@/components/layout/Navbar';
 
 const V = {
-  bg: '#f5f6f8', white: '#fff', ink: '#0f1c33', inkSoft: '#46556f',
-  blue: '#33558a', navy: '#101e38', mist: '#aab6cb', mistSoft: '#e7ebf1',
-  gold: '#c9a85c', goldSoft: 'rgba(201,168,92,.13)', line: '#e4e7ec',
+  bg: '#ffffff', white: '#ffffff', ink: '#14223f', inkSoft: '#3a4a68',
+  blue: '#3a5a8c', navy: '#14223f', mist: '#c4cdd9', mistSoft: '#f8f8f8',
+  gold: '#b08d4a', goldSoft: 'rgba(176,141,74,.13)', line: '#e8e8e8',
   serif: '"Frank Ruhl Libre", Georgia, serif', sans: '"Assistant", system-ui, sans-serif',
 };
 
@@ -368,7 +368,7 @@ export default function PidyonPage() {
                 עכשיו כשאתם יודעים הכל — פתחו דף, נטלו ידיים, ושפכו את הלב.
               </p>
               <Link
-                to="/write"
+                to="/write-pidyon"
                 style={{
                   background: V.gold, color: V.navy,
                   padding: m ? '13px 30px' : '16px 44px',
@@ -390,7 +390,7 @@ export default function PidyonPage() {
         <div style={{ ...wrap, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <span style={{ width: 30, height: 30, borderRadius: 7, background: V.gold, color: V.navy, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontFamily: V.serif, fontWeight: 700, fontSize: 16 }}>א</span>
-            <span style={{ fontFamily: V.serif, fontWeight: 700, fontSize: 19, color: V.ink }}>אֹהֶל</span>
+            <span style={{ fontFamily: V.serif, fontWeight: 700, fontSize: 19, color: V.ink }}>כתיבה לרבי</span>
           </div>
           <div style={{ fontSize: 13, color: V.inkSoft }}>מקום לכתוב · לבקש · להתחבר</div>
         </div>

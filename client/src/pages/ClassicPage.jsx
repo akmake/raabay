@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 import { useIsMobile } from '@/hooks/useIsMobile';
 
 const V = {
-  paper: '#fbfaf7', paper2: '#f4f1ea', ink: '#14223f', inkSoft: '#3a4a68',
-  blue: '#3a5a8c', blueMist: '#c4cdd9', gold: '#b08d4a', goldSoft: '#cdb074', line: '#e2ddd2',
+  paper: '#ffffff', paper2: '#f8f8f8', ink: '#14223f', inkSoft: '#3a4a68',
+  blue: '#3a5a8c', blueMist: '#c4cdd9', gold: '#b08d4a', goldSoft: '#cdb074', line: '#e8e8e8',
   serif: '"Frank Ruhl Libre", Georgia, serif', sans: '"Assistant", system-ui, sans-serif',
 };
 
@@ -15,20 +15,26 @@ export default function ClassicPage() {
     <div dir="rtl" style={{ background: V.paper, color: V.ink, fontFamily: V.sans, lineHeight: 1.7, WebkitFontSmoothing: 'antialiased' }}>
 
       {/* Header */}
-      <header style={{ borderBottom: `1px solid ${V.line}`, background: 'rgba(251,250,247,.9)', backdropFilter: 'blur(8px)', position: 'sticky', top: 0, zIndex: 50 }}>
+      <header style={{ borderBottom: `1px solid ${V.line}`, background: 'rgba(255,255,255,.9)', backdropFilter: 'blur(8px)', position: 'sticky', top: 0, zIndex: 50 }}>
         <div style={{ ...wrap, display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 10 }}>
-            <span style={{ fontFamily: V.serif, fontWeight: 700, fontSize: m ? 24 : 30, color: V.ink }}>אֹהֶל</span>
+            <span style={{ fontFamily: V.serif, fontWeight: 700, fontSize: m ? 24 : 30, color: V.ink }}>כתיבה לרבי</span>
             {!m && <span style={{ fontSize: 13, color: V.inkSoft, letterSpacing: '.05em' }}>מכתב אל הרבי</span>}
           </div>
           {!m && (
             <nav style={{ display: 'flex', gap: 34, alignItems: 'center' }}>
               <a href="#about" style={{ color: V.inkSoft, textDecoration: 'none', fontSize: 15, fontWeight: 500 }}>אודות</a>
               <a href="#how" style={{ color: V.inkSoft, textDecoration: 'none', fontSize: 15, fontWeight: 500 }}>איך כותבים</a>
+              <Link to="/pidyon" style={{ color: V.inkSoft, textDecoration: 'none', fontSize: 15, fontWeight: 500 }}>כיצד כותבים פ"נ</Link>
               <Link to="/write" style={{ color: V.ink, padding: '10px 0', borderBottom: `1.5px solid ${V.gold}`, textDecoration: 'none', fontWeight: 600, fontSize: 15 }}>כתיבת מכתב</Link>
             </nav>
           )}
-          {m && <Link to="/write" style={{ background: V.ink, color: V.paper, padding: '10px 18px', borderRadius: 6, textDecoration: 'none', fontWeight: 600, fontSize: 14 }}>כתיבת מכתב ←</Link>}
+          {m && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+              <Link to="/pidyon" style={{ color: V.inkSoft, textDecoration: 'none', fontWeight: 500, fontSize: 14 }}>פ"נ</Link>
+              <Link to="/write" style={{ background: V.ink, color: V.paper, padding: '10px 18px', borderRadius: 6, textDecoration: 'none', fontWeight: 600, fontSize: 14 }}>כתיבת מכתב ←</Link>
+            </div>
+          )}
         </div>
       </header>
 
@@ -51,9 +57,6 @@ export default function ClassicPage() {
               <div style={{ display: 'flex', alignItems: 'center', gap: m ? 16 : 34, flexWrap: 'wrap' }}>
                 <Link to="/write" style={{ background: V.ink, color: V.paper, padding: '13px 28px', borderRadius: 2, textDecoration: 'none', fontWeight: 600, fontSize: 15 }}>לכתיבת המכתב &nbsp;←</Link>
                 <a href="#about" style={{ color: V.ink, padding: '12px 0', borderBottom: `1.5px solid ${V.gold}`, textDecoration: 'none', fontWeight: 600, fontSize: 14 }}>מה זה אוֹהל?</a>
-              </div>
-              <div style={{ marginTop: 20 }}>
-                <Link to="/" style={{ fontSize: 13, color: V.inkSoft, textDecoration: 'none', opacity: .6 }}>← חזרה לבחירת עיצוב</Link>
               </div>
             </div>
 
@@ -122,7 +125,7 @@ export default function ClassicPage() {
         <section style={{ background: V.ink, color: V.paper, textAlign: 'center', padding: m ? '64px 0' : '92px 0' }}>
           <div style={wrap}>
             <h2 style={{ fontFamily: V.serif, fontWeight: 500, fontSize: m ? 32 : 48, marginBottom: 16, color: '#fff' }}>הלב שלכם מחכה להישמע</h2>
-            <p style={{ fontSize: m ? 16 : 18, color: V.blueMist, marginBottom: 36, maxWidth: '28em', marginInline: 'auto' }}>קחו רגע לעצמכם. שבו, נשמו, וכתבו את מה שבאמת חשוב לכם.</p>
+            <p style={{ fontSize: m ? 16 : 18, color: V.blueMist, marginBottom: 36, maxWidth: '28em', marginInline: 'auto' }}>קחו רגע לעצמכם. שבו, וכתבו את מה שבאמת חשוב לכם.</p>
             <Link to="/write" style={{ background: V.gold, color: V.ink, padding: '13px 28px', borderRadius: 2, textDecoration: 'none', fontWeight: 600, fontSize: 15 }}>פתיחת מכתב חדש &nbsp;←</Link>
           </div>
         </section>
@@ -130,7 +133,7 @@ export default function ClassicPage() {
 
       <footer style={{ padding: '40px 0', textAlign: 'center', borderTop: `1px solid ${V.line}` }}>
         <div style={wrap}>
-          <div style={{ fontFamily: V.serif, fontSize: 20, color: V.ink, marginBottom: 6 }}>אֹהֶל</div>
+          <div style={{ fontFamily: V.serif, fontSize: 20, color: V.ink, marginBottom: 6 }}>כתיבה לרבי</div>
           <div style={{ fontSize: 13, color: V.inkSoft, letterSpacing: '.04em' }}>מקום לכתוב · לבקש · להתחבר</div>
         </div>
       </footer>

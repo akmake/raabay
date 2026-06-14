@@ -137,7 +137,7 @@ export default function ModernPage() {
       <footer style={{ padding: '36px 0', borderTop: `1px solid ${V.line}`, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, ...wrap }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <span style={{ width: 30, height: 30, borderRadius: 7, background: V.gold, color: V.navy, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontFamily: V.serif, fontWeight: 700, fontSize: 16 }}>א</span>
-          <span style={{ fontFamily: V.serif, fontWeight: 700, fontSize: 19, color: V.ink }}>אֹהֶל</span>
+          <span style={{ fontFamily: V.serif, fontWeight: 700, fontSize: 19, color: V.ink }}>כתיבה לרבי</span>
         </div>
         <div style={{ fontSize: 13, color: V.inkSoft }}>מקום לכתוב · לבקש · להתחבר</div>
       </footer>

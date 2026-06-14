@@ -60,7 +60,7 @@ export default function Navbar() {
               fontFamily: V.serif, fontWeight: 700, fontSize: 21,
               boxShadow: '0 2px 10px rgba(201,168,92,0.35)',
             }}>א</span>
-            <span style={{ fontFamily: V.serif, fontWeight: 700, fontSize: 22, color: V.ink }}>אֹהֶל</span>
+            <span style={{ fontFamily: V.serif, fontWeight: 700, fontSize: 22, color: V.ink }}>כתיבה לרבי</span>
           </Link>
 
           {/* Desktop nav */}
