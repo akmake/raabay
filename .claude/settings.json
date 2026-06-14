@@ -8,7 +8,8 @@
       "WebFetch(domain:col.org.il)",
       "Bash(curl -L -A \"Mozilla/5.0\" \"https://fonts.gstatic.com/s/frankruhllibre/v14/j8_36_fAw7jrcalD7oKYNX8sLjyfU2J.ttf\" -o \"c:/Users/yosef dahan/Documents/GitHub/raabay/server/fonts/FrankRuhlLibre.ttf\" --max-time 15)",
       "Bash(curl -L \"https://github.com/notofonts/hebrew/releases/download/NotoSerifHebrew-v2.003/NotoSerifHebrew-v2.003.zip\" -o \"c:/Users/yosef dahan/Documents/GitHub/raabay/server/fonts/hebrew.zip\" --max-time 30)",
-      "Bash(unzip -o hebrew.zip \"*/NotoSerifHebrew-Regular.ttf\" -d .)"
+      "Bash(unzip -o hebrew.zip \"*/NotoSerifHebrew-Regular.ttf\" -d .)",
+      "Bash(unzip -l hebrew.zip)"
     ]
   }
 }
