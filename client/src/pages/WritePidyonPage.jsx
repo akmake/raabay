@@ -110,7 +110,7 @@ export default function WritePidyonPage() {
       <div style={{
         minHeight: '100vh',
         background: '#ffffff',
-        paddingTop: 68,
+        paddingTop: 60,
         paddingBottom: 80,
       }}>
         {/* Topbar */}

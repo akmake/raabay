@@ -185,7 +185,7 @@ export default function WriteLetterPage() {
       <div style={{
         minHeight: '100vh',
         background: '#ffffff',
-        paddingTop: 68,
+        paddingTop: 60,
         paddingBottom: 80,
       }}>
 

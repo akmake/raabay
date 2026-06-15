@@ -114,3 +114,73 @@ body {
   font-size: 14px;
   line-height: 1;
 }
+
+/* ===== נגישות / Accessibility overrides ===== */
+
+/* קישור דלג לתוכן */
+.skip-to-main {
+  position: absolute;
+  top: -100%;
+  right: 50%;
+  transform: translateX(50%);
+  background: #1e1a17;
+  color: #fff;
+  padding: 12px 24px;
+  z-index: 10000;
+  border-radius: 0 0 10px 10px;
+  font-family: "Assistant", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.2s;
+}
+.skip-to-main:focus {
+  top: 0;
+  outline: 3px solid #b5864a;
+  outline-offset: 2px;
+}
+
+/* גווני אפור */
+.a11y-grayscale {
+  filter: grayscale(100%) !important;
+}
+
+/* עצירת אנימציות */
+.a11y-no-anim *,
+.a11y-no-anim *::before,
+.a11y-no-anim *::after {
+  animation-duration: 0.001ms !important;
+  transition-duration: 0.001ms !important;
+}
+
+/* הדגשת קישורים */
+.a11y-links a {
+  text-decoration: underline !important;
+}
+
+/* ניגוד גבוה */
+.a11y-contrast-high {
+  background: #000 !important;
+  color: #fff !important;
+}
+.a11y-contrast-high * {
+  background-color: transparent !important;
+  color: #fff !important;
+  border-color: #fff !important;
+}
+.a11y-contrast-high a {
+  color: #ffff00 !important;
+}
+.a11y-contrast-high button,
+.a11y-contrast-high input,
+.a11y-contrast-high textarea {
+  background: #111 !important;
+  color: #fff !important;
+  border: 2px solid #fff !important;
+}
+
+/* focus visible גלובלי */
+*:focus-visible {
+  outline: 3px solid #b5864a !important;
+  outline-offset: 3px !important;
+}

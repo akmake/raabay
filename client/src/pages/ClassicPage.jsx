@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useIsMobile } from '@/hooks/useIsMobile';
+import AccessibilityWidget from '@/components/AccessibilityWidget';
+import Navbar from '@/components/layout/Navbar';
 
 const V = {
   paper: '#fdfaf5', paper2: '#f5f0e8', ink: '#1e1a17', inkSoft: '#5c5550',
@@ -13,31 +15,12 @@ export default function ClassicPage() {
 
   return (
     <div dir="rtl" style={{ background: V.paper, color: V.ink, fontFamily: V.sans, lineHeight: 1.7, WebkitFontSmoothing: 'antialiased' }}>
+      <a href="#main-content" className="skip-to-main">דלג לתוכן הראשי</a>
+      <Navbar />
 
-      {/* Header */}
-      <header style={{ borderBottom: `1px solid ${V.line}`, background: 'rgba(255,255,255,.9)', backdropFilter: 'blur(8px)', position: 'sticky', top: 0, zIndex: 50 }}>
-        <div style={{ ...wrap, display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: 10 }}>
-            <span style={{ fontFamily: V.serif, fontWeight: 700, fontSize: m ? 24 : 30, color: V.ink }}>כתיבה לרבי</span>
-            {!m && <span style={{ fontSize: 13, color: V.inkSoft, letterSpacing: '.05em' }}>מכתב אל הרבי</span>}
-          </div>
-          {!m && (
-            <nav style={{ display: 'flex', gap: 34, alignItems: 'center' }}>
-              <a href="#how" style={{ color: V.inkSoft, textDecoration: 'none', fontSize: 15, fontWeight: 500 }}>איך כותבים</a>
-              <Link to="/write" style={{ color: V.ink, padding: '10px 0', borderBottom: `1.5px solid ${V.gold}`, textDecoration: 'none', fontWeight: 600, fontSize: 15 }}>כתיבת מכתב</Link>
-            </nav>
-          )}
-          {m && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-              <Link to="/write" style={{ background: V.ink, color: V.paper, padding: '10px 18px', borderRadius: 6, textDecoration: 'none', fontWeight: 600, fontSize: 14 }}>כתיבת מכתב ←</Link>
-            </div>
-          )}
-        </div>
-      </header>
-
-      <main>
+      <main id="main-content" tabIndex={-1} style={{ paddingTop: 60 }}>
         {/* Hero */}
-        <section style={{ padding: m ? '40px 0 32px' : '84px 0 76px' }}>
+        <section style={{ padding: m ? '48px 0 40px' : '92px 0 84px', background: '#fff' }}>
           <div style={{ ...wrap, display: 'grid', gridTemplateColumns: m ? '1fr' : '1fr 0.82fr', gap: m ? 32 : 72, alignItems: 'center' }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 20 }}>
@@ -119,12 +102,22 @@ export default function ClassicPage() {
         </section>
       </main>
 
-      <footer style={{ padding: '40px 0', textAlign: 'center', borderTop: `1px solid ${V.line}` }}>
+      <footer role="contentinfo" style={{ padding: '40px 0 32px', borderTop: `1px solid ${V.line}` }}>
         <div style={wrap}>
-          <div style={{ fontFamily: V.serif, fontSize: 20, color: V.ink, marginBottom: 6 }}>כתיבה לרבי</div>
-          <div style={{ fontSize: 13, color: V.inkSoft, letterSpacing: '.04em' }}>מקום לכתוב · לבקש · להתחבר</div>
+          <div style={{ textAlign: 'center', marginBottom: 20 }}>
+            <div style={{ fontFamily: V.serif, fontSize: 20, color: V.ink, marginBottom: 6 }}>כתיבה לרבי</div>
+            <div style={{ fontSize: 13, color: V.inkSoft, letterSpacing: '.04em' }}>מקום לכתוב · לבקש · להתחבר</div>
+          </div>
+          <nav aria-label="קישורים משפטיים" style={{ display: 'flex', justifyContent: 'center', gap: 28, flexWrap: 'wrap', marginBottom: 14 }}>
+            <Link to="/accessibility" style={{ fontSize: 13, color: V.inkSoft, textDecoration: 'none', borderBottom: `1px solid ${V.line}` }}>הצהרת נגישות</Link>
+            <Link to="/privacy" style={{ fontSize: 13, color: V.inkSoft, textDecoration: 'none', borderBottom: `1px solid ${V.line}` }}>מדיניות פרטיות</Link>
+            <Link to="/terms" style={{ fontSize: 13, color: V.inkSoft, textDecoration: 'none', borderBottom: `1px solid ${V.line}` }}>תנאי שימוש</Link>
+          </nav>
+          <div style={{ textAlign: 'center', fontSize: 12, color: V.blueMist }}>© {new Date().getFullYear()} כל הזכויות שמורות</div>
         </div>
       </footer>
+
+      <AccessibilityWidget />
     </div>
   );
 }
