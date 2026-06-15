@@ -5,6 +5,7 @@ import WriteLetterPage from '@/pages/WriteLetterPage';
 import PidyonPage from '@/pages/PidyonPage';
 import WritePidyonPage from '@/pages/WritePidyonPage';
 import LetterInfoPage from '@/pages/LetterInfoPage';
+import OhelPage from '@/pages/OhelPage';
 import AccessibilityPage from '@/pages/legal/AccessibilityPage';
 import PrivacyPage from '@/pages/legal/PrivacyPage';
 import TermsPage from '@/pages/legal/TermsPage';
@@ -19,6 +20,7 @@ function App() {
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/mikhtav" element={<LetterInfoPage />} />
         <Route path="/pidyon" element={<PidyonPage />} />
+        <Route path="/ohel" element={<OhelPage />} />
       </Route>
 
       {/* עמודים עם Layout עצמאי */}

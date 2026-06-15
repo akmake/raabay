@@ -4,116 +4,248 @@ import AccessibilityWidget from '@/components/AccessibilityWidget';
 import Navbar from '@/components/layout/Navbar';
 
 const V = {
-  paper: '#fdfaf5', paper2: '#f5f0e8', ink: '#1e1a17', inkSoft: '#5c5550',
-  blue: '#7a6b5a', blueMist: '#d4c8b8', gold: '#b5864a', goldSoft: '#c9a070', line: '#e4dcd0',
-  serif: '"Frank Ruhl Libre", Georgia, serif', sans: '"Assistant", system-ui, sans-serif',
+  white: '#ffffff',
+  bg: '#f7f6f2',
+  ink: '#14223f',
+  inkSoft: '#4a5a72',
+  navy: '#14223f',
+  navyLight: '#1e3057',
+  gold: '#b08d4a',
+  goldMuted: 'rgba(176,141,74,.15)',
+  line: '#e2e0db',
+  mist: '#c4cdd9',
+  serif: '"Frank Ruhl Libre", Georgia, serif',
+  sans: '"Assistant", system-ui, sans-serif',
 };
 
 export default function ClassicPage() {
   const m = useIsMobile();
-  const wrap = { maxWidth: 1180, margin: '0 auto', padding: m ? '0 18px' : '0 40px' };
+  const wrap = { maxWidth: 1160, margin: '0 auto', padding: m ? '0 20px' : '0 48px' };
 
   return (
-    <div dir="rtl" style={{ background: V.paper, color: V.ink, fontFamily: V.sans, lineHeight: 1.7, WebkitFontSmoothing: 'antialiased' }}>
+    <div dir="rtl" style={{ background: V.white, color: V.ink, fontFamily: V.sans, WebkitFontSmoothing: 'antialiased' }}>
       <a href="#main-content" className="skip-to-main">דלג לתוכן הראשי</a>
       <Navbar />
 
       <main id="main-content" tabIndex={-1} style={{ paddingTop: 60 }}>
-        {/* Hero */}
-        <section style={{ padding: m ? '48px 0 40px' : '92px 0 84px', background: '#fff' }}>
-          <div style={{ ...wrap, display: 'grid', gridTemplateColumns: m ? '1fr' : '1fr 0.82fr', gap: m ? 32 : 72, alignItems: 'center' }}>
+
+        {/* ─── Hero ─── */}
+        <section style={{ background: V.white, padding: m ? '52px 0 44px' : '88px 0 80px' }}>
+          <div style={{
+            ...wrap,
+            display: 'grid',
+            gridTemplateColumns: m ? '1fr' : '1fr 420px',
+            gap: m ? 36 : 80,
+            alignItems: 'center',
+          }}>
+            {/* Text */}
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 20 }}>
-                <span style={{ height: 1, width: 36, background: V.gold, display: 'block' }} />
-                <span style={{ fontSize: 12, fontWeight: 600, letterSpacing: '.18em', color: V.blue, textTransform: 'uppercase' }}>מקום של קרבה</span>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, marginBottom: 22,
+                background: V.goldMuted, border: `1px solid rgba(176,141,74,.3)`,
+                padding: '6px 14px', borderRadius: 100 }}>
+                <span style={{ width: 5, height: 5, borderRadius: '50%', background: V.gold, display: 'block', flexShrink: 0 }} />
+                <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.14em', color: V.gold }}>כיחידות ממש — פגישה אישית</span>
               </div>
-              <h1 style={{ fontFamily: V.serif, fontWeight: 500, fontSize: m ? 38 : 64, lineHeight: 1.12, letterSpacing: '-.01em', marginBottom: 20 }}>
-                כִּתְבוּ מִכְתָּב,<br />
-                <em style={{ fontStyle: 'normal', color: V.blue }}>וְשִׁפְכוּ אֶת לִבְּכֶם</em>
+
+              <h1 style={{
+                fontFamily: V.serif, fontWeight: 600,
+                fontSize: m ? 30 : 50, lineHeight: 1.25,
+                color: V.ink, marginBottom: 24,
+              }}>
+                הרבי קורא את המכתבים,<br />
+                שמח בשמחתכם,<br />
+                <span style={{ color: V.gold }}>כואב בכאבכם</span> — כאז כן היום.
               </h1>
-              <p style={{ fontSize: m ? 16 : 20, color: V.inkSoft, marginBottom: 30 }}>
-                מילים שלא תמיד יש להן מקום — בקשה, תודה, כאב או תפילה — מוצאות כאן אוזן קשבת. כתבו מכתב אל הרבי מליובאוויטש, והמכתב יונח על ציונו הקדוש.
+
+              <p style={{ fontSize: m ? 15 : 17, color: V.inkSoft, lineHeight: 1.85, marginBottom: 34, maxWidth: '38em' }}>
+                מאות אלפי אנשים מכל קצוות תבל — קרובים ורחוקים, מכל הרקעים —
+                כותבים אל הרבי מליובאוויטש. כל מכתב נשלח לאוהל הקדוש שבקווינס,
+                ניו יורק, ומגיע — כיחידות ממש.
               </p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: m ? 16 : 34, flexWrap: 'wrap' }}>
-                <Link to="/write" style={{ background: V.ink, color: V.paper, padding: '13px 28px', borderRadius: 2, textDecoration: 'none', fontWeight: 600, fontSize: 15 }}>לכתיבת המכתב &nbsp;←</Link>
-                <a href="#about" style={{ color: V.ink, padding: '12px 0', borderBottom: `1.5px solid ${V.gold}`, textDecoration: 'none', fontWeight: 600, fontSize: 14 }}>מה זה אוֹהל?</a>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: m ? 16 : 28, flexWrap: 'wrap' }}>
+                <Link to="/write" style={{
+                  background: V.navy, color: '#fff',
+                  padding: '14px 32px', borderRadius: 6,
+                  textDecoration: 'none', fontWeight: 700, fontSize: 15,
+                  letterSpacing: '.01em',
+                }}>לכתיבת המכתב &nbsp;←</Link>
+                <a href="#about" style={{
+                  color: V.inkSoft, fontSize: 14, fontWeight: 600,
+                  textDecoration: 'none', borderBottom: `1.5px solid ${V.gold}`,
+                  paddingBottom: 2,
+                }}>מה זה אוהל?</a>
               </div>
             </div>
 
             {/* Portrait */}
-            <div>
-              <div style={{ position: 'relative', padding: m ? 8 : 14, background: V.paper, border: `1px solid ${V.line}`, boxShadow: '0 30px 70px -40px rgba(20,34,63,.5)' }}>
-                <div style={{ position: 'absolute', inset: m ? 4 : 6, border: `1px solid ${V.goldSoft}`, pointerEvents: 'none', zIndex: 2 }} />
-                <img src="/הרבי.jpg" alt="הרבי" style={{ display: 'block', width: '100%', height: m ? 280 : 470, objectFit: 'cover', objectPosition: 'top' }} />
-              </div>
-              <div style={{ marginTop: 14, textAlign: 'center', fontFamily: V.serif, fontSize: 16, color: V.ink }}>
-                הרבי מליובאוויטש
-                <span style={{ display: 'block', fontFamily: V.sans, fontSize: 12, color: V.inkSoft, letterSpacing: '.08em', marginTop: 3 }}></span>
+            <div style={{ order: m ? -1 : 0 }}>
+              <div style={{
+                position: 'relative',
+                borderRadius: 4,
+                overflow: 'hidden',
+                boxShadow: '0 24px 60px -16px rgba(20,34,63,.35)',
+              }}>
+                <img
+                  src="/הרבי.jpg"
+                  alt="הרבי מליובאוויטש"
+                  style={{ display: 'block', width: '100%', height: m ? 260 : 460, objectFit: 'cover', objectPosition: 'top' }}
+                />
+                <div style={{
+                  position: 'absolute', bottom: 0, left: 0, right: 0,
+                  background: 'linear-gradient(transparent, rgba(20,34,63,.65))',
+                  padding: '32px 20px 18px',
+                  fontFamily: V.serif, fontSize: 15, color: '#fff', textAlign: 'center',
+                }}>
+                  הרבי מליובאוויטש זצ"ל
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* About */}
-        <section id="about" style={{ borderTop: `1px solid ${V.line}`, borderBottom: `1px solid ${V.line}`, background: V.paper2 }}>
-          <div style={{ maxWidth: 760, margin: '0 auto', padding: m ? '48px 18px' : '74px 40px', textAlign: 'center' }}>
-            <span style={{ fontSize: 12, fontWeight: 600, letterSpacing: '.18em', color: V.blue, textTransform: 'uppercase', display: 'inline-block', marginBottom: 18 }}>מהו המקום הזה</span>
-            <p style={{ fontFamily: V.serif, fontSize: m ? 20 : 27, lineHeight: 1.6, color: V.ink }}>
-              במשך עשרות שנים נהגו אנשים מכל קצוות העולם לכתוב אל הרבי — לבקש ברכה, להתייעץ, או פשוט לשתף את אשר על לבם.{' '}
-              <span style={{ color: V.blue }}>המנהג לא פסק.</span>{' '}
-              כאן תוכלו לכתוב את מכתבכם,והוא ישלח לאהל הקדוש.
-            </p>
+        {/* ─── Quote Banner ─── */}
+        <section style={{ background: V.navy, padding: m ? '52px 0' : '72px 0' }}>
+          <div style={{ ...wrap, textAlign: 'center', position: 'relative' }}>
+            <div style={{
+              position: 'absolute', inset: 0,
+              background: 'radial-gradient(ellipse 70% 120% at 50% 0%, rgba(176,141,74,.18), transparent 65%)',
+              pointerEvents: 'none',
+            }} />
+            <div style={{ position: 'relative', zIndex: 1 }}>
+              <div style={{ fontFamily: V.serif, fontSize: m ? 28 : 46, fontWeight: 700, color: '#fff', lineHeight: 1.3, marginBottom: 18 }}>
+                ״לִבְנֵי אֲנִי צָרִיךְ״
+              </div>
+              <p style={{ fontSize: m ? 15 : 17, color: V.mist, maxWidth: '34em', margin: '0 auto', lineHeight: 1.85 }}>
+                בשעת פטירתו נשאל הרבי הקודם מה ברצונו — וענה: "לבני אני צריך".
+                הרבי ממשיך לחפש את הקשר עם כל אחד ואחת.
+                הכתיבה אליו היא המענה לאותה קריאה.
+              </p>
+            </div>
           </div>
         </section>
 
-        {/* Quote */}
-
-
-        {/* Steps */}
-        <section id="how" style={{ padding: m ? '48px 0 64px' : '96px 0 110px', borderTop: `1px solid ${V.line}` }}>
+        {/* ─── About ─── */}
+        <section id="about" style={{ background: V.bg, padding: m ? '52px 0' : '80px 0' }}>
           <div style={wrap}>
-            <div style={{ textAlign: 'center', marginBottom: m ? 40 : 64 }}>
-              <span style={{ fontSize: 12, fontWeight: 600, letterSpacing: '.18em', color: V.blue, textTransform: 'uppercase', display: 'inline-block', marginBottom: 14 }}>בשלושה צעדים</span>
-              <h2 style={{ fontFamily: V.serif, fontWeight: 500, fontSize: m ? 32 : 42, color: V.ink, marginTop: 14 }}>איך כותבים מכתב</h2>
+            <div style={{ textAlign: 'center', marginBottom: m ? 36 : 56 }}>
+              <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.2em', color: V.gold, textTransform: 'uppercase' }}>מהו המקום הזה</span>
+              <h2 style={{ fontFamily: V.serif, fontSize: m ? 28 : 40, fontWeight: 600, color: V.ink, marginTop: 12, lineHeight: 1.25 }}>
+                המנהג לא פסק
+              </h2>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: m ? '1fr' : 'repeat(3,1fr)', gap: m ? 32 : 0 }}>
+
+            <div style={{ display: 'grid', gridTemplateColumns: m ? '1fr' : 'repeat(3,1fr)', gap: m ? 28 : 40 }}>
               {[
-                { n: 'א', t: 'מִתְכּוֹנְנִים', p: 'נטילת ידיים, רגע של כוונה, וקבלת החלטה טובה — \'כלי\' שמחזיק את הברכה.' },
-                { n: 'ב', t: 'כּוֹתְבִים', p: 'פותחים את הלב וכותבים בלשונכם — בקשה, תודה או תפילה. אין נוסח נכון, רק מילים אמיתיות.' },
-                { n: 'ג', t: 'מֻנָּח בָּאֹהֶל', p: 'המכתב מודפס ומונח על ציון הרבי — המקום שאליו פונים בתפילה.' },
-              ].map((s, i) => (
-                <div key={i} style={{ padding: m ? '0' : '0 40px', textAlign: 'center', borderRight: (!m && i > 0) ? `1px solid ${V.line}` : 'none' }}>
-                  <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 54, height: 54, border: `1px solid ${V.goldSoft}`, borderRadius: '50%', fontFamily: V.serif, fontSize: 22, color: V.gold, fontWeight: 700, marginBottom: 16 }}>{s.n}</div>
-                  <h3 style={{ fontFamily: V.serif, fontSize: m ? 22 : 25, fontWeight: 500, color: V.ink, marginBottom: 10 }}>{s.t}</h3>
-                  <p style={{ fontSize: 15, color: V.inkSoft }}>{s.p}</p>
+                {
+                  num: '01',
+                  title: 'הרבי קרא כל מכתב',
+                  body: 'במשך עשרות שנות נשיאותו קיבל הרבי מכתבים ממאות אלפי אנשים מכל העולם — ואמר: "כתבו אלי על כל דבר, גם על בשורות טובות."',
+                },
+                {
+                  num: '02',
+                  title: 'כאז כן היום',
+                  body: 'גם כיום, לאחר ההסתלקות, כותבים מאות אלפי אנשים אל הרבי — מכתבים, פדיוני נפש ובקשות ברכה. הרבי קורא, שמח בשמחתנו, כואב בכאבנו.',
+                },
+                {
+                  num: '03',
+                  title: 'המכתב מגיע',
+                  body: 'כל מכתב מודפס ונשלח לאוהל הקדוש שבקווינס, ניו יורק — ומונח על ציון הרבי. כיחידות ממש, פגישה אישית בין כל אחד לרבי.',
+                },
+              ].map((item) => (
+                <div key={item.num} style={{
+                  background: V.white,
+                  borderRadius: 12,
+                  padding: m ? '24px 20px' : '32px 28px',
+                  border: `1px solid ${V.line}`,
+                }}>
+                  <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '.16em', color: V.gold, marginBottom: 14 }}>{item.num}</div>
+                  <h3 style={{ fontFamily: V.serif, fontSize: m ? 20 : 23, fontWeight: 700, color: V.ink, marginBottom: 12, lineHeight: 1.3 }}>{item.title}</h3>
+                  <p style={{ fontSize: 15, color: V.inkSoft, lineHeight: 1.8 }}>{item.body}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Closing */}
-        <section style={{ background: V.ink, color: V.paper, textAlign: 'center', padding: m ? '64px 0' : '92px 0' }}>
+        {/* ─── Steps ─── */}
+        <section id="how" style={{ background: V.white, padding: m ? '52px 0 60px' : '80px 0 96px', borderTop: `1px solid ${V.line}` }}>
           <div style={wrap}>
-            <h2 style={{ fontFamily: V.serif, fontWeight: 500, fontSize: m ? 32 : 48, marginBottom: 16, color: '#fff' }}>הלב שלכם מחכה להישמע</h2>
-            <p style={{ fontSize: m ? 16 : 18, color: V.blueMist, marginBottom: 36, maxWidth: '28em', marginInline: 'auto' }}>קחו רגע לעצמכם. שבו, וכתבו את מה שבאמת חשוב לכם.</p>
-            <Link to="/write" style={{ background: V.gold, color: V.ink, padding: '13px 28px', borderRadius: 2, textDecoration: 'none', fontWeight: 600, fontSize: 15 }}>פתיחת מכתב חדש &nbsp;←</Link>
+            <div style={{ textAlign: 'center', marginBottom: m ? 36 : 56 }}>
+              <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.2em', color: V.gold, textTransform: 'uppercase' }}>בשלושה צעדים</span>
+              <h2 style={{ fontFamily: V.serif, fontSize: m ? 28 : 40, fontWeight: 600, color: V.ink, marginTop: 12 }}>איך כותבים מכתב</h2>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: m ? '1fr' : 'repeat(3,1fr)', gap: m ? 24 : 0 }}>
+              {[
+                { n: 'א', t: 'מתכוננים', p: 'נטילת ידיים, רגע של כוונה, וקבלת החלטה טובה — "כלי" שמחזיק את הברכה.' },
+                { n: 'ב', t: 'כותבים', p: 'פותחים את הלב וכותבים בלשונכם — בקשה, תודה או תפילה. "כל המפרט הרי זה משובח."' },
+                { n: 'ג', t: 'מונח באוהל', p: 'המכתב מודפס ונשלח לאוהל הקדוש בקווינס — המקום שאליו פונים מכל העולם.' },
+              ].map((s, i) => (
+                <div key={i} style={{
+                  padding: m ? '0' : '0 44px',
+                  textAlign: 'center',
+                  borderRight: (!m && i > 0) ? `1px solid ${V.line}` : 'none',
+                }}>
+                  <div style={{
+                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                    width: 56, height: 56, borderRadius: '50%',
+                    background: V.goldMuted, border: `1.5px solid rgba(176,141,74,.4)`,
+                    fontFamily: V.serif, fontSize: 22, color: V.gold, fontWeight: 700,
+                    marginBottom: 18,
+                  }}>{s.n}</div>
+                  <h3 style={{ fontFamily: V.serif, fontSize: m ? 22 : 24, fontWeight: 600, color: V.ink, marginBottom: 10 }}>{s.t}</h3>
+                  <p style={{ fontSize: 15, color: V.inkSoft, lineHeight: 1.8 }}>{s.p}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
+
+        {/* ─── CTA ─── */}
+        <section style={{ background: V.navy, padding: m ? '60px 0' : '88px 0', position: 'relative', overflow: 'hidden' }}>
+          <div style={{
+            position: 'absolute', inset: 0,
+            background: 'radial-gradient(ellipse 80% 140% at 50% 0%, rgba(176,141,74,.16), transparent 60%)',
+            pointerEvents: 'none',
+          }} />
+          <div style={{ ...wrap, textAlign: 'center', position: 'relative', zIndex: 1 }}>
+            <h2 style={{ fontFamily: V.serif, fontWeight: 600, fontSize: m ? 30 : 46, color: '#fff', marginBottom: 16, lineHeight: 1.25 }}>
+              כתבו את מה שעל הלב
+            </h2>
+            <p style={{ fontSize: m ? 15 : 17, color: V.mist, marginBottom: 36, maxWidth: '30em', marginInline: 'auto', lineHeight: 1.85 }}>
+              אין מילים נכונות ואין מילים שגויות. רק מילים שלכם — שמגיעות.
+            </p>
+            <Link to="/write" style={{
+              display: 'inline-block',
+              background: V.gold, color: V.navy,
+              padding: m ? '13px 30px' : '15px 40px',
+              borderRadius: 6, textDecoration: 'none',
+              fontWeight: 700, fontSize: 16,
+              boxShadow: '0 4px 24px rgba(176,141,74,.4)',
+            }}>פתיחת מכתב חדש &nbsp;←</Link>
+          </div>
+        </section>
+
       </main>
 
-      <footer role="contentinfo" style={{ padding: '40px 0 32px', borderTop: `1px solid ${V.line}` }}>
+      {/* ─── Footer ─── */}
+      <footer role="contentinfo" style={{ background: V.white, borderTop: `1px solid ${V.line}`, padding: '36px 0 28px' }}>
         <div style={wrap}>
-          <div style={{ textAlign: 'center', marginBottom: 20 }}>
-            <div style={{ fontFamily: V.serif, fontSize: 20, color: V.ink, marginBottom: 6 }}>כתיבה לרבי</div>
-            <div style={{ fontSize: 13, color: V.inkSoft, letterSpacing: '.04em' }}>מקום לכתוב · לבקש · להתחבר</div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
+            <div>
+              <div style={{ fontFamily: V.serif, fontSize: 19, fontWeight: 700, color: V.ink, marginBottom: 3 }}>כתיבה לרבי</div>
+              <div style={{ fontSize: 12, color: V.inkSoft }}>מקום לכתוב · לבקש · להתחבר</div>
+            </div>
+            <nav aria-label="קישורים משפטיים" style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
+              <Link to="/accessibility" style={{ fontSize: 13, color: V.inkSoft, textDecoration: 'none' }}>נגישות</Link>
+              <Link to="/privacy" style={{ fontSize: 13, color: V.inkSoft, textDecoration: 'none' }}>פרטיות</Link>
+              <Link to="/terms" style={{ fontSize: 13, color: V.inkSoft, textDecoration: 'none' }}>תנאי שימוש</Link>
+            </nav>
           </div>
-          <nav aria-label="קישורים משפטיים" style={{ display: 'flex', justifyContent: 'center', gap: 28, flexWrap: 'wrap', marginBottom: 14 }}>
-            <Link to="/accessibility" style={{ fontSize: 13, color: V.inkSoft, textDecoration: 'none', borderBottom: `1px solid ${V.line}` }}>הצהרת נגישות</Link>
-            <Link to="/privacy" style={{ fontSize: 13, color: V.inkSoft, textDecoration: 'none', borderBottom: `1px solid ${V.line}` }}>מדיניות פרטיות</Link>
-            <Link to="/terms" style={{ fontSize: 13, color: V.inkSoft, textDecoration: 'none', borderBottom: `1px solid ${V.line}` }}>תנאי שימוש</Link>
-          </nav>
-          <div style={{ textAlign: 'center', fontSize: 12, color: V.blueMist }}>© {new Date().getFullYear()} כל הזכויות שמורות</div>
+          <div style={{ marginTop: 20, fontSize: 12, color: V.inkSoft, borderTop: `1px solid ${V.line}`, paddingTop: 16 }}>
+            © {new Date().getFullYear()} כל הזכויות שמורות
+          </div>
         </div>
       </footer>
 

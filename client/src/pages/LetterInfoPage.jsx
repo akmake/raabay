@@ -189,6 +189,14 @@ export default function LetterInfoPage() {
             <NumberedItem n="ב" title="מהלב ולא מהראש" desc="אל תרכיבו נאום. שבו, נשמו, ושאלו את עצמכם: מה אני באמת רוצה לומר לרבי עכשיו?" m={m} />
             <NumberedItem n="ג" title="פתיחה פשוטה" desc='ניתן לפתוח ב"כבוד קדושת אדמו"ר שליט"א" — או פשוט להתחיל לכתוב. שניהם תקינים.' m={m} />
             <NumberedItem n="ד" title="חתימה בשם" desc="מסיימים בשם — רצוי השם העברי. אפשר גם לציין את שם האם." m={m} />
+            <HighlightBox m={m}>
+              <div style={{ fontFamily: V.serif, fontSize: m ? 19 : 24, color: V.ink, lineHeight: 1.65 }}>
+                ״כָּל הַמְפָרֵט — הֲרֵי זֶה מְשֻׁבָּח וּמְרַוֵּחַ״
+              </div>
+              <div style={{ fontSize: 13.5, color: V.inkSoft, marginTop: 10, lineHeight: 1.7 }}>
+                הרבי עודד תמיד לפרט ולא לקצר — ככל שכותבים יותר, כך הפנייה "מגיעה" עמוק יותר
+              </div>
+            </HighlightBox>
           </Section>
 
           <Divider />
@@ -224,6 +232,31 @@ export default function LetterInfoPage() {
                 </div>
               </div>
             </div>
+          </Section>
+
+          <Divider />
+
+          {/* הרבי נמצא */}
+          <Section title='הרבי נמצא — "אִיז דָּא אִיז עֶר"' label="הנוכחות" m={m}>
+            <P m={m}>
+              כשנכנסים לאוהל, אמר הרבי על אוהל חותנו — האדמו"ר הקודם — יש לדעת דבר אחד:
+            </P>
+            <HighlightBox m={m}>
+              <div style={{ fontFamily: V.serif, fontSize: m ? 21 : 27, color: V.ink, lineHeight: 1.6, textAlign: 'center' }}>
+                ״אִיז דָּא אִיז עֶר״
+              </div>
+              <div style={{ fontSize: 14, color: V.inkSoft, marginTop: 12, textAlign: 'center', letterSpacing: '.04em' }}>
+                "כאן — הוא נמצא"
+              </div>
+            </HighlightBox>
+            <P m={m}>
+              אותו עיקרון חל על כל מכתב שנשלח לאוהל. המכתב אינו מגיע כחתיכת נייר בלבד —
+              הוא פנייה נשמתית, והנשמה אינה מוגבלת למקום ולזמן.
+            </P>
+            <P m={m}>
+              לכן כדאי לכתוב ביסודיות. לכן כדאי לפרט. לכן כדאי לא למהר.
+              הרבי ביקש תמיד לכתוב "גם על בשורות טובות" — כי הקשר אינו חד-צדדי.
+            </P>
           </Section>
 
           <Divider />

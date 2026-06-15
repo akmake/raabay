@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/layout/Navbar';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 const LETTER_STEPS = [
   {
@@ -22,6 +23,10 @@ const LETTER_STEPS = [
   {
     title: <>כתבו <em style={{ fontStyle: 'normal', color: 'var(--oh-gold-letter)' }}>בלשונכם שלכם</em></>,
     body: 'אין נוסח נכון ואין מילים נכונות. כתבו מה שבאמת על הלב — בקשה, תודה, שאלה, שיתוף. הרבי קרא כל מילה.',
+  },
+  {
+    title: <>פִּרְטוּ <em style={{ fontStyle: 'normal', color: 'var(--oh-gold-letter)' }}>בְּשִׂמְחָה</em></>,
+    body: '"כל המפרט — הרי זה משובח." אל תקצרו. ספרו לרבי את המצב בפועל, מה מרגישים, מה בדיוק מבוקש. ככל שהמכתב מלא יותר — כך "מגיע" יותר.',
   },
 ];
 
@@ -59,6 +64,7 @@ function getHebrewDate() {
 }
 
 export default function WriteLetterPage() {
+  const m = useIsMobile();
   const [mode, setMode] = useState(null); // null = choosing, 'letter', 'pan'
   const [step, setStep] = useState(0);
   const [prepHiding, setPrepHiding] = useState(false);
@@ -191,14 +197,14 @@ export default function WriteLetterPage() {
 
         {/* Mode chooser */}
         {!mode && (
-          <div style={{ maxWidth: 720, margin: '80px auto 0', padding: '0 24px', textAlign: 'center' }}>
+          <div style={{ maxWidth: 720, margin: m ? '40px auto 0' : '80px auto 0', padding: m ? '0 16px' : '0 24px', textAlign: 'center' }}>
             <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: '.2em', color: 'var(--oh-gold-deep)', textTransform: 'uppercase', marginBottom: 14 }}>רגע של קרבה</div>
-            <h1 style={{ fontFamily: 'var(--oh-serif)', fontWeight: 500, fontSize: 38, color: 'var(--oh-ink)', marginBottom: 10 }}>מה תרצו לכתוב?</h1>
-            <p style={{ fontSize: 16, color: 'var(--oh-ink-soft)', maxWidth: '34em', margin: '0 auto 52px', lineHeight: 1.9 }}>
+            <h1 style={{ fontFamily: 'var(--oh-serif)', fontWeight: 500, fontSize: m ? 28 : 38, color: 'var(--oh-ink)', marginBottom: 10 }}>מה תרצו לכתוב?</h1>
+            <p style={{ fontSize: m ? 15 : 16, color: 'var(--oh-ink-soft)', maxWidth: '34em', margin: m ? '0 auto 28px' : '0 auto 52px', lineHeight: 1.9 }}>
               לא בטוחים מה לבחור? בחרו לפי <strong style={{ color: 'var(--oh-ink)' }}>מתי</strong> אתם כותבים.
             </p>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: m ? '1fr' : '1fr 1fr', gap: m ? 14 : 20 }}>
               {[
                 {
                   key: 'letter',
@@ -224,7 +230,7 @@ export default function WriteLetterPage() {
                   style={{
                     background: '#fff',
                     borderRadius: 16,
-                    padding: '40px 32px 32px',
+                    padding: m ? '28px 20px 22px' : '40px 32px 32px',
                     cursor: 'pointer',
                     textAlign: 'center',
                     display: 'flex',
@@ -233,11 +239,11 @@ export default function WriteLetterPage() {
                     boxShadow: '0 4px 24px rgba(20,34,63,.09)',
                   }}
                 >
-                  <div style={{ width: 48, height: 2, background: '#b08d4a', margin: '0 auto 28px' }} />
-                  <div style={{ fontFamily: 'var(--oh-serif)', fontSize: 52, fontWeight: 700, color: 'var(--oh-ink)', lineHeight: 1, marginBottom: 10 }}>{opt.title}</div>
-                  <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.2em', color: '#b08d4a', textTransform: 'uppercase', marginBottom: 20 }}>{opt.sub}</div>
-                  <div style={{ fontSize: 15, color: 'var(--oh-ink-soft)', lineHeight: 1.7, flex: 1 }}>{opt.desc}</div>
-                  <div style={{ marginTop: 32, paddingTop: 24, borderTop: '1px solid #f0f0f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div style={{ width: 48, height: 2, background: '#b08d4a', margin: '0 auto 20px' }} />
+                  <div style={{ fontFamily: 'var(--oh-serif)', fontSize: m ? 38 : 52, fontWeight: 700, color: 'var(--oh-ink)', lineHeight: 1, marginBottom: 8 }}>{opt.title}</div>
+                  <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.2em', color: '#b08d4a', textTransform: 'uppercase', marginBottom: m ? 12 : 20 }}>{opt.sub}</div>
+                  <div style={{ fontSize: m ? 14 : 15, color: 'var(--oh-ink-soft)', lineHeight: 1.7, flex: 1 }}>{opt.desc}</div>
+                  <div style={{ marginTop: m ? 20 : 32, paddingTop: m ? 16 : 24, borderTop: '1px solid #f0f0f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Link to={opt.infoTo} onClick={e => e.stopPropagation()} style={{ fontSize: 13, color: 'var(--oh-blue)', fontWeight: 600, textDecoration: 'none' }}>
                       {opt.infoLabel} ›
                     </Link>
