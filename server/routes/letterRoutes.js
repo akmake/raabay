@@ -1,6 +1,7 @@
 import { Router } from 'express';
-import { sendLetter } from '../controllers/letterController.js';
+import { sendLetter, previewLetter } from '../controllers/letterController.js';
 
 const router = Router();
 router.post('/send', sendLetter);
+router.post('/preview', previewLetter);
 export default router;

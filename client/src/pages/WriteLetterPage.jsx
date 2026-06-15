@@ -68,6 +68,7 @@ export default function WriteLetterPage() {
   const [gender, setGender] = useState('בן');
   const [letterText, setLetterText] = useState('');
   const [sending, setSending] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [toast, setToast] = useState(null); // { message, type }
   const [uploadedFile, setUploadedFile] = useState(null); // { base64, mimetype, filename, preview }
   const textareaRef = useRef(null);
@@ -147,11 +148,30 @@ export default function WriteLetterPage() {
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error('send failed');
-      showToast(mode === 'pan' ? 'הפ"נ נשלח לאוהל הקדוש ✓' : 'המכתב נשלח לאוהל הקדוש ✓');
+      setSuccess(true);
     } catch {
       showToast('שגיאה בשליחה — נסו שוב', 'error');
     } finally {
       setSending(false);
+    }
+  };
+
+  // Quick test: open a PDF preview of exactly what will be sent.
+  const handlePreview = async () => {
+    if (!letterText.trim()) { textareaRef.current?.focus(); return; }
+    try {
+      const res = await fetch('/api/letter/preview', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mode, name: fullName, motherName, gender, text: letterText.trim() }),
+      });
+      if (!res.ok) throw new Error('preview failed');
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      window.open(url, '_blank');
+      setTimeout(() => URL.revokeObjectURL(url), 60000);
+    } catch {
+      showToast('שגיאה ביצירת התצוגה — נסו שוב', 'error');
     }
   };
 
@@ -240,7 +260,7 @@ export default function WriteLetterPage() {
                 {mode === 'pan' ? 'כתבו את הפ"נ שלכם' : 'כתבו את אשר על לבכם'}
               </h1>
               <button
-                onClick={() => { setMode(null); setSent(false); setLetterText(''); setFullName(''); setMotherName(''); }}
+                onClick={() => { setMode(null); setLetterText(''); setFullName(''); setMotherName(''); }}
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--oh-ink-soft)', fontSize: 13, fontFamily: 'var(--oh-sans)', marginTop: 6, textDecoration: 'underline', textUnderlineOffset: 3 }}
               >
                 ← חזרה לבחירה
@@ -308,27 +328,50 @@ export default function WriteLetterPage() {
                   </div>
                 </div>
               ) : (
-                <div style={{ display: 'flex', gap: 26, marginBottom: 30, paddingBottom: 26, borderBottom: '1px solid var(--oh-line)' }}>
-                  {[
-                    { label: 'שם מלא', placeholder: 'השם שלכם', value: fullName, onChange: setFullName, ref: nameRef },
-                    { label: 'בן / בת (שם האם)', placeholder: 'שם האם', value: motherName, onChange: setMotherName },
-                  ].map(({ label, placeholder, value, onChange, ref }) => (
-                    <div key={label} style={{ flex: 1 }}>
-                      <label style={{ display: 'block', fontSize: 12, fontWeight: 600, letterSpacing: '.08em', color: 'var(--oh-gold-deep)', marginBottom: 7 }}>{label}</label>
-                      <input
-                        ref={ref}
-                        type="text"
-                        placeholder={placeholder}
-                        value={value}
-                        onChange={(e) => onChange(e.target.value)}
-                        style={{
-                          width: '100%', border: 'none', background: 'transparent', outline: 'none',
-                          fontFamily: 'var(--oh-serif)', fontSize: 19, color: 'var(--oh-ink)',
-                          borderBottom: '1.5px solid var(--oh-line)', padding: '4px 2px 8px',
-                        }}
-                      />
+                <div style={{ display: 'flex', gap: 20, marginBottom: 30, paddingBottom: 26, borderBottom: '1px solid var(--oh-line)', flexWrap: 'wrap' }}>
+                  <div style={{ flex: 2, minWidth: 160 }}>
+                    <label style={{ display: 'block', fontSize: 12, fontWeight: 600, letterSpacing: '.08em', color: 'var(--oh-gold-deep)', marginBottom: 7 }}>שם מלא</label>
+                    <input
+                      ref={nameRef}
+                      type="text"
+                      placeholder="השם שלכם"
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                      style={{
+                        width: '100%', border: 'none', background: 'transparent', outline: 'none',
+                        fontFamily: 'var(--oh-serif)', fontSize: 19, color: 'var(--oh-ink)',
+                        borderBottom: '1.5px solid var(--oh-line)', padding: '4px 2px 8px',
+                      }}
+                    />
+                  </div>
+                  <div style={{ flex: 1, minWidth: 80, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+                    <label style={{ display: 'block', fontSize: 12, fontWeight: 600, letterSpacing: '.08em', color: 'var(--oh-gold-deep)', marginBottom: 7 }}>בן / בת</label>
+                    <div style={{ display: 'flex', borderBottom: '1.5px solid var(--oh-line)' }}>
+                      {['בן', 'בת'].map((g) => (
+                        <button key={g} onClick={() => setGender(g)} style={{
+                          flex: 1, border: 'none', background: gender === g ? 'rgba(176,141,74,.15)' : 'transparent',
+                          cursor: 'pointer', fontFamily: 'var(--oh-serif)', fontSize: 18,
+                          color: gender === g ? 'var(--oh-ink)' : 'var(--oh-ink-soft)',
+                          padding: '4px 8px 8px', fontWeight: gender === g ? 700 : 400,
+                          transition: 'all .15s',
+                        }}>{g}</button>
+                      ))}
                     </div>
-                  ))}
+                  </div>
+                  <div style={{ flex: 2, minWidth: 160 }}>
+                    <label style={{ display: 'block', fontSize: 12, fontWeight: 600, letterSpacing: '.08em', color: 'var(--oh-gold-deep)', marginBottom: 7 }}>שם האם</label>
+                    <input
+                      type="text"
+                      placeholder="שם האם"
+                      value={motherName}
+                      onChange={(e) => setMotherName(e.target.value)}
+                      style={{
+                        width: '100%', border: 'none', background: 'transparent', outline: 'none',
+                        fontFamily: 'var(--oh-serif)', fontSize: 19, color: 'var(--oh-ink)',
+                        borderBottom: '1.5px solid var(--oh-line)', padding: '4px 2px 8px',
+                      }}
+                    />
+                  </div>
                 </div>
               )}
 
@@ -338,6 +381,25 @@ export default function WriteLetterPage() {
                   <div style={{ fontSize: 20, color: 'var(--oh-ink)', textAlign: 'center', marginBottom: 10, fontWeight: 700, letterSpacing: '.06em' }}>פ״נ</div>
                   <div style={{ fontSize: 20, color: 'var(--oh-ink)' }}>
                     אָנָּא לְעוֹרֵר רַחֲמִים רַבִּים עַל{' '}
+                    <span style={{ color: fullName.trim() ? 'var(--oh-ink)' : '#c4b89a', borderBottom: fullName.trim() ? 'none' : '1px dashed #c4b89a', transition: 'color .2s' }}>
+                      {nusachName}
+                    </span>
+                    {' '}{gender}{' '}
+                    <span style={{ color: motherName.trim() ? 'var(--oh-ink)' : '#c4b89a', borderBottom: motherName.trim() ? 'none' : '1px dashed #c4b89a', transition: 'color .2s' }}>
+                      {nusachMother}
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              {/* Letter salutation preview */}
+              {mode === 'letter' && (
+                <div style={{ marginBottom: 28, paddingBottom: 24, borderBottom: '1px solid var(--oh-line)', fontFamily: 'var(--oh-serif)', lineHeight: 1.85 }}>
+                  <div style={{ fontSize: 20, color: 'var(--oh-ink)', marginBottom: 8 }}>
+                    לכבוד כבוד קדושת אדוננו מורנו ורבינו
+                  </div>
+                  <div style={{ fontSize: 18, color: 'var(--oh-ink-soft)' }}>
+                    הנני:{' '}
                     <span style={{ color: fullName.trim() ? 'var(--oh-ink)' : '#c4b89a', borderBottom: fullName.trim() ? 'none' : '1px dashed #c4b89a', transition: 'color .2s' }}>
                       {nusachName}
                     </span>
@@ -426,6 +488,23 @@ export default function WriteLetterPage() {
                   </svg>
                   פרטי לחלוטין · בינכם לבין הרבי
                 </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+                  <button
+                    onClick={handlePreview}
+                    disabled={sending}
+                    style={{
+                      fontFamily: 'var(--oh-sans)', fontSize: 15, fontWeight: 600, cursor: sending ? 'default' : 'pointer',
+                      background: 'transparent', color: 'var(--oh-ink)', border: '1.5px solid var(--oh-line)',
+                      padding: '13px 22px', borderRadius: 6,
+                      display: 'inline-flex', alignItems: 'center', gap: 9,
+                      transition: 'all .22s ease',
+                    }}
+                  >
+                    תצוגה מקדימה
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z" /><circle cx="12" cy="12" r="3" />
+                    </svg>
+                  </button>
                   <button
                     onClick={handleSend}
                     disabled={sending}
@@ -444,6 +523,7 @@ export default function WriteLetterPage() {
                       </svg>
                     </>}
                   </button>
+                </div>
               </div>
             </div>
 
@@ -572,6 +652,42 @@ export default function WriteLetterPage() {
                 דלג והתחל לכתוב
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Success overlay */}
+      {success && (
+        <div
+          onClick={() => setSuccess(false)}
+          style={{
+            position: 'fixed', inset: 0, zIndex: 400,
+            background: 'rgba(20,16,12,0.88)',
+            backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)',
+            display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center',
+            padding: 32, cursor: 'pointer',
+            animation: 'modalIn .5s cubic-bezier(.4,0,.2,1)',
+          }}
+        >
+          <img
+            src="/Lubavitcher Rebbe (481).jpg"
+            alt="הרבי"
+            style={{
+              maxHeight: '58vh', maxWidth: '88vw',
+              borderRadius: 10,
+              boxShadow: '0 24px 80px rgba(0,0,0,.65)',
+              marginBottom: 32,
+            }}
+          />
+          <div style={{
+            fontFamily: 'var(--oh-serif)', fontSize: 24, fontWeight: 600,
+            color: '#f5f0e6', textAlign: 'center', lineHeight: 1.5,
+          }}>
+            {mode === 'pan' ? 'הפ"נ נשלח לאוהל הקדוש' : 'המכתב נשלח לאוהל הקדוש'}
+          </div>
+          <div style={{ fontSize: 13, color: '#b5864a', marginTop: 14, letterSpacing: '.06em' }}>
+            לחצו לסגירה
           </div>
         </div>
       )}
