@@ -84,8 +84,8 @@ export default function Navbar() {
         }}
       >
         <div style={{
-          maxWidth: 1100, margin: '0 auto', height: '100%',
-          padding: '0 28px',
+          width: '100%', height: '100%',
+          padding: '0 16px',
           display: 'grid',
           gridTemplateColumns: '1fr auto 1fr',
           alignItems: 'center',
@@ -96,12 +96,9 @@ export default function Navbar() {
             aria-label="עמוד הבית — כתיבה לרבי"
             style={{ justifySelf: 'start', display: 'inline-flex', alignItems: 'center', gap: 9, textDecoration: 'none' }}
           >
-            <span style={{
-              width: 32, height: 32, borderRadius: 8, flexShrink: 0,
-              background: C.gold,
-              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-              fontFamily: C.serif, fontWeight: 700, fontSize: 17, color: '#fff',
-            }}>כ</span>
+            <span style={{ width: 36, height: 36, borderRadius: '50%', flexShrink: 0, overflow: 'hidden', display: 'inline-block' }}>
+              <img src="/הרבי.webp" alt="הרבי מליובאוויטש" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
+            </span>
             <span style={{ fontFamily: C.serif, fontWeight: 700, fontSize: 17.5, color: C.ink, letterSpacing: '0.01em' }}>
               כתיבה לרבי
             </span>

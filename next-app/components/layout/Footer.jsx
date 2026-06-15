@@ -24,7 +24,7 @@ export default function Footer() {
 
           <div>
             <div style={{ fontFamily: V.serif, fontSize: 20, color: '#fff', fontWeight: 700, marginBottom: 6 }}>כתיבה לרבי</div>
-            <div style={{ color: '#6b6460', fontSize: 13, lineHeight: 1.6 }}>מקום לכתוב · לבקש · להתחבר</div>
+            <div style={{ color: '#6b6460', fontSize: 13, lineHeight: 1.6 }}>We want Messiah now.</div>
           </div>
 
           <nav aria-label="ניווט תחתון" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>

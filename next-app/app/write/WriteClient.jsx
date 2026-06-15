@@ -111,6 +111,12 @@ export default function WriteClient() {
         {/* Mode chooser */}
         {!mode && (
           <div style={{ maxWidth: 720, margin: m ? '40px auto 0' : '80px auto 0', padding: m ? '0 16px' : '0 24px', textAlign: 'center' }}>
+
+            <div style={{ display: 'inline-block', background: '#f5f3ef', border: '1px solid #ddd8cf', borderRadius: 8, padding: '10px 20px', marginBottom: m ? 28 : 40 }}>
+              <span style={{ fontSize: 13.5, color: 'var(--oh-ink-soft)', lineHeight: 1.6 }}>
+                מעדיפים לכתוב בכתב יד? בתחתית עמוד הכתיבה תוכלו <strong style={{ color: 'var(--oh-ink)', fontWeight: 600 }}>להעלות תמונה של המכתב</strong> — והוא ישלח לאוהל.
+              </span>
+            </div>
             <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: '.2em', color: 'var(--oh-gold-deep)', textTransform: 'uppercase', marginBottom: 14 }}>רגע של קרבה</div>
             <h1 style={{ fontFamily: 'var(--oh-serif)', fontWeight: 500, fontSize: m ? 28 : 38, color: 'var(--oh-ink)', marginBottom: 10 }}>מה תרצו לכתוב?</h1>
             <p style={{ fontSize: m ? 15 : 16, color: 'var(--oh-ink-soft)', maxWidth: '34em', margin: m ? '0 auto 28px' : '0 auto 52px', lineHeight: 1.9 }}>
