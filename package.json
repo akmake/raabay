@@ -4,7 +4,7 @@
     "mongoose": "^9.0.1"
   },
   "scripts": {
-    "build": "npm --prefix server install && npm --prefix next-app install && npm --prefix next-app run build",
+    "build": "npm --prefix server install && npm --prefix next-app install --include=dev && npm --prefix next-app run build",
     "start": "npm-run-all --parallel start:server start:next",
     "start:server": "npm --prefix server start",
     "start:next": "npm --prefix next-app start",
