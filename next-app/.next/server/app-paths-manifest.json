@@ -1,4 +1,12 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
   "/page": "app/page.js",
-  "/write/page": "app/write/page.js"
+  "/write-pidyon/page": "app/write-pidyon/page.js",
+  "/write/page": "app/write/page.js",
+  "/(with-layout)/mikhtav/page": "app/(with-layout)/mikhtav/page.js",
+  "/(with-layout)/ohel/page": "app/(with-layout)/ohel/page.js",
+  "/(with-layout)/pidyon/page": "app/(with-layout)/pidyon/page.js",
+  "/(with-layout)/terms/page": "app/(with-layout)/terms/page.js",
+  "/(with-layout)/privacy/page": "app/(with-layout)/privacy/page.js",
+  "/(with-layout)/accessibility/page": "app/(with-layout)/accessibility/page.js"
 }

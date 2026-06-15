@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/</loc>
+    <loc>https://raabay.co.il/</loc>
     <priority>1.0</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>/write</loc>
+    <loc>https://raabay.co.il/write</loc>
     <priority>0.9</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>/pidyon</loc>
+    <loc>https://raabay.co.il/pidyon</loc>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>/ohel</loc>
+    <loc>https://raabay.co.il/ohel</loc>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>/mikhtav</loc>
+    <loc>https://raabay.co.il/mikhtav</loc>
     <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://raabay.co.il/write-pidyon</loc>
+    <priority>0.6</priority>
     <changefreq>monthly</changefreq>
   </url>
 </urlset>
