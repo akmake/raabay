@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Assistant:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Assistant', sans-serif;
+  direction: rtl;
+  background-color: #ffffff;
+  overflow-x: hidden;
+}
+
+@layer base {
+  :root {
+    --brand-purple: #563554;
+    --brand-yellow: #fec007;
+    --brand-dark-purple: #4a2c48;
+
+    --oh-paper: #fdfaf5;
+    --oh-paper-2: #f5f0e8;
+    --oh-ink: #1e1a17;
+    --oh-ink-soft: #5c5550;
+    --oh-blue: #7a6b5a;
+    --oh-blue-mist: #d4c8b8;
+    --oh-gold: #b5864a;
+    --oh-gold-soft: #c9a070;
+    --oh-line: #e4dcd0;
+    --oh-serif: "Frank Ruhl Libre", Georgia, serif;
+    --oh-sans: "Assistant", system-ui, sans-serif;
+
+    --oh-night: #1a1715;
+    --oh-night-2: #2a2420;
+    --oh-paper-warm: #f5f0e6;
+    --oh-paper-edge: #ece4d6;
+    --oh-ghost: #c0b8b0;
+    --oh-gold-deep: #b5864a;
+    --oh-mist: #b8afa6;
+    --oh-gold-letter: #c9a070;
+  }
+}
+
+@keyframes oh-flick {
+  0%, 100% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.06); }
+}
+@keyframes oh-rise {
+  from { transform: translateY(14px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.oh-flick { animation: oh-flick 2.4s ease-in-out infinite; }
+.oh-flick-slow { animation: oh-flick 3s ease-in-out infinite; }
+.oh-rise { animation: oh-rise .5s ease both; }
+
+.skip-to-main {
+  position: absolute;
+  top: -100%;
+  right: 50%;
+  transform: translateX(50%);
+  background: #1e1a17;
+  color: #fff;
+  padding: 12px 24px;
+  z-index: 10000;
+  border-radius: 0 0 10px 10px;
+  font-family: "Assistant", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.2s;
+}
+.skip-to-main:focus {
+  top: 0;
+  outline: 3px solid #b5864a;
+  outline-offset: 2px;
+}
+
+.a11y-grayscale { filter: grayscale(100%) !important; }
+
+.a11y-no-anim *,
+.a11y-no-anim *::before,
+.a11y-no-anim *::after {
+  animation-duration: 0.001ms !important;
+  transition-duration: 0.001ms !important;
+}
+
+.a11y-links a { text-decoration: underline !important; }
+
+.a11y-contrast-high {
+  background: #000 !important;
+  color: #fff !important;
+}
+.a11y-contrast-high * {
+  background-color: transparent !important;
+  color: #fff !important;
+  border-color: #fff !important;
+}
+.a11y-contrast-high a { color: #ffff00 !important; }
+.a11y-contrast-high button,
+.a11y-contrast-high input,
+.a11y-contrast-high textarea {
+  background: #111 !important;
+  color: #fff !important;
+  border: 2px solid #fff !important;
+}
+
+*:focus-visible {
+  outline: 3px solid #b5864a !important;
+  outline-offset: 3px !important;
+}
+
+@keyframes modalIn {
+  from { transform: scale(.95) translateY(12px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+@keyframes toastIn {
+  from { transform: translateX(-50%) translateY(16px); opacity: 0; }
+  to { transform: translateX(-50%) translateY(0); opacity: 1; }
+}
+.oh-mode-card { transition: transform .22s ease, box-shadow .22s ease; }
+.oh-mode-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(20,34,63,.12); }
