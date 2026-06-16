@@ -18,10 +18,11 @@ const C = {
 };
 
 const NAV = [
-  { label: 'מכתב לרבי',  to: '/mikhtav' },
-  { label: 'פדיון נפש',  to: '/pidyon'  },
+  { label: 'מכתב לרבי',   to: '/mikhtav' },
+  { label: 'פדיון נפש',   to: '/pidyon'  },
+  { label: 'מעלת הכתיבה', to: '/maala'   },
   { label: 'איך זה עובד', href: '/#how'  },
-  { label: 'צור קשר',    to: '/contact' },
+  { label: 'צור קשר',     to: '/contact' },
 ];
 
 function NavLink({ label, to, href, active, onClick }) {
