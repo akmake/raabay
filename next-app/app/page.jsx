@@ -60,7 +60,7 @@ export default function ClassicPage() {
                 </p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 28, flexWrap: 'wrap' }}>
                   <Link href="/write" style={{ background: V.navy, color: '#fff', padding: '14px 32px', borderRadius: 6, textDecoration: 'none', fontWeight: 700, fontSize: 15 }}>לכתיבת המכתב &nbsp;←</Link>
-                  <a href="#about" style={{ color: V.inkSoft, fontSize: 14, fontWeight: 600, textDecoration: 'none', borderBottom: `1.5px solid ${V.gold}`, paddingBottom: 2 }}>מה זה אוהל?</a>
+                  <Link href="/maala" style={{ color: V.inkSoft, fontSize: 14, fontWeight: 600, textDecoration: 'none', borderBottom: `1.5px solid ${V.gold}`, paddingBottom: 2 }}>מעלת הכתיבה לרבי</Link>
                 </div>
               </div>
               <div>
