@@ -30,10 +30,7 @@ export default function ClassicPage() {
             <Image src="/rebbe.jpg" alt="הרבי מליובאוויטש" fill priority style={{ objectFit: 'cover', objectPosition: 'top center' }} />
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(14,22,42,.08) 0%, rgba(14,22,42,.15) 35%, rgba(14,22,42,.72) 62%, rgba(14,22,42,.97) 100%)' }} />
             <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '0 24px 52px', textAlign: 'center' }}>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 18, background: 'rgba(176,141,74,.18)', border: '1px solid rgba(176,141,74,.4)', padding: '6px 16px', borderRadius: 100 }}>
-                <span style={{ width: 5, height: 5, borderRadius: '50%', background: V.gold, display: 'block', flexShrink: 0 }} />
-                <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.14em', color: V.gold }}>כיחידות ממש — פגישה אישית</span>
-              </div>
+
               <h1 style={{ fontFamily: V.serif, fontWeight: 800, fontSize: 52, lineHeight: 1.1, color: '#fff', marginBottom: 16, letterSpacing: '-.02em' }}>
                 יש כתובת<br /><span style={{ color: V.gold }}>שאליה אפשר לפנות</span>
               </h1>
@@ -90,7 +87,7 @@ export default function ClassicPage() {
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: m ? '1fr' : 'repeat(3,1fr)', gap: m ? 28 : 40 }}>
               {[
-                { num: '01', title: 'הרבי קרא כל מכתב', body: 'במשך עשרות שנות נשיאותו קיבל הרבי מכתבים ממאות אלפי אנשים מכל העולם — ואמר: "כתבו אלי על כל דבר, גם על בשורות טובות."' },
+                { num: '01', title: 'הרבי קורא כל מכתב', body: 'במשך עשרות שנות נשיאותו קיבל הרבי מכתבים ממאות אלפי אנשים מכל העולם — ואמר: "כתבו אלי על כל דבר, גם על בשורות טובות."' },
                 { num: '02', title: 'כאז כן היום', body: 'גם כיום, לאחר ההסתלקות, כותבים מאות אלפי אנשים אל הרבי — מכתבים, פדיוני נפש ובקשות ברכה.' },
                 { num: '03', title: 'המכתב מגיע', body: 'כל מכתב מודפס ונשלח אל הציון שבאוהל הקדוש בקווינס, ניו יורק — שם הוא מונח על ציון הרבי, ורבים זוכים לראות ישועות וברכות.' },
               ].map((item) => (

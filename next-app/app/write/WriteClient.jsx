@@ -19,7 +19,7 @@ const PAN_STEPS = [
   { title: 'נטילת ידיים', body: 'נוטלים ידיים לפני הכתיבה — מעשה של טהרה שמסמן לנו שאנו עומדים לעשות דבר שנעלה מן הרגיל.' },
   { title: <>כתיבה <em style={{ fontStyle: 'normal', color: 'var(--oh-gold-letter)' }}>לאחר התפילה</em></>, body: 'הזמן המומלץ לכתיבה הוא לאחר תפילת שחרית — כשהאדם כבר נמצא במצב של כוונה וקשר לקדושה.' },
   { title: 'קבלת החלטה טובה', body: 'כללו — או החליטו בלב — קבלת החלטה טובה אחת. היא יוצרת "כלי" שדרכו יכולה הברכה לחול. אין צורך בדבר גדול — אפילו קטן ואמיתי.' },
-  { title: 'על הנוסח', body: 'הנוסח המקובל בחב"ד: "אנא לעורר רחמים רבים על [שם] בן/בת [שם האם]" — בגוף שלישי, ללא כתיבת "אני". לאחר הנוסח — ממשיכים בלשונכם האישית.', nusachPan: true },
+  { title: 'על הנוסח', body: 'הנוסח המקובל בחב"ד: "אנא לעורר רחמים רבים על נפש רוח נשמה של [שם] בן/בת [שם האם]" — בגוף שלישי, ללא כתיבת "אני". לאחר הנוסח — ממשיכים בלשונכם האישית.', nusachPan: true },
 ];
 
 function getHebrewDate() {
@@ -269,7 +269,7 @@ export default function WriteClient() {
                 <div style={{ marginBottom: 28, paddingBottom: 24, borderBottom: '1px solid var(--oh-line)', fontFamily: 'var(--oh-serif)', lineHeight: 1.85 }}>
                   <div style={{ fontSize: 20, color: 'var(--oh-ink)', textAlign: 'center', marginBottom: 10, fontWeight: 700, letterSpacing: '.06em' }}>פ״נ</div>
                   <div style={{ fontSize: 20, color: 'var(--oh-ink)' }}>
-                    אָנָּא לְעוֹרֵר רַחֲמִים רַבִּים עַל{' '}
+                    אנא לעורר רחמים רבים על נפש רוח נשמה של{' '}
                     <span style={{ color: fullName.trim() ? 'var(--oh-ink)' : '#c4b89a', borderBottom: fullName.trim() ? 'none' : '1px dashed #c4b89a' }}>{nusachName}</span>
                     {' '}{gender}{' '}
                     <span style={{ color: motherName.trim() ? 'var(--oh-ink)' : '#c4b89a', borderBottom: motherName.trim() ? 'none' : '1px dashed #c4b89a' }}>{nusachMother}</span>
@@ -359,7 +359,7 @@ export default function WriteClient() {
                 <p style={{ fontSize: m ? 15 : 17, color: '#5c5550', maxWidth: '28em', margin: '0 auto', lineHeight: 1.85 }}>{STEPS[step].body}</p>
                 {STEPS[step].nusachPan && (
                   <div style={{ marginTop: 20, background: '#faf6ee', border: '1px solid #e4dcd0', borderRadius: 10, padding: '16px 20px', fontFamily: 'var(--oh-serif)', fontSize: 17, color: '#1e1a17', lineHeight: 1.8 }}>
-                    ״אָנָּא לְעוֹרֵר רַחֲמִים רַבִּים עַל <span style={{ color: '#b5864a' }}>[שם]</span> בן/בת <span style={{ color: '#b5864a' }}>[שם האם]</span>״
+                    ״אנא לעורר רחמים רבים על נפש רוח נשמה של <span style={{ color: '#b5864a' }}>[שם]</span> בן/בת <span style={{ color: '#b5864a' }}>[שם האם]</span>״
                   </div>
                 )}
               </div>

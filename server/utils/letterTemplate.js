@@ -36,7 +36,7 @@ export const buildLetterHTML = ({ mode, name, motherName, gender, text, hebrewDa
 
   let main;
   if (isPan) {
-    const nusach = `אנא לעורר רחמים רבים על ${displayName || '[שם]'} ${displayGender} ${displayMother || '[שם האם]'}`;
+    const nusach = `אנא לעורר רחמים רבים על נפש רוח נשמה של ${displayName || '[שם]'} ${displayGender} ${displayMother || '[שם האם]'}`;
     const request = text?.trim() ? ' ' + textToHtml(text.replace(/^\s+/, '')) : '';
     main = `<div class="pan-heading">פ״נ</div>
       <div class="block body">${nusach}${request}</div>`;

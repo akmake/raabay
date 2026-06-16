@@ -236,7 +236,7 @@ export default function WritePidyonClient() {
             }}>
               <div style={{ fontSize: 20, color: 'var(--oh-ink)', textAlign: 'center', marginBottom: 10, fontWeight: 700, letterSpacing: '.06em' }}>פ״נ</div>
               <div style={{ fontSize: 20, color: 'var(--oh-ink)' }}>
-                אָנָּא לְעוֹרֵר רַחֲמִים רַבִּים עַל{' '}
+                אנא לעורר רחמים רבים על נפש רוח נשמה של{' '}
                 <span style={{
                   color: fullName.trim() ? 'var(--oh-ink)' : '#c4b89a',
                   borderBottom: fullName.trim() ? 'none' : '1px dashed #c4b89a',
@@ -361,7 +361,7 @@ export default function WritePidyonClient() {
                     padding: '18px 22px', fontFamily: 'var(--oh-serif)', fontSize: 18,
                     color: '#e9e3d3', lineHeight: 1.7,
                   }}>
-                    ״אָנָּא לְעוֹרֵר רַחֲמִים רַבִּים עַל{' '}
+                    ״אנא לעורר רחמים רבים על נפש רוח נשמה של{' '}
                     <span style={{ color: 'var(--oh-gold-letter)' }}>[שם]</span>{' '}
                     בן/בת{' '}
                     <span style={{ color: 'var(--oh-gold-letter)' }}>[שם האם]</span>
