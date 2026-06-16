@@ -1,4 +1,4 @@
-import MikhtavClient from './MikhtavClient';
+﻿import MikhtavClient from './MikhtavClient';
 
 export const metadata = {
   title: 'איך כותבים מכתב לרבי | נוסח כתיבה לרבי מליובאוויטש',
@@ -8,11 +8,11 @@ export const metadata = {
     'שלבי הכתיבה לרבי', 'כתיבת מכתב לרבי', 'מה כותבים לרבי',
     'כתיבה לרבי וקבלת ברכה ועצה', 'ליובאוויטש', 'חב"ד',
   ],
-  alternates: { canonical: 'https://raabay.co.il/mikhtav' },
+  alternates: { canonical: 'https://writingtotherabbi.com/mikhtav' },
   openGraph: {
     title: 'איך כותבים מכתב לרבי | נוסח ושלבי הכתיבה',
     description: 'נוסח מכתב לרבי מליובאוויטש, שלבי הכתיבה ומה כותבים — מדריך מלא.',
-    url: 'https://raabay.co.il/mikhtav',
+    url: 'https://writingtotherabbi.com/mikhtav',
     images: [{ url: '/rebbe.webp', alt: 'הרבי מליובאוויטש' }],
   },
 };

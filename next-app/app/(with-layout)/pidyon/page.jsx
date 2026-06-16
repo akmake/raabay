@@ -1,4 +1,4 @@
-import PidyonClient from './PidyonClient';
+﻿import PidyonClient from './PidyonClient';
 
 export const metadata = {
   title: 'נוסח כתיבת פ"נ לרבי | פדיון נפש לרבי מליובאוויטש — מדריך מלא',
@@ -8,11 +8,11 @@ export const metadata = {
     'נוסח פדיון נפש ליובאוויטש', 'שלח מכתב בקשת ברכה לרבי מליובאוויטש',
     'בקשת ברכה מהרבי מליובאוויטש', 'ראש השנה פ"נ', 'חב"ד',
   ],
-  alternates: { canonical: 'https://raabay.co.il/pidyon' },
+  alternates: { canonical: 'https://writingtotherabbi.com/pidyon' },
   openGraph: {
     title: 'נוסח כתיבת פ"נ לרבי | פדיון נפש מליובאוויטש',
     description: 'נוסח פדיון נפש לרבי, שלבי הכתיבה, מתי כותבים ומה כותבים.',
-    url: 'https://raabay.co.il/pidyon',
+    url: 'https://writingtotherabbi.com/pidyon',
     images: [{ url: '/rebbe.webp', alt: 'הרבי מליובאוויטש' }],
   },
 };

@@ -1,8 +1,8 @@
-import './globals.css';
+﻿import './globals.css';
 import Providers from './providers';
 
 export const metadata = {
-  metadataBase: new URL('https://raabay.co.il'),
+  metadataBase: new URL('https://writingtotherabbi.com'),
   title: {
     default: 'כתיבת מכתב לרבי מליובאוויטש | בקשת ברכה לאוהל | מכתב לרבי אונליין',
     template: '%s | כתיבה לרבי',
@@ -21,7 +21,7 @@ export const metadata = {
     icon: '/rebbe.webp',
     apple: '/rebbe.webp',
   },
-  alternates: { canonical: 'https://raabay.co.il' },
+  alternates: { canonical: 'https://writingtotherabbi.com' },
   openGraph: {
     type: 'website',
     locale: 'he_IL',
@@ -42,20 +42,20 @@ const jsonLd = {
   '@graph': [
     {
       '@type': 'WebSite',
-      '@id': 'https://raabay.co.il/#website',
-      url: 'https://raabay.co.il',
+      '@id': 'https://writingtotherabbi.com/#website',
+      url: 'https://writingtotherabbi.com',
       name: 'כתיבה לרבי — מכתב לרבי מליובאוויטש אונליין',
       description: 'שלחו מכתב בקשת ברכה לרבי מליובאוויטש — כתיבה לרבי וקבלת ברכה ועצה',
       inLanguage: 'he',
     },
     {
       '@type': 'Organization',
-      '@id': 'https://raabay.co.il/#organization',
+      '@id': 'https://writingtotherabbi.com/#organization',
       name: 'כתיבה לרבי',
-      url: 'https://raabay.co.il',
+      url: 'https://writingtotherabbi.com',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://raabay.co.il/rebbe.webp',
+        url: 'https://writingtotherabbi.com/rebbe.webp',
       },
     },
     {
@@ -90,7 +90,7 @@ const jsonLd = {
           name: 'כיצד שולחים מכתב בקשת ברכה לרבי מליובאוויטש?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'נכנסים לאתר raabay.co.il, כותבים את המכתב או הפ"נ אונליין, ושולחים. המכתב מודפס ונשלח פיזית לאוהל הקדוש בקווינס, ניו יורק — שם הוא מונח על ציון הרבי.',
+            text: 'נכנסים לאתר writingtotherabbi.com, כותבים את המכתב או הפ"נ אונליין, ושולחים. המכתב מודפס ונשלח פיזית לאוהל הקדוש בקווינס, ניו יורק — שם הוא מונח על ציון הרבי.',
           },
         },
         {
@@ -106,7 +106,7 @@ const jsonLd = {
           name: 'האם ניתן לשלוח מכתב לרבי מליובאוויטש אונליין?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'כן. באתר raabay.co.il ניתן לכתוב ולשלוח מכתב לרבי מליובאוויטש אונליין. המכתב מודפס ונשלח פיזית לאוהל הקדוש בקווינס, ניו יורק.',
+            text: 'כן. באתר writingtotherabbi.com ניתן לכתוב ולשלוח מכתב לרבי מליובאוויטש אונליין. המכתב מודפס ונשלח פיזית לאוהל הקדוש בקווינס, ניו יורק.',
           },
         },
       ],

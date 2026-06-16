@@ -1,4 +1,4 @@
-import WriteClient from './WriteClient';
+﻿import WriteClient from './WriteClient';
 
 export const metadata = {
   title: 'שלח מכתב לרבי מליובאוויטש אונליין | כתיבת מכתב לרבי',
@@ -8,11 +8,11 @@ export const metadata = {
     'כתיבת מכתב לרבי', 'בקשת ברכה מהרבי מליובאוויטש',
     'כתיבה לרבי וקבלת ברכה ועצה', 'מכתב לאוהל',
   ],
-  alternates: { canonical: 'https://raabay.co.il/write' },
+  alternates: { canonical: 'https://writingtotherabbi.com/write' },
   openGraph: {
     title: 'שלח מכתב לרבי מליובאוויטש אונליין',
     description: 'כתוב ושלח מכתב בקשת ברכה לרבי — המכתב מגיע לאוהל הקדוש.',
-    url: 'https://raabay.co.il/write',
+    url: 'https://writingtotherabbi.com/write',
     images: [{ url: '/rebbe.webp', alt: 'הרבי מליובאוויטש' }],
   },
 };
