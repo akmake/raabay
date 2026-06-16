@@ -37,7 +37,7 @@ export default function ClassicPage() {
                 יש כתובת<br /><span style={{ color: V.gold }}>שאליה אפשר לפנות</span>
               </h1>
               <p style={{ fontSize: 15, color: 'rgba(255,255,255,.76)', lineHeight: 1.8, marginBottom: 32, maxWidth: '28em', marginInline: 'auto' }}>
-                מאות אלפי אנשים מכל קצוות תבל כותבים אל הרבי מליובאוויטש. כל מכתב נשלח לאוהל הקדוש — ומגיע.
+                מאות אלפי אנשים מכל קצוות תבל — קרובים ורחוקים, מכל הרקעים — כותבים אל הרבי מליובאוויטש. כל מכתב נשלח לציון שבאוהל הקדוש מתוך אמונה וביטחון לקבלת ברכה, עצה וישועה.
               </p>
               <Link href="/write" style={{ display: 'block', background: V.gold, color: V.navy, padding: '17px 32px', borderRadius: 10, textDecoration: 'none', fontWeight: 700, fontSize: 17, boxShadow: '0 4px 28px rgba(176,141,74,.45)' }}>
                 ✦&nbsp;&nbsp;לכתיבת המכתב
@@ -56,7 +56,7 @@ export default function ClassicPage() {
                   יש כתובת<br /><span style={{ color: V.gold }}>שאליה אפשר לפנות</span>
                 </h1>
                 <p style={{ fontSize: 19, fontWeight: 500, color: V.inkSoft, lineHeight: 1.65, marginBottom: 34 }}>
-                  מאות אלפי אנשים מכל קצוות תבל — קרובים ורחוקים, מכל הרקעים — כותבים אל הרבי מליובאוויטש. כל מכתב נשלח לציון באוהל הקדוש שבקווינס, ניו יורק, מתוך אמונה וביטחון לקבלת ברכה, עצה וישועה.
+                  מאות אלפי אנשים מכל קצוות תבל — קרובים ורחוקים, מכל הרקעים — כותבים אל הרבי מליובאוויטש. כל מכתב נשלח לציון שבאוהל הקדוש מתוך אמונה וביטחון לקבלת ברכה, עצה וישועה.
                 </p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 28, flexWrap: 'wrap' }}>
                   <Link href="/write" style={{ background: V.navy, color: '#fff', padding: '14px 32px', borderRadius: 6, textDecoration: 'none', fontWeight: 700, fontSize: 15 }}>לכתיבת המכתב &nbsp;←</Link>
