@@ -110,37 +110,119 @@ export default function WriteClient() {
 
         {/* Mode chooser */}
         {!mode && (
-          <div style={{ maxWidth: 720, margin: m ? '40px auto 0' : '80px auto 0', padding: m ? '0 16px' : '0 24px', textAlign: 'center' }}>
+          <div style={{ minHeight: 'calc(100vh - 60px)', background: '#ffffff', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: m ? '40px 16px 60px' : '60px 24px 80px', position: 'relative', overflow: 'hidden' }}>
 
-            <div style={{ display: 'inline-block', background: '#f5f3ef', border: '1px solid #ddd8cf', borderRadius: 8, padding: '10px 20px', marginBottom: m ? 28 : 40 }}>
+          <div style={{ maxWidth: 780, width: '100%', textAlign: 'center', position: 'relative', zIndex: 1 }}>
+
+            <style>{`
+              @keyframes fadeUp {
+                from { opacity: 0; transform: translateY(22px); }
+                to   { opacity: 1; transform: translateY(0); }
+              }
+              .oh-mode-card-v2 {
+                background: #fffdf9;
+                border-radius: 20px;
+                cursor: pointer;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                border: 1.5px solid #e8e2d8;
+                box-shadow: 0 4px 28px rgba(20,34,63,.07);
+                transition: transform .28s cubic-bezier(.4,0,.2,1), box-shadow .28s cubic-bezier(.4,0,.2,1), border-color .28s ease;
+                animation: fadeUp .55s cubic-bezier(.4,0,.2,1) both;
+              }
+              .oh-mode-card-v2:hover {
+                transform: translateY(-6px) scale(1.015);
+                box-shadow: 0 20px 56px rgba(176,141,74,.18), 0 4px 20px rgba(20,34,63,.1);
+                border-color: rgba(176,141,74,.55);
+              }
+              .oh-mode-card-v2:hover .card-icon-bg {
+                background: rgba(176,141,74,.14);
+                border-color: rgba(176,141,74,.4);
+              }
+              .oh-mode-card-v2:hover .card-title {
+                color: #14223f;
+              }
+              .oh-mode-card-v2:hover .card-cta {
+                color: #b08d4a;
+                gap: 10px;
+              }
+              .card-cta {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 14px;
+                font-weight: 700;
+                color: #14223f;
+                transition: gap .2s ease, color .2s ease;
+              }
+            `}</style>
+
+            <div style={{ animation: 'fadeUp .4s cubic-bezier(.4,0,.2,1) both', display: 'inline-block', background: '#f5f3ef', border: '1px solid #ddd8cf', borderRadius: 8, padding: '10px 20px', marginBottom: m ? 28 : 40 }}>
               <span style={{ fontSize: 13.5, color: 'var(--oh-ink-soft)', lineHeight: 1.6 }}>
                 מעדיפים לכתוב בכתב יד? בתחתית עמוד הכתיבה תוכלו <strong style={{ color: 'var(--oh-ink)', fontWeight: 600 }}>להעלות תמונה של המכתב</strong> — והוא ישלח לאוהל.
               </span>
             </div>
-            <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: '.2em', color: 'var(--oh-gold-deep)', textTransform: 'uppercase', marginBottom: 14 }}>רגע של קרבה</div>
-            <h1 style={{ fontFamily: 'var(--oh-serif)', fontWeight: 500, fontSize: m ? 28 : 38, color: 'var(--oh-ink)', marginBottom: 10 }}>מה תרצו לכתוב?</h1>
-            <p style={{ fontSize: m ? 15 : 16, color: 'var(--oh-ink-soft)', maxWidth: '34em', margin: m ? '0 auto 28px' : '0 auto 52px', lineHeight: 1.9 }}>
-              לא בטוחים מה לבחור? בחרו לפי <strong style={{ color: 'var(--oh-ink)' }}>מתי</strong> אתם כותבים.
-            </p>
-            <div style={{ display: 'grid', gridTemplateColumns: m ? '1fr' : '1fr 1fr', gap: m ? 14 : 20 }}>
+
+            <div style={{ animation: 'fadeUp .45s .05s cubic-bezier(.4,0,.2,1) both' }}>
+              <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.22em', color: '#b08d4a', textTransform: 'uppercase', marginBottom: 14 }}>רגע של קרבה</div>
+              <h1 style={{ fontFamily: 'var(--oh-serif)', fontWeight: 500, fontSize: m ? 30 : 42, color: 'var(--oh-ink)', marginBottom: 12 }}>מה תרצו לכתוב?</h1>
+              <p style={{ fontSize: m ? 15 : 16, color: 'var(--oh-ink-soft)', maxWidth: '32em', margin: m ? '0 auto 32px' : '0 auto 56px', lineHeight: 1.9 }}>
+                לא בטוחים מה לבחור? בחרו לפי <strong style={{ color: 'var(--oh-ink)' }}>מתי</strong> אתם כותבים.
+              </p>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: m ? '1fr' : '1fr 1fr', gap: m ? 16 : 24 }}>
               {[
-                { key: 'letter', title: 'מכתב', sub: 'בכל עת', desc: 'כשאין אירוע מיוחד — רוצים לפנות לרבי, לשתף, לבקש או להודות. בלשון חופשית לחלוטין.', infoTo: '/mikhtav', infoLabel: 'מה זה מכתב?' },
-                { key: 'pan', title: 'פ"נ', sub: 'בזמנים מיוחדים', desc: 'ערב ראש השנה · יום הולדת · י"ט כסלו · י"ב תמוז · ג׳ תמוז · יו"ד שבט', infoTo: '/pidyon', infoLabel: 'מה זה פ"נ?' },
+                {
+                  key: 'letter', title: 'מכתב', sub: 'בכל עת',
+                  desc: 'כשאין אירוע מיוחד — רוצים לפנות לרבי, לשתף, לבקש או להודות. בלשון חופשית לחלוטין.',
+                  infoTo: '/mikhtav', infoLabel: 'מה זה מכתב?',
+                  delay: '.1s',
+                  icon: (
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#b08d4a" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 5H3a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1Z"/>
+                      <path d="m3 6 9 7 9-7"/>
+                    </svg>
+                  ),
+                },
+                {
+                  key: 'pan', title: 'פ"נ', sub: 'בזמנים מיוחדים',
+                  desc: 'ערב ראש השנה · יום הולדת · י"ט כסלו · י"ב תמוז · ג׳ תמוז · יו"ד שבט',
+                  infoTo: '/pidyon', infoLabel: 'מה זה פ"נ?',
+                  delay: '.18s',
+                  icon: (
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#b08d4a" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7Z"/>
+                      <circle cx="12" cy="9" r="2.5"/>
+                    </svg>
+                  ),
+                },
               ].map(opt => (
-                <div key={opt.key} className="oh-mode-card" onClick={() => chooseMode(opt.key)}
-                  style={{ background: '#fff', borderRadius: 16, padding: m ? '28px 20px 22px' : '40px 32px 32px', cursor: 'pointer', textAlign: 'center', display: 'flex', flexDirection: 'column', border: '1.5px solid #d8d8d8', boxShadow: '0 4px 24px rgba(20,34,63,.09)' }}>
-                  <div style={{ width: 48, height: 2, background: '#b08d4a', margin: '0 auto 20px' }} />
-                  <div style={{ fontFamily: 'var(--oh-serif)', fontSize: m ? 38 : 52, fontWeight: 700, color: 'var(--oh-ink)', lineHeight: 1, marginBottom: 8 }}>{opt.title}</div>
-                  <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.2em', color: '#b08d4a', textTransform: 'uppercase', marginBottom: m ? 12 : 20 }}>{opt.sub}</div>
-                  <div style={{ fontSize: m ? 14 : 15, color: 'var(--oh-ink-soft)', lineHeight: 1.7, flex: 1 }}>{opt.desc}</div>
-                  <div style={{ marginTop: m ? 20 : 32, paddingTop: m ? 16 : 24, borderTop: '1px solid #f0f0f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Link href={opt.infoTo} onClick={e => e.stopPropagation()} style={{ fontSize: 13, color: 'var(--oh-blue)', fontWeight: 600, textDecoration: 'none' }}>{opt.infoLabel} ›</Link>
-                    <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--oh-ink)' }}>לכתיבה ←</span>
+                <div key={opt.key} className="oh-mode-card-v2" onClick={() => chooseMode(opt.key)}
+                  style={{ padding: m ? '32px 24px 26px' : '48px 36px 36px', animationDelay: opt.delay }}>
+
+                  {/* Icon circle */}
+                  <div className="card-icon-bg" style={{ width: 60, height: 60, borderRadius: '50%', background: 'rgba(176,141,74,.08)', border: '1.5px solid rgba(176,141,74,.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px', transition: 'background .28s ease, border-color .28s ease' }}>
+                    {opt.icon}
+                  </div>
+
+                  <div className="card-title" style={{ fontFamily: 'var(--oh-serif)', fontSize: m ? 42 : 58, fontWeight: 700, color: '#1a1612', lineHeight: 1, marginBottom: 10, transition: 'color .2s ease' }}>{opt.title}</div>
+                  <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.22em', color: '#b08d4a', textTransform: 'uppercase', marginBottom: m ? 16 : 24 }}>{opt.sub}</div>
+                  <div style={{ fontSize: m ? 14 : 15, color: 'var(--oh-ink-soft)', lineHeight: 1.75, flex: 1, maxWidth: '22em', margin: '0 auto' }}>{opt.desc}</div>
+
+                  <div style={{ marginTop: m ? 24 : 36, paddingTop: m ? 18 : 26, borderTop: '1px solid #ede8df', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Link href={opt.infoTo} onClick={e => e.stopPropagation()} style={{ fontSize: 13, color: 'var(--oh-blue)', fontWeight: 600, textDecoration: 'none', opacity: .8 }}>{opt.infoLabel} ›</Link>
+                    <span className="card-cta">
+                      לכתיבה
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+                    </span>
                   </div>
                 </div>
               ))}
             </div>
           </div>
+        </div>
         )}
 
         {/* Writing surface */}
