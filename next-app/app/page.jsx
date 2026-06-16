@@ -33,10 +33,10 @@ export default function ClassicPage() {
                 <span style={{ width: 5, height: 5, borderRadius: '50%', background: V.gold, display: 'block', flexShrink: 0 }} />
                 <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.14em', color: V.gold }}>כיחידות ממש — פגישה אישית</span>
               </div>
-              <h1 style={{ fontFamily: V.serif, fontWeight: 600, fontSize: 34, lineHeight: 1.22, color: '#fff', marginBottom: 16 }}>
-                הרבי קורא את המכתבים,<br />שמח בשמחתכם,<br /><span style={{ color: V.gold }}>כואב בכאבכם</span>
+              <h1 style={{ fontFamily: V.serif, fontWeight: 700, fontSize: 42, lineHeight: 1.15, color: '#fff', marginBottom: 16, letterSpacing: '-.01em' }}>
+                יש כתובת<br /><span style={{ color: V.gold }}>שאליה אפשר לפנות</span>
               </h1>
-              <p style={{ fontSize: 15, color: 'rgba(255,255,255,.76)', lineHeight: 1.8, marginBottom: 32, maxWidth: '28em', marginInline: 'auto' }}>
+              <p style={{ fontSize: 15.5, color: 'rgba(255,255,255,.72)', lineHeight: 1.85, marginBottom: 32, maxWidth: '26em', marginInline: 'auto' }}>
                 מאות אלפי אנשים מכל קצוות תבל כותבים אל הרבי מליובאוויטש. כל מכתב נשלח לאוהל הקדוש — ומגיע.
               </p>
               <Link href="/write" style={{ display: 'block', background: V.gold, color: V.navy, padding: '17px 32px', borderRadius: 10, textDecoration: 'none', fontWeight: 700, fontSize: 17, boxShadow: '0 4px 28px rgba(176,141,74,.45)' }}>
@@ -52,11 +52,11 @@ export default function ClassicPage() {
                   <span style={{ width: 5, height: 5, borderRadius: '50%', background: V.gold, display: 'block', flexShrink: 0 }} />
                   <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.14em', color: V.gold }}>כיחידות ממש — פגישה אישית</span>
                 </div>
-                <h1 style={{ fontFamily: V.serif, fontWeight: 600, fontSize: 50, lineHeight: 1.25, color: V.ink, marginBottom: 24 }}>
-                  הרבי קורא את המכתבים,<br />שמח בשמחתכם,<br /><span style={{ color: V.gold }}>כואב בכאבכם</span> — כאז כן היום.
+                <h1 style={{ fontFamily: V.serif, fontWeight: 700, fontSize: 62, lineHeight: 1.12, color: V.ink, marginBottom: 24, letterSpacing: '-.02em' }}>
+                  יש כתובת<br /><span style={{ color: V.gold }}>שאליה אפשר לפנות</span>
                 </h1>
-                <p style={{ fontSize: 17, color: V.inkSoft, lineHeight: 1.85, marginBottom: 34, maxWidth: '38em' }}>
-                  מאות אלפי אנשים מכל קצוות תבל — קרובים ורחוקים, מכל הרקעים — כותבים אל הרבי מליובאוויטש. כל מכתב נשלח לציון באוהל הקדוש שבקווינס, ניו יורק, מתוך אמונה וביטחון לקבלת ברכה, עצה וישועה. 
+                <p style={{ fontSize: 17, color: V.inkSoft, lineHeight: 1.85, marginBottom: 34, maxWidth: '34em' }}>
+                  מאות אלפי אנשים מכל קצוות תבל כותבים אל הרבי מליובאוויטש. כל מכתב נשלח לציון באוהל הקדוש שבקווינס, ניו יורק — מתוך אמונה שהמכתב מגיע.
                 </p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 28, flexWrap: 'wrap' }}>
                   <Link href="/write" style={{ background: V.navy, color: '#fff', padding: '14px 32px', borderRadius: 6, textDecoration: 'none', fontWeight: 700, fontSize: 15 }}>לכתיבת המכתב &nbsp;←</Link>
