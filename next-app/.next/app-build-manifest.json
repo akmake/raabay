@@ -40,6 +40,11 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/(with-layout)/pidyon/page.js"
+    ],
+    "/(with-layout)/maala/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(with-layout)/maala/page.js"
     ]
   }
 }
