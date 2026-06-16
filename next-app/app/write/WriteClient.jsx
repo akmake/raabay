@@ -227,17 +227,17 @@ export default function WriteClient() {
 
         {/* Writing surface */}
         {mode && (
-          <div style={{ maxWidth: 920, margin: '14px auto 0', padding: '0 24px' }}>
+          <div style={{ maxWidth: 920, margin: '14px auto 0', padding: m ? '0 12px' : '0 24px' }}>
             <div style={{ textAlign: 'center', margin: '8px 0 26px' }}>
               <div style={{ fontSize: 12.5, fontWeight: 600, letterSpacing: '.2em', color: 'var(--oh-gold-deep)', textTransform: 'uppercase' }}>{mode === 'pan' ? 'פדיון נפש' : 'רגע של קרבה'}</div>
-              <h1 style={{ fontFamily: 'var(--oh-serif)', fontWeight: 500, fontSize: 34, color: 'var(--oh-ink)', marginTop: 8 }}>{mode === 'pan' ? 'כתבו את הפ"נ שלכם' : 'כתבו את אשר על לבכם'}</h1>
+              <h1 style={{ fontFamily: 'var(--oh-serif)', fontWeight: 500, fontSize: m ? 26 : 34, color: 'var(--oh-ink)', marginTop: 8 }}>{mode === 'pan' ? 'כתבו את הפ"נ שלכם' : 'כתבו את אשר על לבכם'}</h1>
               <button onClick={() => { setMode(null); setLetterText(''); setFullName(''); setMotherName(''); }}
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--oh-ink-soft)', fontSize: 13, fontFamily: 'var(--oh-sans)', marginTop: 6, textDecoration: 'underline', textUnderlineOffset: 3 }}>
                 ← חזרה לבחירה
               </button>
             </div>
 
-            <div style={{ position: 'relative', background: 'var(--oh-paper-warm)', border: '1px solid var(--oh-paper-edge)', borderRadius: 4, boxShadow: '0 1px 0 rgba(255,255,255,.7) inset, 0 40px 80px -50px rgba(20,34,63,.55), 0 8px 24px -18px rgba(20,34,63,.3)', minHeight: mode === 'pan' ? 'auto' : 880, padding: '64px 74px 48px' }}>
+            <div style={{ position: 'relative', background: 'var(--oh-paper-warm)', border: '1px solid var(--oh-paper-edge)', borderRadius: 4, boxShadow: '0 1px 0 rgba(255,255,255,.7) inset, 0 40px 80px -50px rgba(20,34,63,.55), 0 8px 24px -18px rgba(20,34,63,.3)', minHeight: mode === 'pan' ? 'auto' : 880, padding: m ? '40px 20px 32px' : '64px 74px 48px' }}>
               <div style={{ position: 'absolute', inset: 9, border: '1px solid #efe7d4', borderRadius: 2, pointerEvents: 'none' }} />
               <div style={{ position: 'absolute', top: 20, left: 0, right: 0, textAlign: 'center', fontFamily: 'var(--oh-serif)', fontSize: 15, color: '#b3a98f', letterSpacing: '.08em' }}>ב״ה</div>
               <div style={{ textAlign: 'center', fontSize: 13, color: '#a59c84', marginBottom: 30, letterSpacing: '.04em' }}>{hebrewDate}</div>
@@ -320,17 +320,19 @@ export default function WriteClient() {
                 </label>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 20, marginTop: 28, paddingTop: 24, borderTop: '1px solid var(--oh-line)', flexWrap: 'wrap' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 9, fontSize: 13.5, color: 'var(--oh-ink-soft)' }}>
+              <div style={{ marginTop: 28, paddingTop: 24, borderTop: '1px solid var(--oh-line)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 9, fontSize: 13, color: 'var(--oh-ink-soft)', marginBottom: 16 }}>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--oh-gold-deep)" strokeWidth="2"><rect x="4" y="10" width="16" height="11" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3" /></svg>
                   פרטי לחלוטין · בינכם לבין הרבי
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-                  <button onClick={handlePreview} disabled={sending} style={{ fontFamily: 'var(--oh-sans)', fontSize: 15, fontWeight: 600, cursor: sending ? 'default' : 'pointer', background: 'transparent', color: 'var(--oh-ink)', border: '1.5px solid var(--oh-line)', padding: '13px 22px', borderRadius: 6, display: 'inline-flex', alignItems: 'center', gap: 9 }}>
-                    תצוגה מקדימה
-                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z" /><circle cx="12" cy="12" r="3" /></svg>
-                  </button>
-                  <button onClick={handleSend} disabled={sending} style={{ fontFamily: 'var(--oh-sans)', fontSize: 16, fontWeight: 600, cursor: sending ? 'default' : 'pointer', border: 'none', background: sending ? '#7a6b5a' : 'var(--oh-night)', color: 'var(--oh-paper-warm)', padding: '14px 30px', borderRadius: 6, display: 'inline-flex', alignItems: 'center', gap: 10, opacity: sending ? .8 : 1 }}>
+                <div style={{ display: 'flex', flexDirection: m ? 'column' : 'row', alignItems: m ? 'stretch' : 'center', gap: 10 }}>
+                  {!m && (
+                    <button onClick={handlePreview} disabled={sending} style={{ fontFamily: 'var(--oh-sans)', fontSize: 15, fontWeight: 600, cursor: sending ? 'default' : 'pointer', background: 'transparent', color: 'var(--oh-ink)', border: '1.5px solid var(--oh-line)', padding: '13px 22px', borderRadius: 6, display: 'inline-flex', alignItems: 'center', gap: 9 }}>
+                      תצוגה מקדימה
+                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z" /><circle cx="12" cy="12" r="3" /></svg>
+                    </button>
+                  )}
+                  <button onClick={handleSend} disabled={sending} style={{ fontFamily: 'var(--oh-sans)', fontSize: 16, fontWeight: 600, cursor: sending ? 'default' : 'pointer', border: 'none', background: sending ? '#7a6b5a' : 'var(--oh-night)', color: 'var(--oh-paper-warm)', padding: '15px 30px', borderRadius: 6, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, opacity: sending ? .8 : 1, width: m ? '100%' : 'auto' }}>
                     {sending ? 'שולח...' : <>{mode === 'pan' ? 'שליחת הפ"נ' : 'שליחת המכתב'} <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7Z" /></svg></>}
                   </button>
                 </div>
@@ -347,14 +349,14 @@ export default function WriteClient() {
 
       {/* Prep modal */}
       {mode && !prepGone && (
-        <div style={{ position: 'fixed', inset: 0, zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(20,16,12,0.65)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', padding: 32, opacity: prepHiding ? 0 : 1, transition: 'opacity .5s ease', pointerEvents: prepHiding ? 'none' : 'auto' }}>
-          <div style={{ background: '#fff', borderRadius: 18, width: '100%', maxWidth: 540, padding: '44px 44px 36px', position: 'relative', boxShadow: '0 20px 60px rgba(20,16,12,.22)', border: '1px solid #e4dcd0', animation: prepHiding ? 'none' : 'modalIn .35s cubic-bezier(.4,0,.2,1)' }}>
+        <div style={{ position: 'fixed', inset: 0, zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(20,16,12,0.65)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', padding: m ? 16 : 32, opacity: prepHiding ? 0 : 1, transition: 'opacity .5s ease', pointerEvents: prepHiding ? 'none' : 'auto' }}>
+          <div style={{ background: '#fff', borderRadius: 18, width: '100%', maxWidth: 540, padding: m ? '36px 22px 28px' : '44px 44px 36px', position: 'relative', boxShadow: '0 20px 60px rgba(20,16,12,.22)', border: '1px solid #e4dcd0', animation: prepHiding ? 'none' : 'modalIn .35s cubic-bezier(.4,0,.2,1)' }}>
             <div style={{ position: 'absolute', top: 0, right: 44, left: 44, height: 3, borderRadius: '0 0 3px 3px', background: 'linear-gradient(90deg, transparent, #b5864a, transparent)' }} />
             <div style={{ textAlign: 'center' }}>
               <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.28em', color: '#b5864a', marginBottom: 24, textTransform: 'uppercase' }}>הכנה {step + 1} מתוך {STEPS.length}</div>
               <div key={step} className="oh-rise">
-                <h2 style={{ fontFamily: 'var(--oh-serif)', fontWeight: 500, fontSize: 34, lineHeight: 1.2, color: '#1e1a17', marginBottom: 14 }}>{STEPS[step].title}</h2>
-                <p style={{ fontSize: 17, color: '#5c5550', maxWidth: '28em', margin: '0 auto', lineHeight: 1.85 }}>{STEPS[step].body}</p>
+                <h2 style={{ fontFamily: 'var(--oh-serif)', fontWeight: 500, fontSize: m ? 26 : 34, lineHeight: 1.2, color: '#1e1a17', marginBottom: 14 }}>{STEPS[step].title}</h2>
+                <p style={{ fontSize: m ? 15 : 17, color: '#5c5550', maxWidth: '28em', margin: '0 auto', lineHeight: 1.85 }}>{STEPS[step].body}</p>
                 {STEPS[step].nusachPan && (
                   <div style={{ marginTop: 20, background: '#faf6ee', border: '1px solid #e4dcd0', borderRadius: 10, padding: '16px 20px', fontFamily: 'var(--oh-serif)', fontSize: 17, color: '#1e1a17', lineHeight: 1.8 }}>
                     ״אָנָּא לְעוֹרֵר רַחֲמִים רַבִּים עַל <span style={{ color: '#b5864a' }}>[שם]</span> בן/בת <span style={{ color: '#b5864a' }}>[שם האם]</span>״

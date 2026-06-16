@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/layout/Navbar';
 import AccessibilityWidget from '@/components/AccessibilityWidget';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 const PAN_STEPS = [
   {
@@ -68,6 +69,7 @@ function getHebrewDate() {
 }
 
 export default function WritePidyonClient() {
+  const m = useIsMobile();
   const [step, setStep] = useState(0);
   const [prepHiding, setPrepHiding] = useState(false);
   const [prepGone, setPrepGone] = useState(false);
@@ -119,7 +121,7 @@ export default function WritePidyonClient() {
 
       <div style={{ minHeight: '100vh', background: '#ffffff', paddingTop: 60, paddingBottom: 80 }}>
         {/* Topbar */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', maxWidth: 1080, margin: '0 auto', padding: '22px 32px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', maxWidth: 1080, margin: '0 auto', padding: m ? '16px 16px' : '22px 32px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 11 }}>
             <div style={{ width: 40, height: 40, borderRadius: '50%', overflow: 'hidden', border: '1.5px solid var(--oh-gold)' }}>
               <img src="/הרבי.webp" alt="הרבי" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
@@ -155,7 +157,7 @@ export default function WritePidyonClient() {
         </div>
 
         {/* Letter */}
-        <div style={{ maxWidth: 920, margin: '14px auto 0', padding: '0 24px' }}>
+        <div style={{ maxWidth: 920, margin: '14px auto 0', padding: m ? '0 12px' : '0 24px' }}>
           <div style={{ textAlign: 'center', margin: '8px 0 26px' }}>
             <div style={{ fontSize: 12.5, fontWeight: 600, letterSpacing: '.2em', color: 'var(--oh-gold-deep)', textTransform: 'uppercase' }}>פדיון נפש</div>
             <h1 style={{ fontFamily: 'var(--oh-serif)', fontWeight: 500, fontSize: 34, color: 'var(--oh-ink)', marginTop: 8 }}>כתבו את הפ"נ שלכם</h1>
@@ -167,7 +169,7 @@ export default function WritePidyonClient() {
             border: '1px solid var(--oh-paper-edge)',
             borderRadius: 4,
             boxShadow: '0 1px 0 rgba(255,255,255,.7) inset, 0 40px 80px -50px rgba(20,34,63,.55), 0 8px 24px -18px rgba(20,34,63,.3)',
-            padding: '64px 74px 48px',
+            padding: m ? '40px 20px 32px' : '64px 74px 48px',
           }}>
             <div style={{ position: 'absolute', inset: 9, border: '1px solid #efe7d4', borderRadius: 2, pointerEvents: 'none' }} />
             <div style={{ position: 'absolute', top: 20, left: 0, right: 0, textAlign: 'center', fontFamily: 'var(--oh-serif)', fontSize: 15, color: '#b3a98f', letterSpacing: '.08em' }}>ב״ה</div>
@@ -312,7 +314,7 @@ export default function WritePidyonClient() {
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           background: 'rgba(10,18,36,0.5)',
           backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)',
-          padding: 32,
+          padding: m ? 16 : 32,
           opacity: prepHiding ? 0 : 1,
           transition: 'opacity .5s ease',
           pointerEvents: prepHiding ? 'none' : 'auto',
@@ -321,7 +323,7 @@ export default function WritePidyonClient() {
             background: 'var(--oh-night)',
             borderRadius: 20,
             width: '100%', maxWidth: 560,
-            padding: '40px 44px',
+            padding: m ? '32px 20px' : '40px 44px',
             position: 'relative',
             boxShadow: '0 24px 80px rgba(0,0,0,0.5)',
             border: '1px solid rgba(255,255,255,.08)',
@@ -345,7 +347,7 @@ export default function WritePidyonClient() {
               </div>
 
               <div key={step} className="oh-rise">
-                <h2 style={{ fontFamily: 'var(--oh-serif)', fontWeight: 500, fontSize: 38, lineHeight: 1.18, color: '#fff', marginBottom: 18 }}>
+                <h2 style={{ fontFamily: 'var(--oh-serif)', fontWeight: 500, fontSize: m ? 28 : 38, lineHeight: 1.18, color: '#fff', marginBottom: 18 }}>
                   {PAN_STEPS[step].title}
                 </h2>
                 <p style={{ fontSize: 18, color: 'var(--oh-mist)', maxWidth: '30em', margin: '0 auto' }}>
