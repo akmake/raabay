@@ -36,11 +36,9 @@ export const buildLetterHTML = ({ mode, name, motherName, gender, text, hebrewDa
 
   let main;
   if (isPan) {
-    // No salutation, no "הנני", no separator — the request continues on the
-    // same line as the nusach.
-    const nusach = `אָנָּא לְעוֹרֵר רַחֲמִים רַבִּים עַל ${displayName || '[שם]'} ${displayGender} ${displayMother || '[שם האם]'}`;
+    const nusach = `אנא לעורר רחמים רבים על ${displayName || '[שם]'} ${displayGender} ${displayMother || '[שם האם]'}`;
     const request = text?.trim() ? ' ' + textToHtml(text.replace(/^\s+/, '')) : '';
-    main = `<div class="block">פ״נ</div>
+    main = `<div class="pan-heading">פ״נ</div>
       <div class="block body">${nusach}${request}</div>`;
   } else {
     const signature = displayName
@@ -88,6 +86,8 @@ export const buildLetterHTML = ({ mode, name, motherName, gender, text, hebrewDa
   .block { text-align: right; margin-bottom: 4px; }
   .gap   { height: 18px; }
 
+  .pan-heading { text-align: center; margin-bottom: 10px; }
+
   .body {
     text-align: right;
     word-wrap: break-word;
@@ -95,8 +95,7 @@ export const buildLetterHTML = ({ mode, name, motherName, gender, text, hebrewDa
 </style>
 </head>
 <body>
-  <div class="bh">ב״ה</div>
-  <div class="date">${escapeHtml(hebrewDate)}</div>
+  ${!isPan ? `<div class="bh">ב״ה</div><div class="date">${escapeHtml(hebrewDate)}</div>` : ''}
   ${main}
 </body>
 </html>`;
