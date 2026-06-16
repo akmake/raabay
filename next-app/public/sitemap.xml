@@ -2,32 +2,68 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://raabay.co.il/</loc>
+    <lastmod>2026-06-16</lastmod>
     <priority>1.0</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://raabay.co.il/write</loc>
+    <lastmod>2026-06-16</lastmod>
     <priority>0.9</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://raabay.co.il/pidyon</loc>
+    <lastmod>2026-06-16</lastmod>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://raabay.co.il/ohel</loc>
+    <lastmod>2026-06-16</lastmod>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://raabay.co.il/mikhtav</loc>
+    <lastmod>2026-06-16</lastmod>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://raabay.co.il/maala</loc>
+    <lastmod>2026-06-16</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://raabay.co.il/write-pidyon</loc>
+    <lastmod>2026-06-16</lastmod>
     <priority>0.6</priority>
     <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://raabay.co.il/contact</loc>
+    <lastmod>2026-06-16</lastmod>
+    <priority>0.4</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <url>
+    <loc>https://raabay.co.il/privacy</loc>
+    <lastmod>2026-06-16</lastmod>
+    <priority>0.3</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <url>
+    <loc>https://raabay.co.il/terms</loc>
+    <lastmod>2026-06-16</lastmod>
+    <priority>0.3</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <url>
+    <loc>https://raabay.co.il/accessibility</loc>
+    <lastmod>2026-06-16</lastmod>
+    <priority>0.2</priority>
+    <changefreq>yearly</changefreq>
   </url>
 </urlset>

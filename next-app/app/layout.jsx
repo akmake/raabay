@@ -18,8 +18,8 @@ export const metadata = {
     'ליובאוויטש', 'חב״ד',
   ],
   icons: {
-    icon: '/הרבי.webp',
-    apple: '/הרבי.webp',
+    icon: '/rebbe.webp',
+    apple: '/rebbe.webp',
   },
   alternates: { canonical: 'https://raabay.co.il' },
   openGraph: {
@@ -27,13 +27,13 @@ export const metadata = {
     locale: 'he_IL',
     title: 'כתיבת מכתב לרבי מליובאוויטש | בקשת ברכה לאוהל',
     description: 'שלחו מכתב בקשת ברכה לרבי מליובאוויטש — נוסח מכתב, שלבי כתיבה, פ"נ. הכל אונליין.',
-    images: [{ url: '/הרבי.webp', alt: 'הרבי מליובאוויטש' }],
+    images: [{ url: '/rebbe.webp', alt: 'הרבי מליובאוויטש' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'כתיבת מכתב לרבי מליובאוויטש',
     description: 'שלחו מכתב בקשת ברכה לרבי — נוסח, שלבי כתיבה ופ"נ אונליין.',
-    images: ['/הרבי.webp'],
+    images: ['/rebbe.webp'],
   },
 };
 
@@ -55,7 +55,7 @@ const jsonLd = {
       url: 'https://raabay.co.il',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://raabay.co.il/%D7%94%D7%A8%D7%91%D7%99.webp',
+        url: 'https://raabay.co.il/rebbe.webp',
       },
     },
     {

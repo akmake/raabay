@@ -12,7 +12,7 @@ export const metadata = {
     title: 'מעלת הכתיבה לרבי מליובאוויטש',
     description: 'הרבי קרא כל מכתב בעצמו. הפ"נ פועל עוד לפני שמגיע. סיפורים אמיתיים על כוח הכתיבה לרבי.',
     url: 'https://raabay.co.il/maala',
-    images: [{ url: '/הרבי.webp', alt: 'הרבי מליובאוויטש' }],
+    images: [{ url: '/rebbe.webp', alt: 'הרבי מליובאוויטש' }],
   },
 };
 

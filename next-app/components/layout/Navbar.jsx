@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 
@@ -99,7 +100,7 @@ export default function Navbar() {
             style={{ justifySelf: 'start', display: 'inline-flex', alignItems: 'center', gap: 9, textDecoration: 'none' }}
           >
             <span style={{ width: 36, height: 36, borderRadius: '50%', flexShrink: 0, overflow: 'hidden', display: 'inline-block' }}>
-              <img src="/הרבי.webp" alt="הרבי מליובאוויטש" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
+              <Image src="/rebbe.webp" alt="הרבי מליובאוויטש" width={36} height={36} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
             </span>
             <span style={{ fontFamily: C.serif, fontWeight: 700, fontSize: 17.5, color: C.ink, letterSpacing: '0.01em' }}>
               כתיבה לרבי

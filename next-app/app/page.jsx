@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import AccessibilityWidget from '@/components/AccessibilityWidget';
 import Navbar from '@/components/layout/Navbar';
@@ -26,7 +27,7 @@ export default function ClassicPage() {
         {/* Hero — mobile: full-bleed, desktop: two-column */}
         {m ? (
           <section style={{ position: 'relative', height: '100svh', marginTop: -60, overflow: 'hidden' }}>
-            <img src="/הרבי.jpg" alt="הרבי מליובאוויטש" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} />
+            <Image src="/rebbe.jpg" alt="הרבי מליובאוויטש" fill priority style={{ objectFit: 'cover', objectPosition: 'top center' }} />
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(14,22,42,.08) 0%, rgba(14,22,42,.15) 35%, rgba(14,22,42,.72) 62%, rgba(14,22,42,.97) 100%)' }} />
             <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '0 24px 52px', textAlign: 'center' }}>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 18, background: 'rgba(176,141,74,.18)', border: '1px solid rgba(176,141,74,.4)', padding: '6px 16px', borderRadius: 100 }}>
@@ -68,7 +69,7 @@ export default function ClassicPage() {
                   <div style={{ position: 'absolute', inset: -24, background: 'radial-gradient(ellipse at center, rgba(176,141,74,.13), transparent 68%)', pointerEvents: 'none' }} />
                   <div style={{ position: 'absolute', top: 0, left: '18%', right: '18%', height: 2, background: 'linear-gradient(90deg, transparent, #b08d4a, transparent)', zIndex: 2 }} />
                   <div style={{ position: 'relative', borderRadius: 14, overflow: 'hidden', boxShadow: '0 32px 72px -20px rgba(20,34,63,.5), 0 0 0 1px rgba(176,141,74,.22)', zIndex: 1 }}>
-                    <img src="/הרבי.jpg" alt="הרבי מליובאוויטש" style={{ display: 'block', width: '100%', height: 520, objectFit: 'cover', objectPosition: 'top center' }} />
+                    <Image src="/rebbe.jpg" alt="הרבי מליובאוויטש" width={420} height={520} priority style={{ display: 'block', width: '100%', height: 520, objectFit: 'cover', objectPosition: 'top center' }} />
                     <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(transparent, rgba(14,22,42,.88))', padding: '56px 28px 26px' }}>
                       <div style={{ width: 36, height: 1.5, background: V.gold, margin: '0 auto 10px', opacity: .85 }} />
                       <div style={{ fontFamily: V.serif, fontSize: 16, color: '#fff', textAlign: 'center', letterSpacing: '.05em' }}>הרבי מליובאוויטש</div>

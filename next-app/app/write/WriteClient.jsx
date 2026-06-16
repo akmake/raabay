@@ -382,7 +382,7 @@ export default function WriteClient() {
       {/* Success */}
       {success && (
         <div onClick={() => setSuccess(false)} style={{ position: 'fixed', inset: 0, zIndex: 400, background: 'rgba(20,16,12,0.88)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 32, cursor: 'pointer', animation: 'modalIn .5s cubic-bezier(.4,0,.2,1)' }}>
-          <img src="/Lubavitcher Rebbe (481).jpg" alt="הרבי" style={{ maxHeight: '58vh', maxWidth: '88vw', borderRadius: 10, boxShadow: '0 24px 80px rgba(0,0,0,.65)', marginBottom: 32 }} />
+          <img src="/Lubavitcher Rebbe (481).jpg" alt="הרבי" loading="lazy" style={{ maxHeight: '58vh', maxWidth: '88vw', borderRadius: 10, boxShadow: '0 24px 80px rgba(0,0,0,.65)', marginBottom: 32 }} />
           <div style={{ fontFamily: 'var(--oh-serif)', fontSize: 24, fontWeight: 600, color: '#f5f0e6', textAlign: 'center', lineHeight: 1.5 }}>{mode === 'pan' ? 'הפ"נ נשלח לאוהל הקדוש' : 'המכתב נשלח לאוהל הקדוש'}</div>
           <div style={{ fontSize: 13, color: '#b5864a', marginTop: 14, letterSpacing: '.06em' }}>לחצו לסגירה</div>
         </div>

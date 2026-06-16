@@ -13,7 +13,7 @@ export const metadata = {
     title: 'איך כותבים מכתב לרבי | נוסח ושלבי הכתיבה',
     description: 'נוסח מכתב לרבי מליובאוויטש, שלבי הכתיבה ומה כותבים — מדריך מלא.',
     url: 'https://raabay.co.il/mikhtav',
-    images: [{ url: '/הרבי.webp', alt: 'הרבי מליובאוויטש' }],
+    images: [{ url: '/rebbe.webp', alt: 'הרבי מליובאוויטש' }],
   },
 };
 

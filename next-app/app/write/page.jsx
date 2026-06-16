@@ -13,7 +13,7 @@ export const metadata = {
     title: 'שלח מכתב לרבי מליובאוויטש אונליין',
     description: 'כתוב ושלח מכתב בקשת ברכה לרבי — המכתב מגיע לאוהל הקדוש.',
     url: 'https://raabay.co.il/write',
-    images: [{ url: '/הרבי.webp', alt: 'הרבי מליובאוויטש' }],
+    images: [{ url: '/rebbe.webp', alt: 'הרבי מליובאוויטש' }],
   },
 };
 

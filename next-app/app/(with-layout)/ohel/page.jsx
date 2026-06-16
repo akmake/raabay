@@ -9,7 +9,7 @@ export const metadata = {
     title: 'מהו האוהל הקדוש | ציון הרבי מליובאוויטש',
     description: 'מקום הקבורה של הרבי מליובאוויטש — שער להתקשרות ותפילה, פתוח 24 שעות ביממה.',
     url: 'https://raabay.co.il/ohel',
-    images: [{ url: '/הרבי.webp', alt: 'הרבי מליובאוויטש' }],
+    images: [{ url: '/rebbe.webp', alt: 'הרבי מליובאוויטש' }],
   },
 };
 

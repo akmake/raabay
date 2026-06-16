@@ -9,7 +9,7 @@ export const metadata = {
     title: 'כתיבת פדיון נפש לרבי',
     description: 'כתבו פ"נ לרבי מליובאוויטש — הפ"נ ישלח לאוהל הקדוש בקווינס.',
     url: 'https://raabay.co.il/write-pidyon',
-    images: [{ url: '/הרבי.webp', alt: 'הרבי מליובאוויטש' }],
+    images: [{ url: '/rebbe.webp', alt: 'הרבי מליובאוויטש' }],
   },
 };
 

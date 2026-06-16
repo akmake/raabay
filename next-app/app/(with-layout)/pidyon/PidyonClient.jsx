@@ -110,7 +110,7 @@ export default function PidyonClient() {
             <div style={{ marginBottom: 28 }}>
               <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.14em', color: V.blue, marginBottom: 12 }}>לדוגמה — פ"נ שכתב הרבי עצמו לרבי הקודם</div>
               <div style={{ borderRadius: 14, overflow: 'hidden', border: `1px solid ${V.line}`, boxShadow: '0 4px 24px rgba(15,28,51,.1)' }}>
-                <img src="/פנ רבי.png" alt='פ"נ שכתב הרבי לרבי הקודם' style={{ width: '100%', display: 'block' }} />
+                <img src="/pn-rebbe.png" alt='פ"נ שכתב הרבי לרבי הקודם' loading="lazy" style={{ width: '100%', display: 'block' }} />
               </div>
               <div style={{ fontSize: 13, color: V.mist, marginTop: 10, textAlign: 'center', fontStyle: 'italic' }}>הפ"נ שכתב הרבי מליובאוויטש לרבי הקודם — הרבי הריי"ץ</div>
             </div>

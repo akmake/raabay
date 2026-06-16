@@ -13,7 +13,7 @@ export const metadata = {
     title: 'נוסח כתיבת פ"נ לרבי | פדיון נפש מליובאוויטש',
     description: 'נוסח פדיון נפש לרבי, שלבי הכתיבה, מתי כותבים ומה כותבים.',
     url: 'https://raabay.co.il/pidyon',
-    images: [{ url: '/הרבי.webp', alt: 'הרבי מליובאוויטש' }],
+    images: [{ url: '/rebbe.webp', alt: 'הרבי מליובאוויטש' }],
   },
 };
 
