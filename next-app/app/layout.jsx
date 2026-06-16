@@ -1,5 +1,18 @@
 ﻿import './globals.css';
+import { Frank_Ruhl_Libre, Assistant } from 'next/font/google';
 import Providers from './providers';
+
+const frankRuhl = Frank_Ruhl_Libre({
+  subsets: ['hebrew', 'latin'],
+  weight: ['400', '500', '700', '900'],
+  display: 'swap',
+});
+
+const assistant = Assistant({
+  subsets: ['hebrew', 'latin'],
+  weight: ['300', '400', '500', '600', '700', '800'],
+  display: 'swap',
+});
 
 export const metadata = {
   metadataBase: new URL('https://writingtotherabbi.com'),
@@ -116,7 +129,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="he" dir="rtl">
+    <html lang="he" dir="rtl" className={`${frankRuhl.className} ${assistant.className}`}>
       <head>
         <script
           type="application/ld+json"
