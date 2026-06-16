@@ -52,10 +52,10 @@ export default function ClassicPage() {
                   <span style={{ width: 5, height: 5, borderRadius: '50%', background: V.gold, display: 'block', flexShrink: 0 }} />
                   <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.14em', color: V.gold }}>כיחידות ממש — פגישה אישית</span>
                 </div>
-                <h1 style={{ fontFamily: V.serif, fontWeight: 800, fontSize: 72, lineHeight: 1.08, color: V.ink, marginBottom: 24, letterSpacing: '-.025em' }}>
+                <h1 style={{ fontFamily: V.serif, fontWeight: 800, fontSize: 72, lineHeight: 1.08, color: V.ink, marginBottom: 28, letterSpacing: '-.025em' }}>
                   יש כתובת<br /><span style={{ color: V.gold }}>שאליה אפשר לפנות</span>
                 </h1>
-                <p style={{ fontSize: 17, color: V.inkSoft, lineHeight: 1.85, marginBottom: 34, maxWidth: '38em' }}>
+                <p style={{ fontSize: 21, color: V.inkSoft, lineHeight: 1.9, marginBottom: 34 }}>
                   מאות אלפי אנשים מכל קצוות תבל — קרובים ורחוקים, מכל הרקעים — כותבים אל הרבי מליובאוויטש. כל מכתב נשלח לציון באוהל הקדוש שבקווינס, ניו יורק, מתוך אמונה וביטחון לקבלת ברכה, עצה וישועה.
                 </p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 28, flexWrap: 'wrap' }}>
