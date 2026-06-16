@@ -29,7 +29,7 @@ export default function ClassicPage() {
           <section style={{ position: 'relative', height: '100svh', marginTop: -60, overflow: 'hidden' }}>
             <Image src="/rebbe.jpg" alt="הרבי מליובאוויטש" fill priority style={{ objectFit: 'cover', objectPosition: 'top center' }} />
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(14,22,42,.08) 0%, rgba(14,22,42,.15) 35%, rgba(14,22,42,.72) 62%, rgba(14,22,42,.97) 100%)' }} />
-            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '0 24px 52px', textAlign: 'center' }}>
+            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '48px 24px 52px', textAlign: 'center' }}>
 
               <h1 style={{ fontFamily: V.serif, fontWeight: 800, fontSize: 52, lineHeight: 1.1, color: '#fff', marginBottom: 16, letterSpacing: '-.02em' }}>
                 יש כתובת<br /><span style={{ color: V.gold }}>שאליה אפשר לפנות</span>
