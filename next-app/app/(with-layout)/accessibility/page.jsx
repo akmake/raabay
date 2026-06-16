@@ -57,7 +57,7 @@ export default function AccessibilityPage() {
         <div style={{ display: 'grid', gap: 8, marginTop: 12 }}>
           <div style={{ display: 'flex', gap: 12, alignItems: 'baseline' }}>
             <span style={{ fontWeight: 700, color: '#1e1a17', minWidth: 80 }}>אימייל:</span>
-            <a href="mailto:accessibility@raabay.co.il" style={{ color: '#b5864a' }}>accessibility@raabay.co.il</a>
+            <a href="mailto:writingtotherabbi@gmail.com" style={{ color: '#b5864a' }}>writingtotherabbi@gmail.com</a>
           </div>
           <div style={{ display: 'flex', gap: 12, alignItems: 'baseline' }}>
             <span style={{ fontWeight: 700, color: '#1e1a17', minWidth: 80 }}>זמן תגובה:</span>

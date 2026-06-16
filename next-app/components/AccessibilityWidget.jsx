@@ -89,11 +89,15 @@ export default function AccessibilityWidget() {
       <button ref={triggerRef} onClick={() => setOpen(o => !o)}
         aria-label="פתח תפריט נגישות" aria-expanded={open} aria-haspopup="dialog" title="נגישות"
         style={{ position: 'fixed', bottom: 24, left: 24, zIndex: 9000,
-          width: 54, height: 54, borderRadius: '50%', background: '#1e1a17', color: '#fff',
-          border: '2.5px solid #b5864a', cursor: 'pointer', fontSize: 24,
+          width: 52, height: 52, borderRadius: '50%', background: '#1e1a17', color: '#fff',
+          border: 'none', cursor: 'pointer',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.35)' }}
-      >♿</button>
+          boxShadow: '0 4px 16px rgba(0,0,0,0.3)' }}
+      >
+        <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28" aria-hidden="true">
+          <path d="M20.5 6c-2.61.7-5.67 1-8.5 1s-5.89-.3-8.5-1L3 8c1.86.5 4 .83 6 1v13h2v-6h2v6h2V9c2-.17 4.14-.5 6-1l-.5-2zM12 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
+        </svg>
+      </button>
 
       {open && (
         <div ref={panelRef} role="dialog" aria-label="אפשרויות נגישות" aria-modal="true" dir="rtl"

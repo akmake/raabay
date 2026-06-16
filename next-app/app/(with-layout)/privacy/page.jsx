@@ -23,7 +23,7 @@ export default function PrivacyPage() {
 
       <Section num="1" title="מי אנחנו">
         <P><strong>כתיבה לרבי</strong> הוא אתר אינטרנט המאפשר לכתוב מכתב שיונח על ציון הרבי מליובאוויטש באוהל שבניו יורק.</P>
-        <P>לפניות בנושא פרטיות: <a href="mailto:privacy@raabay.co.il" style={{ color: '#b5864a' }}>privacy@raabay.co.il</a></P>
+        <P>לפניות בנושא פרטיות: <a href="mailto:writingtotherabbi@gmail.com" style={{ color: '#b5864a' }}>writingtotherabbi@gmail.com</a></P>
       </Section>
 
       <Section num="2" title="מידע שאנחנו אוספים">
@@ -69,7 +69,7 @@ export default function PrivacyPage() {
           <Li><strong>זכות תיקון:</strong> לבקש תיקון מידע שגוי</Li>
           <Li><strong>זכות מחיקה:</strong> מאחר שאיננו שומרים מכתבים לאחר שליחה, אין בדרך-כלל מה למחוק</Li>
         </ul>
-        <P style={{ marginTop: 10 }}>לממש זכויות אלו: <a href="mailto:privacy@raabay.co.il" style={{ color: '#b5864a' }}>privacy@raabay.co.il</a></P>
+        <P style={{ marginTop: 10 }}>לממש זכויות אלו: <a href="mailto:writingtotherabbi@gmail.com" style={{ color: '#b5864a' }}>writingtotherabbi@gmail.com</a></P>
       </Section>
 
       <div style={{ borderTop: '1px solid #e4dcd0', paddingTop: 20, marginTop: 8, display: 'flex', gap: 24, flexWrap: 'wrap' }}>

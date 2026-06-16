@@ -17,6 +17,10 @@ export const metadata = {
     'שלבי הכתיבה לרבי', 'אוהל', 'פדיון נפש', 'נוסח פן לרבי',
     'ליובאוויטש', 'חב״ד',
   ],
+  icons: {
+    icon: '/הרבי.webp',
+    apple: '/הרבי.webp',
+  },
   alternates: { canonical: 'https://raabay.co.il' },
   openGraph: {
     type: 'website',

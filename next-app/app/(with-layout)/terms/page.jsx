@@ -75,7 +75,7 @@ export default function TermsPage() {
 
       <Section num="9" title="יצירת קשר">
         <P>לכל שאלה, בעיה, או פנייה בנוגע לתנאים אלה:</P>
-        <P><a href="mailto:info@raabay.co.il" style={{ color: '#b5864a' }}>info@raabay.co.il</a></P>
+        <P><a href="mailto:writingtotherabbi@gmail.com" style={{ color: '#b5864a' }}>writingtotherabbi@gmail.com</a></P>
       </Section>
 
       <div style={{ borderTop: '1px solid #e4dcd0', paddingTop: 20, marginTop: 8, display: 'flex', gap: 24, flexWrap: 'wrap' }}>

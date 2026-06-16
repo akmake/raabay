@@ -43,13 +43,13 @@ export const buildLetterHTML = ({ mode, name, motherName, gender, text, hebrewDa
     main = `<div class="block">פ״נ</div>
       <div class="block body">${nusach}${request}</div>`;
   } else {
-    const nameLine = displayName
-      ? `הנני: ${displayName}${displayMother ? ` ${displayGender} ${displayMother}` : ''}`
+    const signature = displayName
+      ? `${displayName}${displayMother ? ` ${displayGender} ${displayMother}` : ''}`
       : '';
     main = `<div class="block">לכבוד כ"ק אדמו"ר</div>
-      ${nameLine ? `<div class="block">${nameLine}</div>` : ''}
       <div class="gap"></div>
-      <div class="body">${textToHtml(text || '')}</div>`;
+      <div class="body">${textToHtml(text || '')}</div>
+      ${signature ? `<div class="block" style="margin-top:28px">${signature}</div>` : ''}`;
   }
 
   return `<!doctype html>
@@ -82,7 +82,7 @@ export const buildLetterHTML = ({ mode, name, motherName, gender, text, hebrewDa
     line-height: 1.9;
   }
 
-  .bh   { text-align: center; margin-bottom: 2px; }
+  .bh   { text-align: right;  margin-bottom: 2px; }
   .date { text-align: right;  margin-bottom: 26px; }
 
   .block { text-align: right; margin-bottom: 4px; }
