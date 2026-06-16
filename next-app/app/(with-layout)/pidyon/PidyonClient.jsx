@@ -125,7 +125,7 @@ export default function PidyonClient() {
           <Section title="כיצד רושמים את השם" label="פורמט השם" m={m}>
             <P m={m}>השם הנכתב בפ"נ הוא תמיד <strong style={{ color: V.ink }}>השם העברי</strong> בלבד — ולאחריו: <strong style={{ color: V.ink }}>שם האם</strong> (לא האב).</P>
             <div style={{ display: 'flex', flexDirection: m ? 'column' : 'row', gap: 16, marginBottom: 24 }}>
-              {[{ label: 'גבר', example: 'מנחם מענדל בן חנה' }, { label: 'אישה', example: 'מרים בת שרה' }].map((ex, i) => (
+              {[{ label: 'גבר', example: 'יצחק בן שרה' }, { label: 'אישה', example: 'מרים בת שרה' }].map((ex, i) => (
                 <div key={i} style={{ flex: 1, background: V.white, border: `1px solid ${V.line}`, borderRadius: 12, padding: m ? '16px 18px' : '20px 24px' }}>
                   <div style={{ fontSize: 12, color: V.mist, letterSpacing: '.1em', marginBottom: 8, fontWeight: 600 }}>{ex.label}</div>
                   <div style={{ fontFamily: V.serif, fontSize: m ? 19 : 22, color: V.ink, fontWeight: 500 }}>{ex.example}</div>

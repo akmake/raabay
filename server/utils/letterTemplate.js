@@ -46,7 +46,7 @@ export const buildLetterHTML = ({ mode, name, motherName, gender, text, hebrewDa
     const nameLine = displayName
       ? `הנני: ${displayName}${displayMother ? ` ${displayGender} ${displayMother}` : ''}`
       : '';
-    main = `<div class="block">לכבוד כבוד קדושת אדוננו מורנו ורבינו</div>
+    main = `<div class="block">לכבוד כ"ק אדמו"ר</div>
       ${nameLine ? `<div class="block">${nameLine}</div>` : ''}
       <div class="gap"></div>
       <div class="body">${textToHtml(text || '')}</div>`;

@@ -94,7 +94,7 @@ export default function ModernPage() {
             {[
               { n: 'א', t: 'מתכוננים', p: 'נטילת ידיים, רגע של כוונה, וקבלת החלטה טובה — \'כלי\' לברכה.' },
               { n: 'ב', t: 'כותבים', p: 'פותחים את הלב וכותבים בלשונכם — בקשה, תודה או תפילה.' },
-              { n: 'ג', t: 'מונח באוהל', p: 'המכתב מודפס ומונח על ציון הרבי — המקום שאליו פונים בתפילה.' },
+              { n: 'ג', t: 'מונח בציון הקדוש', p: 'המכתב מודפס ומונח על ציון הרבי — המקום שאליו פונים בתפילה.' },
             ].map((s, i) => (
               <div key={i} style={{ padding: m ? '0' : '0 30px', textAlign: m ? 'right' : 'center', display: m ? 'flex' : 'block', alignItems: 'flex-start', gap: m ? 18 : 0, position: 'relative' }}>
                 <div style={{ width: 60, height: 60, borderRadius: '50%', background: V.navy, color: V.gold, fontFamily: V.serif, fontWeight: 700, fontSize: 24, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: m ? 0 : 22, position: 'relative', zIndex: 2, boxShadow: `0 0 0 6px ${V.white}`, flexShrink: 0 }}>{s.n}</div>

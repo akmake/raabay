@@ -56,7 +56,7 @@ export default function ClassicPage() {
                   הרבי קורא את המכתבים,<br />שמח בשמחתכם,<br /><span style={{ color: V.gold }}>כואב בכאבכם</span> — כאז כן היום.
                 </h1>
                 <p style={{ fontSize: 17, color: V.inkSoft, lineHeight: 1.85, marginBottom: 34, maxWidth: '38em' }}>
-                  מאות אלפי אנשים מכל קצוות תבל — קרובים ורחוקים, מכל הרקעים — כותבים אל הרבי מליובאוויטש. כל מכתב נשלח לאוהל הקדוש שבקווינס, ניו יורק, ומגיע — כיחידות ממש.
+                  מאות אלפי אנשים מכל קצוות תבל — קרובים ורחוקים, מכל הרקעים — כותבים אל הרבי מליובאוויטש. כל מכתב נשלח לציון באוהל הקדוש שבקווינס, ניו יורק, מתוך אמונה וביטחון לקבלת ברכה, עצה וישועה. 
                 </p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 28, flexWrap: 'wrap' }}>
                   <Link href="/write" style={{ background: V.navy, color: '#fff', padding: '14px 32px', borderRadius: 6, textDecoration: 'none', fontWeight: 700, fontSize: 15 }}>לכתיבת המכתב &nbsp;←</Link>
@@ -91,7 +91,7 @@ export default function ClassicPage() {
               {[
                 { num: '01', title: 'הרבי קרא כל מכתב', body: 'במשך עשרות שנות נשיאותו קיבל הרבי מכתבים ממאות אלפי אנשים מכל העולם — ואמר: "כתבו אלי על כל דבר, גם על בשורות טובות."' },
                 { num: '02', title: 'כאז כן היום', body: 'גם כיום, לאחר ההסתלקות, כותבים מאות אלפי אנשים אל הרבי — מכתבים, פדיוני נפש ובקשות ברכה.' },
-                { num: '03', title: 'המכתב מגיע', body: 'כל מכתב מודפס ונשלח לאוהל הקדוש שבקווינס, ניו יורק — ומונח על ציון הרבי. ואנשים רואים ישועות.' },
+                { num: '03', title: 'המכתב מגיע', body: 'כל מכתב מודפס ונשלח אל הציון שבאוהל הקדוש בקווינס, ניו יורק — שם הוא מונח על ציון הרבי, ורבים זוכים לראות ישועות וברכות.' },
               ].map((item) => (
                 <div key={item.num} style={{ background: V.white, borderRadius: 12, padding: m ? '24px 20px' : '32px 28px', border: `1px solid ${V.line}` }}>
                   <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '.16em', color: V.gold, marginBottom: 14 }}>{item.num}</div>
@@ -114,7 +114,7 @@ export default function ClassicPage() {
               {[
                 { n: 'א', t: 'מתכוננים', p: 'נטילת ידיים, רגע של כוונה, וקבלת החלטה טובה — "כלי" שמחזיק את הברכה.' },
                 { n: 'ב', t: 'כותבים', p: 'פותחים את הלב וכותבים בלשונכם — בקשה, תודה או תפילה. "כל המפרט הרי זה משובח."' },
-                { n: 'ג', t: 'מונח באוהל', p: 'המכתב מודפס ונשלח לאוהל הקדוש בקווינס — המקום שאליו פונים מכל העולם.' },
+                { n: 'ג', t: 'מונח בציון הקדוש', p: 'המכתב מודפס ונשלח לאוהל הקדוש בקווינס — המקום שאליו פונים מכל העולם.' },
               ].map((s, i) => (
                 <div key={i} style={{ padding: m ? '0' : '0 44px', textAlign: 'center', borderRight: (!m && i > 0) ? `1px solid ${V.line}` : 'none' }}>
                   <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 56, height: 56, borderRadius: '50%', background: V.goldMuted, border: '1.5px solid rgba(176,141,74,.4)', fontFamily: V.serif, fontSize: 22, color: V.gold, fontWeight: 700, marginBottom: 18 }}>{s.n}</div>
@@ -130,8 +130,8 @@ export default function ClassicPage() {
         <section style={{ background: V.navy, padding: m ? '60px 0' : '88px 0', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 80% 140% at 50% 0%, rgba(176,141,74,.16), transparent 60%)', pointerEvents: 'none' }} />
           <div style={{ ...wrap, textAlign: 'center', position: 'relative', zIndex: 1 }}>
-            <h2 style={{ fontFamily: V.serif, fontWeight: 600, fontSize: m ? 30 : 46, color: '#fff', marginBottom: 16, lineHeight: 1.25 }}>כתבו את מה שעל הלב</h2>
-            <p style={{ fontSize: m ? 15 : 17, color: V.mist, marginBottom: 36, maxWidth: '30em', marginInline: 'auto', lineHeight: 1.85 }}>אין מילים נכונות ואין מילים שגויות. רק מילים שלכם — שמגיעות.</p>
+            <h2 style={{ fontFamily: V.serif, fontWeight: 600, fontSize: m ? 30 : 46, color: '#fff', marginBottom: 16, lineHeight: 1.25 }}>יש כתובת שאליה אפשר לפנות</h2>
+            <p style={{ fontSize: m ? 15 : 17, color: V.mist, marginBottom: 36, maxWidth: '30em', marginInline: 'auto', lineHeight: 1.85 }}>הרבי ראה בכל אדם עולם מלא. כל מכתב שמגיע לציון הוא פנייה אישית — בקשה לברכה, עצה וישועה, מתוך ביטחון שלרבי אכפת מכל פרט בחיים של כל יהודי.</p>
             <Link href="/write" style={{ display: 'inline-block', background: V.gold, color: V.navy, padding: m ? '13px 30px' : '15px 40px', borderRadius: 6, textDecoration: 'none', fontWeight: 700, fontSize: 16, boxShadow: '0 4px 24px rgba(176,141,74,.4)' }}>פתיחת מכתב חדש &nbsp;←</Link>
           </div>
         </section>

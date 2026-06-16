@@ -15,6 +15,21 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/write/page.js"
+    ],
+    "/(with-layout)/mikhtav/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(with-layout)/mikhtav/page.js"
+    ],
+    "/(with-layout)/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(with-layout)/layout.js"
+    ],
+    "/(with-layout)/pidyon/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(with-layout)/pidyon/page.js"
     ]
   }
 }

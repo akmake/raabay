@@ -196,7 +196,7 @@ export default function WriteClient() {
               )}
               {mode === 'letter' && (
                 <div style={{ marginBottom: 28, paddingBottom: 24, borderBottom: '1px solid var(--oh-line)', fontFamily: 'var(--oh-serif)', lineHeight: 1.85 }}>
-                  <div style={{ fontSize: 20, color: 'var(--oh-ink)', marginBottom: 8 }}>לכבוד כבוד קדושת אדוננו מורנו ורבינו</div>
+                  <div style={{ fontSize: 20, color: 'var(--oh-ink)', marginBottom: 8 }}>לכבוד כ"ק אדמו"ר</div>
                   <div style={{ fontSize: 18, color: 'var(--oh-ink-soft)' }}>
                     הנני:{' '}
                     <span style={{ color: fullName.trim() ? 'var(--oh-ink)' : '#c4b89a', borderBottom: fullName.trim() ? 'none' : '1px dashed #c4b89a' }}>{nusachName}</span>

@@ -1,4 +1,6 @@
 {
   "/page": "app/page.js",
-  "/write/page": "app/write/page.js"
+  "/write/page": "app/write/page.js",
+  "/(with-layout)/pidyon/page": "app/(with-layout)/pidyon/page.js",
+  "/(with-layout)/mikhtav/page": "app/(with-layout)/mikhtav/page.js"
 }
