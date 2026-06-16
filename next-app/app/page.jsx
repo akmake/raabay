@@ -114,7 +114,7 @@ export default function ClassicPage() {
               {[
                 { n: 'א', t: 'מתכוננים', p: 'נטילת ידיים, רגע של כוונה, וקבלת החלטה טובה — "כלי" שמחזיק את הברכה.' },
                 { n: 'ב', t: 'כותבים', p: 'פותחים את הלב וכותבים בלשונכם — בקשה, תודה או תפילה. "כל המפרט הרי זה משובח."' },
-                { n: 'ג', t: 'מונח בציון הקדוש', p: 'המכתב מודפס ונשלח לאוהל הקדוש בקווינס — המקום שאליו פונים מכל העולם.' },
+                { n: 'ג', t: 'מונח בציון הקדוש', p: 'המכתב מודפס ונשלח לציון שבאוהל הקדוש — המקום שאליו פונים מכל העולם.' },
               ].map((s, i) => (
                 <div key={i} style={{ padding: m ? '0' : '0 44px', textAlign: 'center', borderRight: (!m && i > 0) ? `1px solid ${V.line}` : 'none' }}>
                   <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 56, height: 56, borderRadius: '50%', background: V.goldMuted, fontFamily: V.serif, fontSize: 22, color: V.gold, fontWeight: 700, marginBottom: 18 }}>{s.n}</div>
