@@ -30,6 +30,16 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/write/page.js"
+    ],
+    "/(with-layout)/contact/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(with-layout)/contact/page.js"
+    ],
+    "/(with-layout)/pidyon/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(with-layout)/pidyon/page.js"
     ]
   }
 }

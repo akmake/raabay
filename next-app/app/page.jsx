@@ -117,7 +117,7 @@ export default function ClassicPage() {
                 { n: 'ג', t: 'מונח בציון הקדוש', p: 'המכתב מודפס ונשלח לאוהל הקדוש בקווינס — המקום שאליו פונים מכל העולם.' },
               ].map((s, i) => (
                 <div key={i} style={{ padding: m ? '0' : '0 44px', textAlign: 'center', borderRight: (!m && i > 0) ? `1px solid ${V.line}` : 'none' }}>
-                  <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 56, height: 56, borderRadius: '50%', background: V.goldMuted, border: '1.5px solid rgba(176,141,74,.4)', fontFamily: V.serif, fontSize: 22, color: V.gold, fontWeight: 700, marginBottom: 18 }}>{s.n}</div>
+                  <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 56, height: 56, borderRadius: '50%', background: V.goldMuted, fontFamily: V.serif, fontSize: 22, color: V.gold, fontWeight: 700, marginBottom: 18 }}>{s.n}</div>
                   <h3 style={{ fontFamily: V.serif, fontSize: m ? 22 : 24, fontWeight: 600, color: V.ink, marginBottom: 10 }}>{s.t}</h3>
                   <p style={{ fontSize: 15, color: V.inkSoft, lineHeight: 1.8 }}>{s.p}</p>
                 </div>

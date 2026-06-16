@@ -2,5 +2,7 @@
   "/page": "app/page.js",
   "/write/page": "app/write/page.js",
   "/(with-layout)/accessibility/page": "app/(with-layout)/accessibility/page.js",
-  "/(with-layout)/mikhtav/page": "app/(with-layout)/mikhtav/page.js"
+  "/(with-layout)/pidyon/page": "app/(with-layout)/pidyon/page.js",
+  "/(with-layout)/mikhtav/page": "app/(with-layout)/mikhtav/page.js",
+  "/(with-layout)/contact/page": "app/(with-layout)/contact/page.js"
 }
