@@ -55,7 +55,7 @@ export default function ClassicPage() {
                 <h1 style={{ fontFamily: V.serif, fontWeight: 800, fontSize: 72, lineHeight: 1.08, color: V.ink, marginBottom: 28, letterSpacing: '-.025em' }}>
                   יש כתובת<br /><span style={{ color: V.gold }}>שאליה אפשר לפנות</span>
                 </h1>
-                <p style={{ fontSize: 21, color: V.inkSoft, lineHeight: 1.9, marginBottom: 34 }}>
+                <p style={{ fontSize: 19, fontWeight: 500, color: V.inkSoft, lineHeight: 1.65, marginBottom: 34 }}>
                   מאות אלפי אנשים מכל קצוות תבל — קרובים ורחוקים, מכל הרקעים — כותבים אל הרבי מליובאוויטש. כל מכתב נשלח לציון באוהל הקדוש שבקווינס, ניו יורק, מתוך אמונה וביטחון לקבלת ברכה, עצה וישועה.
                 </p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 28, flexWrap: 'wrap' }}>
