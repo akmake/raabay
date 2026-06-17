@@ -1,5 +1,6 @@
-﻿import './globals.css';
-import { Frank_Ruhl_Libre, Assistant } from 'next/font/google';
+import './globals.css';
+import { Frank_Ruhl_Libre, Assistant, Noto_Serif } from 'next/font/google';
+import { getLocale } from 'next-intl/server';
 import Providers from './providers';
 
 const frankRuhl = Frank_Ruhl_Libre({
@@ -11,6 +12,12 @@ const frankRuhl = Frank_Ruhl_Libre({
 const assistant = Assistant({
   subsets: ['hebrew', 'latin'],
   weight: ['300', '400', '500', '600', '700', '800'],
+  display: 'swap',
+});
+
+const notoSerif = Noto_Serif({
+  subsets: ['cyrillic', 'latin'],
+  weight: ['400', '500', '700'],
   display: 'swap',
 });
 
@@ -40,13 +47,13 @@ export const metadata = {
     locale: 'he_IL',
     title: 'כתיבת מכתב לרבי מליובאוויטש | בקשת ברכה לאוהל',
     description: 'שלחו מכתב בקשת ברכה לרבי מליובאוויטש — נוסח מכתב, שלבי כתיבה, פ"נ. הכל אונליין.',
-    images: [{ url: '/rebbe.webp', alt: 'הרבי מליובאוויטש' }],
+    images: [{ url: '/rebbe.webp', alt: 'הרבי מליובאוויטש', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'כתיבת מכתב לרבי מליובאוויטש',
     description: 'שלחו מכתב בקשת ברכה לרבי — נוסח, שלבי כתיבה ופ"נ אונליין.',
-    images: ['/rebbe.webp'],
+    images: [{ url: '/rebbe.webp', alt: 'הרבי מליובאוויטש' }],
   },
 };
 
@@ -127,9 +134,13 @@ const jsonLd = {
   ],
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const locale = await getLocale();
+  const dir = locale === 'he' ? 'rtl' : 'ltr';
+  const serifClass = locale === 'ru' ? notoSerif.className : frankRuhl.className;
+
   return (
-    <html lang="he" dir="rtl" className={`${frankRuhl.className} ${assistant.className}`}>
+    <html lang={locale} dir={dir} className={`${serifClass} ${assistant.className}`}>
       <head>
         <script
           type="application/ld+json"

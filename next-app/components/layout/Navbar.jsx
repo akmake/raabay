@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Globe } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
+import { Link, usePathname, useRouter } from '@/i18n/navigation';
+import { routing } from '@/i18n/routing';
 
 const C = {
   bg:       '#ffffff',
@@ -18,19 +19,11 @@ const C = {
   sans:     '"Assistant", system-ui, sans-serif',
 };
 
-const NAV = [
-  { label: 'מכתב לרבי',   to: '/mikhtav' },
-  { label: 'פדיון נפש',   to: '/pidyon'  },
-  { label: 'מעלת הכתיבה', to: '/maala'   },
-  { label: 'איך זה עובד', href: '/#how'  },
-  { label: 'צור קשר',     to: '/contact' },
-];
-
 function NavLink({ label, to, href, active, onClick }) {
   const style = {
-    color:          active ? C.ink    : C.soft,
-    fontWeight:     active ? 600      : 500,
-    background:     active ? C.hover  : 'transparent',
+    color:          active ? C.ink   : C.soft,
+    fontWeight:     active ? 600     : 500,
+    background:     active ? C.hover : 'transparent',
     padding:        '6px 14px',
     borderRadius:   6,
     textDecoration: 'none',
@@ -47,12 +40,90 @@ function NavLink({ label, to, href, active, onClick }) {
   return <Link href={to} style={style} onMouseEnter={enter} onMouseLeave={leave} onClick={onClick}>{label}</Link>;
 }
 
+function LangSwitcher() {
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+  const locale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
+  const t = useTranslations('langSwitcher');
+
+  useEffect(() => {
+    const handleClick = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) setOpen(false);
+    };
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, []);
+
+  const switchLocale = (newLocale) => {
+    router.replace(pathname, { locale: newLocale });
+    setOpen(false);
+  };
+
+  return (
+    <div ref={ref} style={{ position: 'relative' }}>
+      <button
+        onClick={() => setOpen(o => !o)}
+        title={t('label')}
+        aria-label={t('label')}
+        aria-expanded={open}
+        style={{
+          display: 'inline-flex', alignItems: 'center', gap: 5,
+          background: 'none', border: `1px solid ${C.border}`,
+          borderRadius: 6, padding: '6px 10px', cursor: 'pointer',
+          color: C.soft, fontSize: 13, fontFamily: C.sans, fontWeight: 500,
+        }}
+      >
+        <Globe size={14} aria-hidden="true" />
+        {t(locale)}
+      </button>
+      {open && (
+        <div style={{
+          position: 'absolute', top: 'calc(100% + 6px)',
+          insetInlineEnd: 0,
+          background: '#fff', border: `1px solid ${C.border}`,
+          borderRadius: 8, boxShadow: '0 8px 24px rgba(30,26,23,0.12)',
+          minWidth: 140, zIndex: 600, overflow: 'hidden',
+        }}>
+          {routing.locales.map(l => (
+            <button
+              key={l}
+              onClick={() => switchLocale(l)}
+              style={{
+                display: 'block', width: '100%', textAlign: 'start',
+                padding: '9px 14px',
+                background: l === locale ? C.hover : 'none',
+                border: 'none', cursor: 'pointer',
+                color: l === locale ? C.ink : C.soft,
+                fontWeight: l === locale ? 600 : 400,
+                fontSize: 13.5, fontFamily: C.sans,
+              }}
+            >
+              {t(l)}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function Navbar() {
   const [open, setOpen]         = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [visible, setVisible]   = useState(true);
   const [prevY, setPrevY]       = useState(0);
   const pathname                = usePathname();
+  const t                       = useTranslations('nav');
+
+  const NAV = [
+    { labelKey: 'letter',  to: '/mikhtav' },
+    { labelKey: 'pidyon',  to: '/pidyon'  },
+    { labelKey: 'maala',   to: '/maala'   },
+    { labelKey: 'how',     href: '/#how'  },
+    { labelKey: 'contact', to: '/contact' },
+  ];
 
   useEffect(() => {
     const fn = () => {
@@ -70,9 +141,8 @@ export default function Navbar() {
   return (
     <>
       <nav
-        dir="rtl"
         role="navigation"
-        aria-label="ניווט ראשי"
+        aria-label={t('mainNav')}
         style={{
           position:    'fixed', inset: '0 0 auto 0', zIndex: 500,
           height:      60,
@@ -96,24 +166,31 @@ export default function Navbar() {
 
           <Link
             href="/"
-            aria-label="עמוד הבית — כתיבה לרבי"
+            aria-label={t('siteLabel')}
             style={{ justifySelf: 'start', display: 'inline-flex', alignItems: 'center', gap: 9, textDecoration: 'none' }}
           >
             <span style={{ width: 36, height: 36, borderRadius: '50%', flexShrink: 0, overflow: 'hidden', display: 'inline-block' }}>
-              <Image src="/rebbe.webp" alt="הרבי מליובאוויטש" width={36} height={36} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
+              <Image src="/rebbe.webp" alt="" width={36} height={36} aria-hidden="true" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
             </span>
             <span style={{ fontFamily: C.serif, fontWeight: 700, fontSize: 17.5, color: C.ink, letterSpacing: '0.01em' }}>
-              כתיבה לרבי
+              {t('siteName')}
             </span>
           </Link>
 
           <div className="nb-links" style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
             {NAV.map(l => (
-              <NavLink key={l.to || l.href} {...l} active={!!l.to && pathname === l.to} />
+              <NavLink
+                key={l.to || l.href}
+                label={t(l.labelKey)}
+                to={l.to}
+                href={l.href}
+                active={!!l.to && pathname === l.to}
+              />
             ))}
           </div>
 
-          <div className="nb-cta" style={{ justifySelf: 'end' }}>
+          <div className="nb-cta" style={{ justifySelf: 'end', display: 'flex', alignItems: 'center', gap: 10 }}>
+            <LangSwitcher />
             <Link
               href="/write"
               style={{
@@ -128,14 +205,14 @@ export default function Navbar() {
               onMouseEnter={e => { e.currentTarget.style.background = C.goldHov; e.currentTarget.style.transform = 'translateY(-1px)'; }}
               onMouseLeave={e => { e.currentTarget.style.background = C.gold;    e.currentTarget.style.transform = 'translateY(0)'; }}
             >
-              ✦&nbsp;כתיבת מכתב
+              ✦&nbsp;{t('writeCta')}
             </Link>
           </div>
 
           <button
             className="nb-burger"
             onClick={() => setOpen(o => !o)}
-            aria-label={open ? 'סגור תפריט' : 'פתח תפריט'}
+            aria-label={open ? t('closeMenu') : t('openMenu')}
             aria-expanded={open}
             aria-controls="nb-mobile"
             style={{
@@ -151,7 +228,6 @@ export default function Navbar() {
 
       <div
         id="nb-mobile"
-        dir="rtl"
         aria-hidden={!open}
         style={{
           position: 'fixed', top: 60, right: 0, left: 0, zIndex: 499,
@@ -160,7 +236,7 @@ export default function Navbar() {
           WebkitBackdropFilter: 'blur(18px)',
           borderBottom: `1px solid ${C.border}`,
           overflow: 'hidden',
-          maxHeight: open ? 320 : 0,
+          maxHeight: open ? 420 : 0,
           opacity:   open ? 1   : 0,
           transition: 'max-height .3s cubic-bezier(.4,0,.2,1), opacity .2s ease',
           pointerEvents: open ? 'auto' : 'none',
@@ -170,7 +246,14 @@ export default function Navbar() {
       >
         <div style={{ padding: '8px 20px 20px' }}>
           {NAV.map(l => (
-            <NavLink key={l.to || l.href} {...l} active={!!l.to && pathname === l.to} onClick={() => setOpen(false)} />
+            <NavLink
+              key={l.to || l.href}
+              label={t(l.labelKey)}
+              to={l.to}
+              href={l.href}
+              active={!!l.to && pathname === l.to}
+              onClick={() => setOpen(false)}
+            />
           ))}
           <div style={{ height: 1, background: C.border, margin: '10px 0' }} />
           <Link
@@ -181,10 +264,12 @@ export default function Navbar() {
               background: C.gold, color: '#fff',
               padding: '13px 22px', borderRadius: 8,
               textDecoration: 'none', fontWeight: 600, fontSize: 15.5,
+              marginBottom: 10,
             }}
           >
-            ✦&nbsp;כתיבת מכתב
+            ✦&nbsp;{t('writeCta')}
           </Link>
+          <LangSwitcher />
         </div>
       </div>
 

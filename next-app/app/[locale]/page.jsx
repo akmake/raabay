@@ -1,7 +1,8 @@
 'use client';
 
-import Link from 'next/link';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import AccessibilityWidget from '@/components/AccessibilityWidget';
 import Navbar from '@/components/layout/Navbar';
@@ -13,32 +14,34 @@ const V = {
   serif: '"Frank Ruhl Libre", Georgia, serif', sans: '"Assistant", system-ui, sans-serif',
 };
 
-export default function ClassicPage() {
-  const m    = useIsMobile();
+export default function HomePage() {
+  const m  = useIsMobile();
+  const t  = useTranslations('home');
+  const tl = useTranslations('layout');
+  const tf = useTranslations('footer');
   const wrap = { maxWidth: 1160, margin: '0 auto', padding: m ? '0 20px' : '0 48px' };
 
   return (
-    <div dir="rtl" style={{ background: V.white, color: V.ink, fontFamily: V.sans, WebkitFontSmoothing: 'antialiased' }}>
-      <a href="#main-content" className="skip-to-main">דלג לתוכן הראשי</a>
+    <div style={{ background: V.white, color: V.ink, fontFamily: V.sans, WebkitFontSmoothing: 'antialiased' }}>
+      <a href="#main-content" className="skip-to-main">{tl('skipToMain')}</a>
       <Navbar />
 
       <main id="main-content" tabIndex={-1} style={{ paddingTop: 60 }}>
 
-        {/* Hero — mobile: full-bleed, desktop: two-column */}
+        {/* Hero */}
         {m ? (
           <section style={{ position: 'relative', height: '100svh', marginTop: -60, overflow: 'hidden' }}>
-            <Image src="/rebbe.jpg" alt="הרבי מליובאוויטש" fill priority style={{ objectFit: 'cover', objectPosition: 'top center' }} />
+            <Image src="/rebbe.jpg" alt={t('rebbeAlt')} fill priority style={{ objectFit: 'cover', objectPosition: 'top center' }} />
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(14,22,42,.08) 0%, rgba(14,22,42,.15) 35%, rgba(14,22,42,.72) 62%, rgba(14,22,42,.97) 100%)' }} />
             <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '0 24px 24px', textAlign: 'center' }}>
-
               <h1 style={{ fontFamily: V.serif, fontWeight: 800, fontSize: 52, lineHeight: 1.1, color: '#fff', marginBottom: 16, letterSpacing: '-.02em' }}>
-                יש כתובת<br /><span style={{ color: V.gold }}>שאליה אפשר לפנות</span>
+                {t('h1')}<br /><span style={{ color: V.gold }}>{t('h1Gold')}</span>
               </h1>
               <p style={{ fontSize: 15, color: 'rgba(255,255,255,.76)', lineHeight: 1.8, marginBottom: 28, maxWidth: '28em', marginInline: 'auto' }}>
-                מאות אלפי אנשים מכל קצוות תבל — קרובים ורחוקים, מכל הרקעים — כותבים אל הרבי מליובאוויטש. כל מכתב נשלח לציון שבאוהל הקדוש מתוך אמונה וביטחון לקבלת ברכה, עצה וישועה.
+                {t('desc')}
               </p>
               <Link href="/write" style={{ display: 'block', background: V.gold, color: V.navy, padding: '17px 32px', borderRadius: 10, textDecoration: 'none', fontWeight: 700, fontSize: 17, boxShadow: '0 4px 28px rgba(176,141,74,.45)' }}>
-                ✦&nbsp;&nbsp;לכתיבת המכתב
+                ✦&nbsp;&nbsp;{t('writeCta')}
               </Link>
             </div>
           </section>
@@ -48,17 +51,21 @@ export default function ClassicPage() {
               <div>
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, marginBottom: 22, background: V.goldMuted, border: '1px solid rgba(176,141,74,.3)', padding: '6px 14px', borderRadius: 100 }}>
                   <span style={{ width: 5, height: 5, borderRadius: '50%', background: V.gold, display: 'block', flexShrink: 0 }} />
-                  <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.14em', color: V.gold }}>כיחידות ממש — פגישה אישית</span>
+                  <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.14em', color: V.gold }}>{t('heroBadge')}</span>
                 </div>
                 <h1 style={{ fontFamily: V.serif, fontWeight: 800, fontSize: 72, lineHeight: 1.08, color: V.ink, marginBottom: 28, letterSpacing: '-.025em' }}>
-                  יש כתובת<br /><span style={{ color: V.gold }}>שאליה אפשר לפנות</span>
+                  {t('h1')}<br /><span style={{ color: V.gold }}>{t('h1Gold')}</span>
                 </h1>
                 <p style={{ fontSize: 19, fontWeight: 500, color: V.inkSoft, lineHeight: 1.65, marginBottom: 34 }}>
-                  מאות אלפי אנשים מכל קצוות תבל — קרובים ורחוקים, מכל הרקעים — כותבים אל הרבי מליובאוויטש. כל מכתב נשלח לציון שבאוהל הקדוש מתוך אמונה וביטחון לקבלת ברכה, עצה וישועה.
+                  {t('desc')}
                 </p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 28, flexWrap: 'wrap' }}>
-                  <Link href="/write" style={{ background: V.navy, color: '#fff', padding: '14px 32px', borderRadius: 6, textDecoration: 'none', fontWeight: 700, fontSize: 15 }}>לכתיבת המכתב &nbsp;←</Link>
-                  <Link href="/maala" style={{ color: V.inkSoft, fontSize: 14, fontWeight: 600, textDecoration: 'none', borderBottom: `1.5px solid ${V.gold}`, paddingBottom: 2 }}>מעלת הכתיבה לרבי</Link>
+                  <Link href="/write" style={{ background: V.navy, color: '#fff', padding: '14px 32px', borderRadius: 6, textDecoration: 'none', fontWeight: 700, fontSize: 15 }}>
+                    {t('writeCta')}
+                  </Link>
+                  <Link href="/maala" style={{ color: V.inkSoft, fontSize: 14, fontWeight: 600, textDecoration: 'none', borderBottom: `1.5px solid ${V.gold}`, paddingBottom: 2 }}>
+                    {t('maalaLink')}
+                  </Link>
                 </div>
               </div>
               <div>
@@ -66,10 +73,10 @@ export default function ClassicPage() {
                   <div style={{ position: 'absolute', inset: -24, background: 'radial-gradient(ellipse at center, rgba(176,141,74,.13), transparent 68%)', pointerEvents: 'none' }} />
                   <div style={{ position: 'absolute', top: 0, left: '18%', right: '18%', height: 2, background: 'linear-gradient(90deg, transparent, #b08d4a, transparent)', zIndex: 2 }} />
                   <div style={{ position: 'relative', borderRadius: 14, overflow: 'hidden', boxShadow: '0 32px 72px -20px rgba(20,34,63,.5), 0 0 0 1px rgba(176,141,74,.22)', zIndex: 1 }}>
-                    <Image src="/rebbe.jpg" alt="הרבי מליובאוויטש" width={420} height={520} priority style={{ display: 'block', width: '100%', height: 520, objectFit: 'cover', objectPosition: 'top center' }} />
+                    <Image src="/rebbe.jpg" alt={t('rebbeAlt')} width={420} height={520} priority style={{ display: 'block', width: '100%', height: 520, objectFit: 'cover', objectPosition: 'top center' }} />
                     <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(transparent, rgba(14,22,42,.88))', padding: '56px 28px 26px' }}>
                       <div style={{ width: 36, height: 1.5, background: V.gold, margin: '0 auto 10px', opacity: .85 }} />
-                      <div style={{ fontFamily: V.serif, fontSize: 16, color: '#fff', textAlign: 'center', letterSpacing: '.05em' }}>הרבי מליובאוויטש</div>
+                      <div style={{ fontFamily: V.serif, fontSize: 16, color: '#fff', textAlign: 'center', letterSpacing: '.05em' }}>{t('rebbeAlt')}</div>
                     </div>
                   </div>
                 </div>
@@ -82,14 +89,14 @@ export default function ClassicPage() {
         <section id="about" style={{ background: V.bg, padding: m ? '52px 0' : '80px 0' }}>
           <div style={wrap}>
             <div style={{ textAlign: 'center', marginBottom: m ? 36 : 56 }}>
-              <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.2em', color: V.gold, textTransform: 'uppercase' }}>מהו המקום הזה</span>
-              <h2 style={{ fontFamily: V.serif, fontSize: m ? 28 : 40, fontWeight: 600, color: V.ink, marginTop: 12, lineHeight: 1.25 }}>המנהג לא פסק</h2>
+              <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.2em', color: V.gold, textTransform: 'uppercase' }}>{t('aboutBadge')}</span>
+              <h2 style={{ fontFamily: V.serif, fontSize: m ? 28 : 40, fontWeight: 600, color: V.ink, marginTop: 12, lineHeight: 1.25 }}>{t('aboutTitle')}</h2>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: m ? '1fr' : 'repeat(3,1fr)', gap: m ? 28 : 40 }}>
               {[
-                { num: '01', title: 'הרבי קורא כל מכתב', body: 'במשך עשרות שנות נשיאותו קיבל הרבי מכתבים ממאות אלפי אנשים מכל העולם — ואמר: "כתבו אלי על כל דבר, גם על בשורות טובות."' },
-                { num: '02', title: 'כאז כן היום', body: 'גם כיום, לאחר ההסתלקות, כותבים מאות אלפי אנשים אל הרבי — מכתבים, פדיוני נפש ובקשות ברכה.' },
-                { num: '03', title: 'המכתב מגיע', body: 'כל מכתב מודפס ונשלח אל הציון שבאוהל הקדוש בקווינס, ניו יורק — שם הוא מונח על ציון הרבי, ורבים זוכים לראות ישועות וברכות.' },
+                { num: t('card1Num'), title: t('card1Title'), body: t('card1Body') },
+                { num: t('card2Num'), title: t('card2Title'), body: t('card2Body') },
+                { num: t('card3Num'), title: t('card3Title'), body: t('card3Body') },
               ].map((item) => (
                 <div key={item.num} style={{ background: V.white, borderRadius: 12, padding: m ? '24px 20px' : '32px 28px', border: `1px solid ${V.line}` }}>
                   <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '.16em', color: V.gold, marginBottom: 14 }}>{item.num}</div>
@@ -105,19 +112,19 @@ export default function ClassicPage() {
         <section id="how" style={{ background: V.white, padding: m ? '52px 0 60px' : '80px 0 96px', borderTop: `1px solid ${V.line}` }}>
           <div style={wrap}>
             <div style={{ textAlign: 'center', marginBottom: m ? 36 : 56 }}>
-              <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.2em', color: V.gold, textTransform: 'uppercase' }}>בשלושה צעדים</span>
-              <h2 style={{ fontFamily: V.serif, fontSize: m ? 28 : 40, fontWeight: 600, color: V.ink, marginTop: 12 }}>איך כותבים מכתב</h2>
+              <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.2em', color: V.gold, textTransform: 'uppercase' }}>{t('stepsBadge')}</span>
+              <h2 style={{ fontFamily: V.serif, fontSize: m ? 28 : 40, fontWeight: 600, color: V.ink, marginTop: 12 }}>{t('stepsTitle')}</h2>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: m ? '1fr' : 'repeat(3,1fr)', gap: m ? 24 : 0 }}>
               {[
-                { n: 'א', t: 'מתכוננים', p: 'נטילת ידיים, רגע של כוונה, נתינת צדקה, וקבלת החלטה טובה — "כלי" שמחזיק את הברכה.' },
-                { n: 'ב', t: 'כותבים', p: 'פותחים את הלב וכותבים בלשונכם — בקשה, תודה או תפילה. "כל המפרט הרי זה משובח."' },
-                { n: 'ג', t: 'מונח בציון הקדוש', p: 'המכתב מודפס ונשלח לציון שבאוהל הקדוש — המקום שאליו פונים מכל העולם.' },
+                { n: t('step1Icon'), title: t('step1Title'), body: t('step1Body') },
+                { n: t('step2Icon'), title: t('step2Title'), body: t('step2Body') },
+                { n: t('step3Icon'), title: t('step3Title'), body: t('step3Body') },
               ].map((s, i) => (
                 <div key={i} style={{ padding: m ? '0' : '0 44px', textAlign: 'center', borderRight: (!m && i > 0) ? `1px solid ${V.line}` : 'none' }}>
                   <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 56, height: 56, borderRadius: '50%', background: V.goldMuted, fontFamily: V.serif, fontSize: 22, color: V.gold, fontWeight: 700, marginBottom: 18 }}>{s.n}</div>
-                  <h3 style={{ fontFamily: V.serif, fontSize: m ? 22 : 24, fontWeight: 600, color: V.ink, marginBottom: 10 }}>{s.t}</h3>
-                  <p style={{ fontSize: 15, color: V.inkSoft, lineHeight: 1.8 }}>{s.p}</p>
+                  <h3 style={{ fontFamily: V.serif, fontSize: m ? 22 : 24, fontWeight: 600, color: V.ink, marginBottom: 10 }}>{s.title}</h3>
+                  <p style={{ fontSize: 15, color: V.inkSoft, lineHeight: 1.8 }}>{s.body}</p>
                 </div>
               ))}
             </div>
@@ -128,28 +135,31 @@ export default function ClassicPage() {
         <section style={{ background: V.navy, padding: m ? '60px 0' : '88px 0', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 80% 140% at 50% 0%, rgba(176,141,74,.16), transparent 60%)', pointerEvents: 'none' }} />
           <div style={{ ...wrap, textAlign: 'center', position: 'relative', zIndex: 1 }}>
-            <h2 style={{ fontFamily: V.serif, fontWeight: 600, fontSize: m ? 30 : 46, color: '#fff', marginBottom: 16, lineHeight: 1.25 }}>יש כתובת שאליה אפשר לפנות</h2>
-            <p style={{ fontSize: m ? 15 : 17, color: V.mist, marginBottom: 36, maxWidth: '30em', marginInline: 'auto', lineHeight: 1.85 }}>הרבי ראה בכל אדם עולם מלא. כל מכתב שמגיע לציון הוא פנייה אישית — בקשה לברכה, עצה וישועה, מתוך ביטחון שלרבי אכפת מכל פרט בחיים של כל יהודי.</p>
-            <Link href="/write" style={{ display: 'inline-block', background: V.gold, color: V.navy, padding: m ? '13px 30px' : '15px 40px', borderRadius: 6, textDecoration: 'none', fontWeight: 700, fontSize: 16, boxShadow: '0 4px 24px rgba(176,141,74,.4)' }}>פתיחת מכתב חדש &nbsp;←</Link>
+            <h2 style={{ fontFamily: V.serif, fontWeight: 600, fontSize: m ? 30 : 46, color: '#fff', marginBottom: 16, lineHeight: 1.25 }}>{t('ctaTitle')}</h2>
+            <p style={{ fontSize: m ? 15 : 17, color: V.mist, marginBottom: 36, maxWidth: '30em', marginInline: 'auto', lineHeight: 1.85 }}>{t('ctaDesc')}</p>
+            <Link href="/write" style={{ display: 'inline-block', background: V.gold, color: V.navy, padding: m ? '13px 30px' : '15px 40px', borderRadius: 6, textDecoration: 'none', fontWeight: 700, fontSize: 16, boxShadow: '0 4px 24px rgba(176,141,74,.4)' }}>
+              {t('ctaBtn')}
+            </Link>
           </div>
         </section>
       </main>
 
+      {/* Simple home-page footer */}
       <footer role="contentinfo" style={{ background: V.white, borderTop: `1px solid ${V.line}`, padding: '36px 0 28px' }}>
         <div style={wrap}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
             <div>
-              <div style={{ fontFamily: V.serif, fontSize: 19, fontWeight: 700, color: V.ink, marginBottom: 3 }}>כתיבה לרבי</div>
+              <div style={{ fontFamily: V.serif, fontSize: 19, fontWeight: 700, color: V.ink, marginBottom: 3 }}>{tf('logo')}</div>
               <div style={{ fontSize: 12, color: V.inkSoft }}>We want Messiah now.</div>
             </div>
-            <nav aria-label="קישורים משפטיים" style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
-              <Link href="/accessibility" style={{ fontSize: 13, color: V.inkSoft, textDecoration: 'none' }}>נגישות</Link>
-              <Link href="/privacy" style={{ fontSize: 13, color: V.inkSoft, textDecoration: 'none' }}>פרטיות</Link>
-              <Link href="/terms" style={{ fontSize: 13, color: V.inkSoft, textDecoration: 'none' }}>תנאי שימוש</Link>
+            <nav aria-label="legal" style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
+              <Link href="/accessibility" style={{ fontSize: 13, color: V.inkSoft, textDecoration: 'none' }}>{tf('accessibilityLink')}</Link>
+              <Link href="/privacy"       style={{ fontSize: 13, color: V.inkSoft, textDecoration: 'none' }}>{tf('privacyLink')}</Link>
+              <Link href="/terms"         style={{ fontSize: 13, color: V.inkSoft, textDecoration: 'none' }}>{tf('termsLink')}</Link>
             </nav>
           </div>
           <div style={{ marginTop: 20, fontSize: 12, color: V.inkSoft, borderTop: `1px solid ${V.line}`, paddingTop: 16 }}>
-            © {new Date().getFullYear()} כל הזכויות שמורות
+            {tf('copyright', { year: new Date().getFullYear() })}
           </div>
         </div>
       </footer>

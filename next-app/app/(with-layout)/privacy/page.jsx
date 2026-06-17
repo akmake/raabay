@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 
 const Section = ({ num, title, children }) => (
   <section style={{ marginBottom: 32 }}>
@@ -13,7 +13,7 @@ export const metadata = { title: 'מדיניות פרטיות' };
 
 export default function PrivacyPage() {
   return (
-    <div dir="rtl" style={{ maxWidth: 820, margin: '0 auto', padding: '48px 24px', fontFamily: '"Assistant", sans-serif' }}>
+    <div style={{ maxWidth: 820, margin: '0 auto', padding: '48px 24px', fontFamily: '"Assistant", sans-serif' }}>
       <h1 style={{ fontSize: 32, fontWeight: 700, color: '#1e1a17', marginBottom: 6 }}>מדיניות פרטיות</h1>
       <p style={{ color: '#5c5550', fontSize: 14, marginBottom: 40 }}>עודכן לאחרונה: יוני 2025</p>
 

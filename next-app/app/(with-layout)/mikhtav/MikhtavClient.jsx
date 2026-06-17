@@ -1,6 +1,7 @@
 'use client';
 
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 import { useIsMobile } from '@/hooks/useIsMobile';
 
 const V = {
@@ -33,48 +34,50 @@ const NumberedItem = ({ n, title, desc, m }) => (
 );
 
 export default function MikhtavClient() {
-  const m    = useIsMobile();
+  const m = useIsMobile();
+  const t = useTranslations('mikhtav');
   const wrap = { maxWidth: 780, margin: '0 auto', padding: m ? '0 20px' : '0 40px' };
 
   return (
-    <div dir="rtl" style={{ background: V.bg, color: V.ink, fontFamily: V.sans, lineHeight: 1.6, WebkitFontSmoothing: 'antialiased' }}>
+    <div style={{ background: V.bg, color: V.ink, fontFamily: V.sans, lineHeight: 1.6, WebkitFontSmoothing: 'antialiased' }}>
 
       <section style={{ background: V.navy, position: 'relative', overflow: 'hidden', padding: m ? '72px 0 72px' : '100px 0 100px' }}>
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(65% 110% at 50% 0%, rgba(201,168,92,.2), transparent 60%)', pointerEvents: 'none' }} />
         <div style={{ position: 'relative', zIndex: 2, textAlign: 'center', ...wrap }}>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13, fontWeight: 600, color: V.gold, background: 'rgba(201,168,92,.12)', border: '1px solid rgba(201,168,92,.3)', padding: '7px 18px', borderRadius: 100, marginBottom: m ? 24 : 36 }}>
-            <span style={{ width: 5, height: 5, borderRadius: '50%', background: V.gold, display: 'inline-block' }} />מנהג ישראל
+            <span style={{ width: 5, height: 5, borderRadius: '50%', background: V.gold, display: 'inline-block' }} />{t('badge')}
           </span>
           <h1 style={{ fontFamily: V.serif, fontWeight: 700, fontSize: m ? 50 : 82, lineHeight: 1.08, color: '#fff', marginBottom: m ? 20 : 28, letterSpacing: '-.02em' }}>
-            כתיבת מכתב<br /><span style={{ color: V.gold }}>אל הרבי</span>
+            {t('h1')}<br /><span style={{ color: V.gold }}>{t('h1Gold')}</span>
           </h1>
-          <p style={{ fontSize: m ? 17 : 21, color: V.mist, maxWidth: '30em', margin: '0 auto', lineHeight: 1.8 }}>מהו המנהג, מה כותבים, ולמה המילים מגיעות — גם היום.</p>
+          <p style={{ fontSize: m ? 17 : 21, color: V.mist, maxWidth: '30em', margin: '0 auto', lineHeight: 1.8 }}>{t('desc')}</p>
         </div>
       </section>
 
       <div style={{ padding: m ? '56px 0 80px' : '80px 0 120px' }}>
         <div style={wrap}>
 
-          <Section title="מהו המכתב אל הרבי" label="הגדרה" m={m}>
-            <P m={m}>במשך עשרות שנות נשיאותו, קיבל הרבי מליובאוויטש מכתבים ממאות אלפי אנשים מכל העולם — יהודים ולא-יהודים, חסידים ורחוקים. הם כתבו על <strong style={{ color: V.ink }}>כל דבר שעל הלב</strong>: בקשות לברכה, שאלות ברוחניות, שיתוף בשמחות, קשיים אישיים.</P>
-            <P m={m}>הרבי ענה אישית לכל מכתב. גנזך ה"אגרות קודש" — המכתבים שכתב הרבי — מונה כיום עשרות כרכים.</P>
+          <Section title={t('def_title')} label={t('def_label')} m={m}>
+            <P m={m}>{t('def_p1')}</P>
+            <P m={m}>{t('def_p2')}</P>
             <HighlightBox m={m}>
+              {/* Sacred Rebbe quote — stays in Hebrew across all locales */}
               <div style={{ fontFamily: V.serif, fontSize: m ? 18 : 22, color: V.ink, lineHeight: 1.7 }}>״כִּתְבוּ אֵלַי עַל כָּל דָּבָר, גַּם עַל בְּשׂוֹרוֹת טוֹבוֹת״</div>
-              <div style={{ fontSize: 13, color: V.inkSoft, marginTop: 10, letterSpacing: '.04em' }}>הרבי מליובאוויטש — מתוך מכתביו הרבים</div>
+              <div style={{ fontSize: 13, color: V.inkSoft, marginTop: 10, letterSpacing: '.04em' }}>{t('def_quote_source')}</div>
             </HighlightBox>
           </Section>
 
           <Divider />
 
-          <Section title='מה ההבדל בין מכתב לפ"נ' label="הבחנה" m={m}>
+          <Section title={t('diff_title')} label={t('diff_label')} m={m}>
             <div style={{ display: 'flex', flexDirection: m ? 'column' : 'row', gap: 16, marginBottom: 28 }}>
               {[
-                { title: 'מכתב', desc: 'כתיבה חופשית לחלוטין — בלשון אישית, ללא נוסח מחייב. מדברים עם הרבי כמו אל אדם קרוב: מבקשים, מספרים, שואלים, מודים.' },
-                { title: 'פ"נ', desc: 'כתיבה בנוסח מסורתי ומובנה של פדיון נפש — פתיחה קבועה, ציון שם + שם האם, ולאחר מכן הבקשה. טקס חסידי מושרש.' },
+                { titleKey: 'diff_card1_title', descKey: 'diff_card1_desc' },
+                { titleKey: 'diff_card2_title', descKey: 'diff_card2_desc' },
               ].map((item, i) => (
                 <div key={i} style={{ flex: 1, background: V.white, border: `1px solid ${V.line}`, borderRadius: 14, padding: m ? '22px 20px' : '28px 30px' }}>
-                  <div style={{ fontFamily: V.serif, fontSize: m ? 22 : 26, fontWeight: 700, color: V.ink, marginBottom: 10 }}>{item.title}</div>
-                  <div style={{ fontSize: m ? 15 : 16.5, color: V.inkSoft, lineHeight: 1.8 }}>{item.desc}</div>
+                  <div style={{ fontFamily: V.serif, fontSize: m ? 22 : 26, fontWeight: 700, color: V.ink, marginBottom: 10 }}>{t(item.titleKey)}</div>
+                  <div style={{ fontSize: m ? 15 : 16.5, color: V.inkSoft, lineHeight: 1.8 }}>{t(item.descKey)}</div>
                 </div>
               ))}
             </div>
@@ -82,23 +85,24 @@ export default function MikhtavClient() {
 
           <Divider />
 
-          <Section title="מה כותבים במכתב" label="תוכן המכתב" m={m}>
-            <NumberedItem n="א" title="בקשה לברכה" desc="לבריאות, לפרנסה, לשידוך, לילדים, להצלחה לימודית או עסקית. כל בקשה — בלשון שלכם." m={m} />
-            <NumberedItem n="ב" title="שאלה" desc="בענייני דת, חינוך ילדים, יחסים, החלטות חיים. הרבי נתן עצות מעשיות לאנשים שלא הכיר." m={m} />
-            <NumberedItem n="ג" title="שיתוף ותודה" desc='הרבי ביקש לכתוב גם "על בשורות טובות" — לעדכן על שמחות, הצלחות, ואירועי חיים.' m={m} />
-            <NumberedItem n="ד" title="כל דבר אחר" desc="אין נושא שאינו מתאים. הרבי ראה בכל יהודי בן משפחה — וכשבני משפחה מדברים, הם מדברים על הכל." m={m} />
+          <Section title={t('what_title')} label={t('what_label')} m={m}>
+            <NumberedItem n={t('what_item1_n')} title={t('what_item1_title')} desc={t('what_item1_desc')} m={m} />
+            <NumberedItem n={t('what_item2_n')} title={t('what_item2_title')} desc={t('what_item2_desc')} m={m} />
+            <NumberedItem n={t('what_item3_n')} title={t('what_item3_title')} desc={t('what_item3_desc')} m={m} />
+            <NumberedItem n={t('what_item4_n')} title={t('what_item4_title')} desc={t('what_item4_desc')} m={m} />
           </Section>
 
           <Divider />
 
-          <Section title="כיצד כותבים" label="הנחיות" m={m}>
-            <NumberedItem n="א" title="בלשונכם שלכם" desc="כתבו כמו שאתם מדברים. אין צורך בשפה מליצית — הכנות הוא מה שנחשב." m={m} />
-            <NumberedItem n="ב" title="מהלב ולא מהראש" desc="אל תרכיבו נאום. שבו, נשמו, ושאלו את עצמכם: מה אני באמת רוצה לומר לרבי עכשיו?" m={m} />
-            <NumberedItem n="ג" title="פתיחה פשוטה" desc='ניתן לפתוח ב"כבוד קדושת אדמו"ר" — או פשוט להתחיל לכתוב. שניהם תקינים.' m={m} />
-            <NumberedItem n="ד" title="חתימה בשם" desc="מסיימים בשם — רצוי השם העברי. אפשר גם לציין את שם האם." m={m} />
+          <Section title={t('how_title')} label={t('how_label')} m={m}>
+            <NumberedItem n={t('what_item1_n')} title={t('how_item1_title')} desc={t('how_item1_desc')} m={m} />
+            <NumberedItem n={t('what_item2_n')} title={t('how_item2_title')} desc={t('how_item2_desc')} m={m} />
+            <NumberedItem n={t('what_item3_n')} title={t('how_item3_title')} desc={t('how_item3_desc')} m={m} />
+            <NumberedItem n={t('what_item4_n')} title={t('how_item4_title')} desc={t('how_item4_desc')} m={m} />
             <HighlightBox m={m}>
+              {/* Sacred Rebbe quote — stays in Hebrew across all locales */}
               <div style={{ fontFamily: V.serif, fontSize: m ? 19 : 24, color: V.ink, lineHeight: 1.65 }}>״כָּל הַמְפָרֵט — הֲרֵי זֶה מְשֻׁבָּח וּמְרַוֵּחַ״</div>
-              <div style={{ fontSize: 13.5, color: V.inkSoft, marginTop: 10, lineHeight: 1.7 }}>הרבי עודד תמיד לפרט ולא לקצר — ככל שכותבים יותר, כך הפנייה "מגיעה" עמוק יותר</div>
+              <div style={{ fontSize: 13.5, color: V.inkSoft, marginTop: 10, lineHeight: 1.7 }}>{t('how_highlight_desc')}</div>
             </HighlightBox>
           </Section>
 
@@ -107,9 +111,9 @@ export default function MikhtavClient() {
           <div style={{ background: V.navy, borderRadius: m ? 18 : 26, padding: m ? '48px 24px' : '72px 60px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
             <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(70% 120% at 50% 0%, rgba(201,168,92,.18), transparent 60%)', pointerEvents: 'none' }} />
             <div style={{ position: 'relative', zIndex: 2 }}>
-              <h2 style={{ fontFamily: V.serif, fontSize: m ? 28 : 46, fontWeight: 700, color: '#fff', marginBottom: 14 }}>מוכנים לכתוב?</h2>
-              <p style={{ fontSize: m ? 15 : 18, color: V.mist, maxWidth: '28em', margin: '0 auto 34px', lineHeight: 1.8 }}>אין נוסח נכון ואין מילים מוטעות — רק מילים שלכם, שמגיעות.</p>
-              <Link href="/write" style={{ background: V.gold, color: V.navy, padding: m ? '13px 30px' : '16px 44px', borderRadius: 10, textDecoration: 'none', fontWeight: 700, fontSize: m ? 15 : 17, display: 'inline-block', boxShadow: '0 4px 20px rgba(201,168,92,.35)' }}>כתיבת מכתב &nbsp;←</Link>
+              <h2 style={{ fontFamily: V.serif, fontSize: m ? 28 : 46, fontWeight: 700, color: '#fff', marginBottom: 14 }}>{t('cta_title')}</h2>
+              <p style={{ fontSize: m ? 15 : 18, color: V.mist, maxWidth: '28em', margin: '0 auto 34px', lineHeight: 1.8 }}>{t('cta_desc')}</p>
+              <Link href="/write" style={{ background: V.gold, color: V.navy, padding: m ? '13px 30px' : '16px 44px', borderRadius: 10, textDecoration: 'none', fontWeight: 700, fontSize: m ? 15 : 17, display: 'inline-block', boxShadow: '0 4px 20px rgba(201,168,92,.35)' }}>{t('cta_btn')} &nbsp;←</Link>
             </div>
           </div>
 

@@ -1,39 +1,12 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 import Image from 'next/image';
 import Navbar from '@/components/layout/Navbar';
 import AccessibilityWidget from '@/components/AccessibilityWidget';
 import { useIsMobile } from '@/hooks/useIsMobile';
-
-const PAN_STEPS = [
-  {
-    title: <>רגע, <em style={{ fontStyle: 'normal', color: 'var(--oh-gold-letter)' }}>לפני שמתחילים</em></>,
-    body: 'כתיבת פ"נ היא מעשה רוחני של ממש — לא רק בקשה, אלא התקשרות נשמה. כמה הכנות קצרות ישפרו את הכוונה ואת ה"כלי".',
-  },
-  {
-    title: 'נטילת ידיים',
-    body: 'נוטלים ידיים לפני הכתיבה — מעשה של טהרה שמסמן לנו שאנו עומדים לעשות דבר שנעלה מן הרגיל.',
-  },
-  {
-    title: <>צְדָקָה <em style={{ fontStyle: 'normal', color: 'var(--oh-gold-letter)' }}>לִפְנֵי הַכְּתִיבָה</em></>,
-    body: 'מנהג ישראל לתת צדקה לפני כתיבת פ"נ — מטבע, תרומה, או כל מעשה נתינה. הצדקה פותחת שערים  לקבלת ברכה.',
-  },
-  {
-    title: <>כתיבה <em style={{ fontStyle: 'normal', color: 'var(--oh-gold-letter)' }}>לאחר התפילה</em></>,
-    body: 'הזמן המומלץ לכתיבה הוא לאחר תפילת שחרית — כשהאדם כבר נמצא במצב של כוונה וקשר לקדושה.',
-  },
-  {
-    title: 'קבלת החלטה טובה',
-    body: 'כללו — או החליטו בלב — קבלת החלטה טובה אחת. היא יוצרת "כלי" שדרכו יכולה הברכה לחול. אין צורך בדבר גדול — אפילו קטן ואמיתי.',
-  },
-  {
-    title: 'על הנוסח',
-    body: 'הנוסח המקובל בחב"ד: "אנא לעורר רחמים רבים על [שם] בן/בת [שם האם]" — בגוף שלישי, ללא כתיבת "אני". לאחר הנוסח — ממשיכים בלשונכם האישית.',
-    nusachNote: true,
-  },
-];
 
 function Candle() {
   return (
@@ -71,6 +44,17 @@ function getHebrewDate() {
 
 export default function WritePidyonClient() {
   const m = useIsMobile();
+  const t = useTranslations('write');
+
+  const PAN_STEPS = [
+    { title: t('panStep1Title'), body: t('panStep1Body') },
+    { title: t('panStep2Title'), body: t('panStep2Body') },
+    { title: t('panStep3Title'), body: t('panStep3Body') },
+    { title: t('panStep4Title'), body: t('panStep4Body') },
+    { title: t('panStep5Title'), body: t('panStep5Body') },
+    { title: t('panStep6Title'), body: t('panStep6Body'), nusachNote: true },
+  ];
+
   const [step, setStep] = useState(0);
   const [prepHiding, setPrepHiding] = useState(false);
   const [prepGone, setPrepGone] = useState(false);
@@ -115,8 +99,14 @@ export default function WritePidyonClient() {
   const nusachName = fullName.trim() || '[שמכם]';
   const nusachMother = motherName.trim() || '[שם האם]';
 
+  // val stays in Hebrew for the nusach formula; label is translated for the button
+  const genders = [
+    { val: 'בן', label: t('son') },
+    { val: 'בת', label: t('daughter') },
+  ];
+
   return (
-    <div dir="rtl" style={{ fontFamily: 'var(--oh-sans)', minHeight: '100vh' }}>
+    <div style={{ fontFamily: 'var(--oh-sans)', minHeight: '100vh' }}>
       <Navbar />
       <AccessibilityWidget />
 
@@ -125,11 +115,11 @@ export default function WritePidyonClient() {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', maxWidth: 1080, margin: '0 auto', padding: m ? '16px 16px' : '22px 32px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 11 }}>
             <div style={{ width: 40, height: 40, borderRadius: '50%', overflow: 'hidden', border: '1.5px solid var(--oh-gold)' }}>
-              <Image src="/rebbe.webp" alt="הרבי" width={40} height={40} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
+              <Image src="/rebbe.webp" alt="" width={40} height={40} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
             </div>
             <div>
-              <div style={{ fontFamily: 'var(--oh-serif)', fontWeight: 700, fontSize: 24, color: 'var(--oh-ink)' }}>כתיבה לרבי</div>
-              <div style={{ fontFamily: 'var(--oh-sans)', fontSize: 11.5, fontWeight: 500, color: 'var(--oh-ink-soft)', letterSpacing: '.04em', marginTop: -3 }}>כתיבת פדיון נפש</div>
+              <div style={{ fontFamily: 'var(--oh-serif)', fontWeight: 700, fontSize: 24, color: 'var(--oh-ink)' }}>{t('topbarTitle')}</div>
+              <div style={{ fontFamily: 'var(--oh-sans)', fontSize: 11.5, fontWeight: 500, color: 'var(--oh-ink-soft)', letterSpacing: '.04em', marginTop: -3 }}>{t('topbarSubPan')}</div>
             </div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
@@ -142,7 +132,7 @@ export default function WritePidyonClient() {
                 <path d="M12 2a7 7 0 0 1 7 7c0 3-2 4-2 6H7c0-2-2-3-2-6a7 7 0 0 1 7-7Z" />
                 <path d="M9 19h6M10 22h4" />
               </svg>
-              הכנות לכתיבה
+              {t('prepBtnPrep')}
             </button>
             <Link href="/pidyon" style={{
               background: 'none', color: 'var(--oh-ink-soft)', textDecoration: 'none',
@@ -152,7 +142,7 @@ export default function WritePidyonClient() {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <circle cx="12" cy="12" r="10" /><path d="M12 8v4M12 16h.01" />
               </svg>
-              מה זה פ"נ?
+              {t('prepBtnInfo')}
             </Link>
           </div>
         </div>
@@ -160,8 +150,8 @@ export default function WritePidyonClient() {
         {/* Letter */}
         <div style={{ maxWidth: 920, margin: '14px auto 0', padding: m ? '0 12px' : '0 24px' }}>
           <div style={{ textAlign: 'center', margin: '8px 0 26px' }}>
-            <div style={{ fontSize: 12.5, fontWeight: 600, letterSpacing: '.2em', color: 'var(--oh-gold-deep)', textTransform: 'uppercase' }}>פדיון נפש</div>
-            <h1 style={{ fontFamily: 'var(--oh-serif)', fontWeight: 500, fontSize: 34, color: 'var(--oh-ink)', marginTop: 8 }}>כתבו את הפ"נ שלכם</h1>
+            <div style={{ fontSize: 12.5, fontWeight: 600, letterSpacing: '.2em', color: 'var(--oh-gold-deep)', textTransform: 'uppercase' }}>{t('panModeBadge')}</div>
+            <h1 style={{ fontFamily: 'var(--oh-serif)', fontWeight: 500, fontSize: 34, color: 'var(--oh-ink)', marginTop: 8 }}>{t('panModeTitle')}</h1>
           </div>
 
           <div style={{
@@ -173,17 +163,18 @@ export default function WritePidyonClient() {
             padding: m ? '40px 20px 32px' : '64px 74px 48px',
           }}>
             <div style={{ position: 'absolute', inset: 9, border: '1px solid #efe7d4', borderRadius: 2, pointerEvents: 'none' }} />
+            {/* ב"ה stays in Hebrew — traditional letter heading */}
             <div style={{ position: 'absolute', top: 20, left: 0, right: 0, textAlign: 'center', fontFamily: 'var(--oh-serif)', fontSize: 15, color: '#b3a98f', letterSpacing: '.08em' }}>ב״ה</div>
             <div style={{ textAlign: 'center', fontSize: 13, color: '#a59c84', marginBottom: 30, letterSpacing: '.04em' }}>{hebrewDate}</div>
 
             {/* Name fields */}
             <div style={{ display: 'flex', gap: 20, marginBottom: 30, paddingBottom: 26, borderBottom: '1px solid var(--oh-line)', flexWrap: 'wrap' }}>
               <div style={{ flex: 2, minWidth: 160 }}>
-                <label style={{ display: 'block', fontSize: 12, fontWeight: 600, letterSpacing: '.08em', color: 'var(--oh-gold-deep)', marginBottom: 7 }}>שם עברי מלא</label>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 600, letterSpacing: '.08em', color: 'var(--oh-gold-deep)', marginBottom: 7 }}>{t('namePanFull')}</label>
                 <input
                   ref={nameRef}
                   type="text"
-                  placeholder="השם שלכם"
+                  placeholder={t('namePlaceholder')}
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   style={{
@@ -194,30 +185,30 @@ export default function WritePidyonClient() {
                 />
               </div>
               <div style={{ flex: 1, minWidth: 80, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
-                <label style={{ display: 'block', fontSize: 12, fontWeight: 600, letterSpacing: '.08em', color: 'var(--oh-gold-deep)', marginBottom: 7 }}>בן / בת</label>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 600, letterSpacing: '.08em', color: 'var(--oh-gold-deep)', marginBottom: 7 }}>{t('sonDaughter')}</label>
                 <div style={{ display: 'flex', gap: 0, borderBottom: '1.5px solid var(--oh-line)' }}>
-                  {['בן', 'בת'].map((g) => (
+                  {genders.map(({ val, label }) => (
                     <button
-                      key={g}
-                      onClick={() => setGender(g)}
+                      key={val}
+                      onClick={() => setGender(val)}
                       style={{
-                        flex: 1, border: 'none', background: gender === g ? 'rgba(176,141,74,.15)' : 'transparent',
+                        flex: 1, border: 'none', background: gender === val ? 'rgba(176,141,74,.15)' : 'transparent',
                         cursor: 'pointer', fontFamily: 'var(--oh-serif)', fontSize: 18,
-                        color: gender === g ? 'var(--oh-ink)' : 'var(--oh-ink-soft)',
-                        padding: '4px 8px 8px', fontWeight: gender === g ? 700 : 400,
+                        color: gender === val ? 'var(--oh-ink)' : 'var(--oh-ink-soft)',
+                        padding: '4px 8px 8px', fontWeight: gender === val ? 700 : 400,
                         transition: 'all .15s',
                       }}
                     >
-                      {g}
+                      {label}
                     </button>
                   ))}
                 </div>
               </div>
               <div style={{ flex: 2, minWidth: 160 }}>
-                <label style={{ display: 'block', fontSize: 12, fontWeight: 600, letterSpacing: '.08em', color: 'var(--oh-gold-deep)', marginBottom: 7 }}>שם האם</label>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 600, letterSpacing: '.08em', color: 'var(--oh-gold-deep)', marginBottom: 7 }}>{t('motherName')}</label>
                 <input
                   type="text"
-                  placeholder="שם האם"
+                  placeholder={t('motherPlaceholder')}
                   value={motherName}
                   onChange={(e) => setMotherName(e.target.value)}
                   style={{
@@ -229,7 +220,7 @@ export default function WritePidyonClient() {
               </div>
             </div>
 
-            {/* Nusach */}
+            {/* Sacred nusach formula stays in Hebrew across all locales */}
             <div style={{
               marginBottom: 28, paddingBottom: 24, borderBottom: '1px solid var(--oh-line)',
               fontFamily: 'var(--oh-serif)', lineHeight: 1.85,
@@ -257,12 +248,12 @@ export default function WritePidyonClient() {
 
             {/* Personal request */}
             <div>
-              <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: '.08em', color: 'var(--oh-gold-deep)', marginBottom: 10 }}>הבקשה האישית</div>
+              <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: '.08em', color: 'var(--oh-gold-deep)', marginBottom: 10 }}>{t('personalRequest')}</div>
               <textarea
                 ref={textareaRef}
                 value={letterText}
                 onChange={(e) => setLetterText(e.target.value)}
-                placeholder={`כתבו כאן את הבקשה האישית שלכם.\n\nניתן לבקש בריאות, פרנסה, שידוך, נחת מהילדים, עניינים רוחניים — כל דבר שעל הלב.\nאין צורך לכתוב "אני" — כתבו בגוף שלישי, כמו שהתחלתם בנוסח.`}
+                placeholder={t('placeholderPan')}
                 style={{
                   width: '100%', border: 'none', outline: 'none', background: 'transparent', resize: 'none',
                   fontFamily: 'var(--oh-serif)', fontSize: 20, lineHeight: 2.05, color: 'var(--oh-ink)',
@@ -277,7 +268,7 @@ export default function WritePidyonClient() {
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--oh-gold-deep)" strokeWidth="2">
                   <rect x="4" y="10" width="16" height="11" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3" />
                 </svg>
-                 פרטי לחלוטין · בינכם לבין הרבי
+                {t('privacy')}
               </div>
               <button
                 onClick={handleSend}
@@ -289,8 +280,8 @@ export default function WritePidyonClient() {
                   transition: 'all .22s ease',
                 }}
               >
-                {sent ? 'נשלח בהצלחה ✓' : <>
-                  שליחת הפ"נ
+                {sent ? t('successPan') : <>
+                  {t('btnSendPan')}
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7Z" />
                   </svg>
@@ -300,9 +291,9 @@ export default function WritePidyonClient() {
           </div>
 
           <div style={{ textAlign: 'center', color: 'var(--oh-ink-soft)', fontSize: 14, marginTop: 24 }}>
-            הפ"נ ישלח על ציון הרבי באוהל הקדוש.{' '}
+            {t('panSentTo')}{' '}
             <button onClick={openPrep} style={{ background: 'none', border: 'none', color: 'var(--oh-blue)', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit', fontSize: 'inherit', padding: 0 }}>
-              לעיון בהכנות לכתיבה
+              {t('reviewPrep')}
             </button>
           </div>
         </div>
@@ -344,7 +335,7 @@ export default function WritePidyonClient() {
             <div style={{ position: 'relative', zIndex: 2, textAlign: 'center', color: 'var(--oh-paper-warm)' }}>
               <Candle />
               <div style={{ fontSize: 13, fontWeight: 600, letterSpacing: '.22em', color: 'var(--oh-gold-letter)', marginBottom: 18 }}>
-                הכנה {step + 1} מתוך {PAN_STEPS.length}
+                {t('prepCount', { current: step + 1, total: PAN_STEPS.length })}
               </div>
 
               <div key={step} className="oh-rise">
@@ -361,6 +352,7 @@ export default function WritePidyonClient() {
                     padding: '18px 22px', fontFamily: 'var(--oh-serif)', fontSize: 18,
                     color: '#e9e3d3', lineHeight: 1.7,
                   }}>
+                    {/* Nusach formula stays in Hebrew — sacred text */}
                     ״אנא לעורר רחמים רבים על נפש רוח נשמה של{' '}
                     <span style={{ color: 'var(--oh-gold-letter)' }}>[שם]</span>{' '}
                     בן/בת{' '}
@@ -389,7 +381,7 @@ export default function WritePidyonClient() {
                     color: 'var(--oh-mist)', cursor: 'pointer',
                     fontFamily: 'var(--oh-sans)', fontSize: 15, fontWeight: 600,
                     padding: '13px 22px', borderRadius: 7,
-                  }}>הקודם</button>
+                  }}>{t('btnPrev')}</button>
                 )}
                 <button
                   onClick={() => step < PAN_STEPS.length - 1 ? setStep(s => s + 1) : closePrep(true)}
@@ -401,7 +393,7 @@ export default function WritePidyonClient() {
                     display: 'inline-flex', alignItems: 'center', gap: 10,
                   }}
                 >
-                  {step === PAN_STEPS.length - 1 ? 'לכתיבת הפ"נ ' : 'הבא '}
+                  {step === PAN_STEPS.length - 1 ? t('btnStartPan') : t('btnNext')}
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M19 12H5M12 19l-7-7 7-7" />
                   </svg>
@@ -415,7 +407,7 @@ export default function WritePidyonClient() {
                 fontFamily: 'var(--oh-sans)', fontSize: 14, fontWeight: 500,
                 letterSpacing: '.02em', textDecoration: 'underline', textUnderlineOffset: 4, opacity: .8,
               }}>
-                דלג והתחל לכתוב
+                {t('btnSkip')}
               </button>
             </div>
           </div>
