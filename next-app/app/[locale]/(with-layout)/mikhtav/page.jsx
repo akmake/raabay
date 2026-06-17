@@ -1,4 +1,5 @@
 import MikhtavClient from '@/app/(with-layout)/mikhtav/MikhtavClient';
+import { buildUrl, getAlternates } from '@/app/seo-utils';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -14,18 +15,21 @@ const jsonLd = {
   ],
 };
 
-export const metadata = {
-  title: 'איך כותבים מכתב לרבי | נוסח כתיבה לרבי מליובאוויטש',
-  description: 'איך כותבים מכתב לרבי מליובאוויטש — נוסח מכתב לרבי, שלבי הכתיבה, מה כותבים ואיך. מדריך מלא.',
-  alternates: { canonical: 'https://writingtotherabbi.com/mikhtav' },
-  openGraph: {
-    type: 'article',
-    title: 'איך כותבים מכתב לרבי | נוסח ושלבי הכתיבה',
-    description: 'נוסח מכתב לרבי מליובאוויטש, שלבי הכתיבה ומה כותבים — מדריך מלא.',
-    url: 'https://writingtotherabbi.com/mikhtav',
-    images: [{ url: '/rebbe.webp', alt: 'הרבי מליובאוויטש', width: 1200, height: 630 }],
-  },
-};
+export async function generateMetadata({ params }) {
+  const { locale } = await params;
+  return {
+    title: 'איך כותבים מכתב לרבי | נוסח כתיבה לרבי מליובאוויטש',
+    description: 'איך כותבים מכתב לרבי מליובאוויטש — נוסח מכתב לרבי, שלבי הכתיבה, מה כותבים ואיך. מדריך מלא.',
+    alternates: getAlternates(locale, '/mikhtav'),
+    openGraph: {
+      type: 'article',
+      title: 'איך כותבים מכתב לרבי | נוסח ושלבי הכתיבה',
+      description: 'נוסח מכתב לרבי מליובאוויטש, שלבי הכתיבה ומה כותבים — מדריך מלא.',
+      url: buildUrl(locale, '/mikhtav'),
+      images: [{ url: '/rebbe.webp', alt: 'הרבי מליובאוויטש', width: 1200, height: 630 }],
+    },
+  };
+}
 
 export default function MikhtavPage() {
   return (

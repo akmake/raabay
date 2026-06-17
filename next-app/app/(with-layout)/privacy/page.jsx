@@ -9,7 +9,10 @@ const Section = ({ num, title, children }) => (
 const P  = ({ children, style }) => <p style={{ color: '#3d3835', lineHeight: 1.85, marginBottom: 10, fontSize: 15.5, ...style }}>{children}</p>;
 const Li = ({ children }) => <li style={{ color: '#3d3835', lineHeight: 1.8, marginBottom: 6, fontSize: 15.5 }}>{children}</li>;
 
-export const metadata = { title: 'מדיניות פרטיות' };
+export const metadata = {
+  title: 'מדיניות פרטיות',
+  robots: { index: false, follow: false },
+};
 
 export default function PrivacyPage() {
   return (

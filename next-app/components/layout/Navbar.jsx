@@ -40,7 +40,7 @@ function NavLink({ label, to, href, active, onClick }) {
   return <Link href={to} style={style} onMouseEnter={enter} onMouseLeave={leave} onClick={onClick}>{label}</Link>;
 }
 
-function LangSwitcher() {
+function LangSwitcher({ flat = false }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
   const locale = useLocale();
@@ -60,6 +60,34 @@ function LangSwitcher() {
     router.replace(pathname, { locale: newLocale });
     setOpen(false);
   };
+
+  if (flat) {
+    return (
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7, padding: '2px 0' }}>
+        {routing.locales.map(l => (
+          <button
+            key={l}
+            onClick={() => switchLocale(l)}
+            aria-current={l === locale ? 'true' : undefined}
+            style={{
+              padding: '6px 14px',
+              background: l === locale ? C.gold : 'transparent',
+              color: l === locale ? '#fff' : C.soft,
+              border: `1px solid ${l === locale ? C.gold : C.border}`,
+              borderRadius: 100,
+              cursor: 'pointer',
+              fontSize: 13,
+              fontWeight: l === locale ? 600 : 400,
+              fontFamily: C.sans,
+              transition: 'all .15s',
+            }}
+          >
+            {t(l)}
+          </button>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div ref={ref} style={{ position: 'relative' }}>
@@ -81,18 +109,19 @@ function LangSwitcher() {
       {open && (
         <div style={{
           position: 'absolute', top: 'calc(100% + 6px)',
-          insetInlineEnd: 0,
+          right: 0,
           background: '#fff', border: `1px solid ${C.border}`,
           borderRadius: 8, boxShadow: '0 8px 24px rgba(30,26,23,0.12)',
-          minWidth: 140, zIndex: 600, overflow: 'hidden',
+          minWidth: 150, zIndex: 600, overflow: 'hidden',
         }}>
           {routing.locales.map(l => (
             <button
               key={l}
               onClick={() => switchLocale(l)}
               style={{
-                display: 'block', width: '100%', textAlign: 'start',
-                padding: '9px 14px',
+                display: 'flex', alignItems: 'center', gap: 8,
+                width: '100%', textAlign: 'start',
+                padding: '10px 14px',
                 background: l === locale ? C.hover : 'none',
                 border: 'none', cursor: 'pointer',
                 color: l === locale ? C.ink : C.soft,
@@ -100,6 +129,9 @@ function LangSwitcher() {
                 fontSize: 13.5, fontFamily: C.sans,
               }}
             >
+              {l === locale && (
+                <span style={{ width: 5, height: 5, borderRadius: '50%', background: C.gold, flexShrink: 0 }} />
+              )}
               {t(l)}
             </button>
           ))}
@@ -264,12 +296,12 @@ export default function Navbar() {
               background: C.gold, color: '#fff',
               padding: '13px 22px', borderRadius: 8,
               textDecoration: 'none', fontWeight: 600, fontSize: 15.5,
-              marginBottom: 10,
+              marginBottom: 14,
             }}
           >
             ✦&nbsp;{t('writeCta')}
           </Link>
-          <LangSwitcher />
+          <LangSwitcher flat />
         </div>
       </div>
 

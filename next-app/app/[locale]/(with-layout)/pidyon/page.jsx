@@ -1,4 +1,5 @@
 import PidyonClient from '@/app/(with-layout)/pidyon/PidyonClient';
+import { buildUrl, getAlternates } from '@/app/seo-utils';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -14,18 +15,21 @@ const jsonLd = {
   ],
 };
 
-export const metadata = {
-  title: 'כיצד כותבים פדיון נפש | נוסח פ"נ לרבי מליובאוויטש',
-  description: 'כל מה שצריך לדעת על כתיבת פדיון נפש לרבי מליובאוויטש — נוסח, הכנה, זמנים מיוחדים. מדריך מלא ומפורט.',
-  alternates: { canonical: 'https://writingtotherabbi.com/pidyon' },
-  openGraph: {
-    type: 'article',
-    title: 'כיצד כותבים פדיון נפש | נוסח פ"נ לרבי',
-    description: 'נוסח פדיון נפש, שלבי ההכנה וזמנים מיוחדים — מדריך מלא.',
-    url: 'https://writingtotherabbi.com/pidyon',
-    images: [{ url: '/rebbe.webp', alt: 'הרבי מליובאוויטש', width: 1200, height: 630 }],
-  },
-};
+export async function generateMetadata({ params }) {
+  const { locale } = await params;
+  return {
+    title: 'כיצד כותבים פדיון נפש | נוסח פ"נ לרבי מליובאוויטש',
+    description: 'כל מה שצריך לדעת על כתיבת פדיון נפש לרבי מליובאוויטש — נוסח, הכנה, זמנים מיוחדים. מדריך מלא ומפורט.',
+    alternates: getAlternates(locale, '/pidyon'),
+    openGraph: {
+      type: 'article',
+      title: 'כיצד כותבים פדיון נפש | נוסח פ"נ לרבי',
+      description: 'נוסח פדיון נפש, שלבי ההכנה וזמנים מיוחדים — מדריך מלא.',
+      url: buildUrl(locale, '/pidyon'),
+      images: [{ url: '/rebbe.webp', alt: 'הרבי מליובאוויטש', width: 1200, height: 630 }],
+    },
+  };
+}
 
 export default function PidyonPage() {
   return (
