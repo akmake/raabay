@@ -3,6 +3,7 @@ import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import HtmlDir from '@/components/HtmlDir';
+import LocaleBootstrap from '@/components/LocaleBootstrap';
 import { createPageMetadata } from '@/app/seo-metadata';
 
 export function generateStaticParams() {
@@ -27,6 +28,7 @@ export default async function LocaleLayout({ children, params }) {
   return (
     <NextIntlClientProvider messages={messages}>
       <HtmlDir locale={locale} />
+      <LocaleBootstrap />
       {children}
     </NextIntlClientProvider>
   );

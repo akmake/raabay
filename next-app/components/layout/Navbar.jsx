@@ -6,6 +6,7 @@ import { Menu, X, Globe } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { Link, usePathname, useRouter } from '@/i18n/navigation';
 import { routing } from '@/i18n/routing';
+import { MANUAL_LOCALE_COOKIE } from '@/i18n/locale-preference';
 
 const C = {
   bg:       '#ffffff',
@@ -57,6 +58,8 @@ function LangSwitcher({ flat = false }) {
   }, []);
 
   const switchLocale = (newLocale) => {
+    const secure = window.location.protocol === 'https:' ? '; Secure' : '';
+    document.cookie = `${MANUAL_LOCALE_COOKIE}=${newLocale}; Path=/; Max-Age=${60 * 60 * 24 * 365}; SameSite=Lax${secure}`;
     router.replace(pathname, { locale: newLocale });
     setOpen(false);
   };
@@ -147,6 +150,7 @@ export default function Navbar() {
   const [visible, setVisible]   = useState(true);
   const [prevY, setPrevY]       = useState(0);
   const pathname                = usePathname();
+  const locale                  = useLocale();
   const t                       = useTranslations('nav');
 
   const NAV = [
@@ -173,6 +177,7 @@ export default function Navbar() {
   return (
     <>
       <nav
+        className={locale === 'he' ? undefined : 'nb-non-hebrew'}
         role="navigation"
         aria-label={t('mainNav')}
         style={{
@@ -201,10 +206,10 @@ export default function Navbar() {
             aria-label={t('siteLabel')}
             style={{ justifySelf: 'start', display: 'inline-flex', alignItems: 'center', gap: 9, textDecoration: 'none' }}
           >
-            <span style={{ width: 36, height: 36, borderRadius: '50%', flexShrink: 0, overflow: 'hidden', display: 'inline-block' }}>
+            <span className="nb-brand-mark" style={{ width: 36, height: 36, borderRadius: '50%', flexShrink: 0, overflow: 'hidden', display: 'inline-block' }}>
               <Image src="/rebbe.webp" alt="" width={36} height={36} aria-hidden="true" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
             </span>
-            <span style={{ fontFamily: C.serif, fontWeight: 700, fontSize: 17.5, color: C.ink, letterSpacing: '0.01em' }}>
+            <span className="nb-brand-name" style={{ fontFamily: C.serif, fontWeight: 700, fontSize: 17.5, color: C.ink, letterSpacing: '0.01em' }}>
               {t('siteName')}
             </span>
           </Link>
@@ -310,6 +315,8 @@ export default function Navbar() {
           .nb-links  { display: none !important; }
           .nb-cta    { display: none !important; }
           .nb-burger { display: block !important; }
+          .nb-non-hebrew .nb-brand-mark { width: 32px !important; height: 32px !important; }
+          .nb-non-hebrew .nb-brand-name { font-size: 14.5px !important; white-space: nowrap; letter-spacing: 0 !important; }
         }
       `}</style>
     </>

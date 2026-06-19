@@ -28,7 +28,9 @@ app.use('/api', cors({
   credentials: true,
 }));
 
-app.use(express.json({ limit: '10mb' }));
+// Base64 adds roughly 33% to attachment size. This accommodates the validated
+// 15 MB attachment limit plus the rest of the JSON payload.
+app.use(express.json({ limit: '25mb' }));
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });

@@ -4,10 +4,8 @@ export const routing = defineRouting({
   locales: ['he', 'en', 'fr', 'es', 'it', 'ru'],
   defaultLocale: 'he',
   localePrefix: 'as-needed',
-  localeDetection: true,
-  localeCookie: {
-    name: 'NEXT_LOCALE',
-    maxAge: 60 * 60 * 24 * 365, // 1 year
-    sameSite: 'lax',
-  },
+  // Locale selection is handled by our middleware. next-intl's default
+  // Accept-Language detection cannot tell whether a visitor is in Israel.
+  localeDetection: false,
+  localeCookie: false,
 });

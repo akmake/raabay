@@ -2,6 +2,10 @@ import nodemailer from 'nodemailer';
 import { HDate } from '@hebcal/core';
 import { buildLetterHTML } from '../utils/letterTemplate.js';
 import { renderHtmlToPdf } from '../utils/pdfRenderer.js';
+import AppError from '../utils/AppError.js';
+
+const MAX_UPLOAD_FILES = 10;
+const MAX_TOTAL_UPLOAD_BYTES = 15 * 1024 * 1024;
 
 const createTransporter = () =>
   nodemailer.createTransport({
@@ -73,7 +77,20 @@ export const previewLetter = async (req, res, next) => {
 
 export const sendLetter = async (req, res, next) => {
   try {
-    const { mode, name, motherName, gender, text, image } = req.body;
+    const { mode, name, motherName, gender, text, images, image } = req.body;
+    const uploadedFiles = Array.isArray(images) ? images : (image?.data ? [image] : []);
+
+    if (uploadedFiles.length > MAX_UPLOAD_FILES) {
+      throw new AppError(`A maximum of ${MAX_UPLOAD_FILES} files can be uploaded`, 400);
+    }
+
+    const totalUploadBytes = uploadedFiles.reduce(
+      (total, file) => total + (typeof file?.data === 'string' ? Buffer.byteLength(file.data, 'base64') : 0),
+      0,
+    );
+    if (totalUploadBytes > MAX_TOTAL_UPLOAD_BYTES) {
+      throw new AppError('The total upload size cannot exceed 15 MB', 400);
+    }
 
     const modeLabel = mode === 'pan' ? 'פדיון נפש' : 'מכתב';
     const displayName = name?.trim() || 'אנונימי';
@@ -90,12 +107,13 @@ export const sendLetter = async (req, res, next) => {
       });
     }
 
-    if (image?.data) {
+    for (const [index, file] of uploadedFiles.entries()) {
+      if (!file?.data) continue;
       attachments.push({
-        filename: image.filename || 'כתב-יד.jpg',
-        content: image.data,
+        filename: file.filename || `attachment-${index + 1}`,
+        content: file.data,
         encoding: 'base64',
-        contentType: image.mimetype || 'image/jpeg',
+        contentType: file.mimetype || 'application/octet-stream',
       });
     }
 

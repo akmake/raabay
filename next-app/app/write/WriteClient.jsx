@@ -6,6 +6,9 @@ import { Link } from '@/i18n/navigation';
 import Navbar from '@/components/layout/Navbar';
 import { useIsMobile } from '@/hooks/useIsMobile';
 
+const MAX_UPLOAD_FILES = 10;
+const MAX_TOTAL_UPLOAD_BYTES = 15 * 1024 * 1024;
+
 function getHebrewDate() {
   try {
     return new Intl.DateTimeFormat('he-u-ca-hebrew', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date());
@@ -48,7 +51,7 @@ export default function WriteClient() {
   const [sending, setSending]       = useState(false);
   const [success, setSuccess]       = useState(false);
   const [toast, setToast]           = useState(null);
-  const [uploadedFile, setUploadedFile] = useState(null);
+  const [uploadedFiles, setUploadedFiles] = useState([]);
   const textareaRef = useRef(null);
   const nameRef     = useRef(null);
   const hebrewDate  = getHebrewDate();
@@ -68,25 +71,60 @@ export default function WriteClient() {
   };
   useEffect(() => { growTextarea(); }, [letterText, mode]);
 
-  const handleFileUpload = (e) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (ev) => {
-      const dataUrl = ev.target.result;
-      setUploadedFile({ base64: dataUrl.split(',')[1], mimetype: file.type, filename: file.name, preview: file.type.startsWith('image/') ? dataUrl : null });
-    };
-    reader.readAsDataURL(file);
+  const handleFileUpload = async (e) => {
+    const selectedFiles = Array.from(e.target.files || []);
+    e.target.value = '';
+    if (!selectedFiles.length) return;
+
+    if (uploadedFiles.length + selectedFiles.length > MAX_UPLOAD_FILES) {
+      showToast(t('uploadTooMany', { max: MAX_UPLOAD_FILES }), 'error');
+      return;
+    }
+
+    const currentSize = uploadedFiles.reduce((total, file) => total + file.size, 0);
+    const selectedSize = selectedFiles.reduce((total, file) => total + file.size, 0);
+    if (currentSize + selectedSize > MAX_TOTAL_UPLOAD_BYTES) {
+      showToast(t('uploadTooLarge', { max: 15 }), 'error');
+      return;
+    }
+
+    try {
+      const newUploads = await Promise.all(selectedFiles.map((file, index) => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          const dataUrl = ev.target.result;
+          resolve({
+            id: globalThis.crypto?.randomUUID?.() || `${Date.now()}-${index}-${file.name}-${file.size}`,
+            base64: dataUrl.split(',')[1],
+            mimetype: file.type,
+            filename: file.name,
+            size: file.size,
+            preview: file.type.startsWith('image/') ? dataUrl : null,
+          });
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      })));
+      setUploadedFiles((current) => [...current, ...newUploads]);
+    } catch {
+      showToast(t('errorUpload'), 'error');
+    }
   };
 
   const showToast = (message, type = 'success') => { setToast({ message, type }); setTimeout(() => setToast(null), 4000); };
 
   const handleSend = async () => {
-    if (!letterText.trim() && !uploadedFile) { textareaRef.current?.focus(); return; }
+    if (!letterText.trim() && !uploadedFiles.length) { textareaRef.current?.focus(); return; }
     setSending(true);
     try {
-      const payload = { mode, name: fullName, motherName, gender, text: letterText.trim() || undefined,
-        image: uploadedFile ? { data: uploadedFile.base64, mimetype: uploadedFile.mimetype, filename: uploadedFile.filename } : undefined };
+      const payload = {
+        mode,
+        name: fullName,
+        motherName,
+        gender,
+        text: letterText.trim() || undefined,
+        images: uploadedFiles.map(({ base64, mimetype, filename }) => ({ data: base64, mimetype, filename })),
+      };
       const res = await fetch('/api/letter/send', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
       if (!res.ok) throw new Error('send failed');
       setSuccess(true);
@@ -309,22 +347,27 @@ export default function WriteClient() {
                   <span style={{ fontSize: 13, color: 'var(--oh-ink-soft)', fontWeight: 600, whiteSpace: 'nowrap' }}>{t('uploadSectionLabel')}</span>
                   <span style={{ flex: 1, height: 1, background: 'var(--oh-line)' }} />
                 </div>
-                <label style={{ display: 'block', border: `2px dashed ${uploadedFile ? 'var(--oh-gold-deep)' : 'var(--oh-line)'}`, borderRadius: 12, padding: uploadedFile ? '16px' : '28px 20px', cursor: 'pointer', textAlign: 'center', background: uploadedFile ? 'rgba(181,134,74,.04)' : 'transparent' }}>
-                  <input type="file" accept="image/*,.pdf" onChange={handleFileUpload} style={{ display: 'none' }} />
-                  {uploadedFile ? (
-                    <div>
-                      {uploadedFile.preview && <img src={uploadedFile.preview} alt="" style={{ maxHeight: 220, maxWidth: '100%', borderRadius: 8, marginBottom: 10 }} />}
-                      <div style={{ fontSize: 14, color: 'var(--oh-ink)', fontWeight: 600, marginBottom: 6 }}>{uploadedFile.filename}</div>
-                      <button onClick={e => { e.preventDefault(); setUploadedFile(null); }} style={{ fontSize: 13, color: 'var(--oh-ink-soft)', background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline' }}>{t('uploadRemove')}</button>
-                    </div>
-                  ) : (
-                    <div>
-                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--oh-gold-deep)" strokeWidth="1.5" style={{ marginBottom: 10 }}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" /></svg>
-                      <div style={{ fontSize: 15, color: 'var(--oh-ink)', fontWeight: 600, marginBottom: 4 }}>{t('uploadTitle')}</div>
-                      <div style={{ fontSize: 13, color: 'var(--oh-ink-soft)' }}>{t('uploadDesc')}</div>
-                    </div>
-                  )}
+                <label style={{ display: 'block', border: `2px dashed ${uploadedFiles.length ? 'var(--oh-gold-deep)' : 'var(--oh-line)'}`, borderRadius: 12, padding: '24px 20px', cursor: 'pointer', textAlign: 'center', background: uploadedFiles.length ? 'rgba(181,134,74,.04)' : 'transparent' }}>
+                  <input type="file" accept="image/*,.pdf" multiple onChange={handleFileUpload} style={{ display: 'none' }} />
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--oh-gold-deep)" strokeWidth="1.5" style={{ marginBottom: 10 }}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" /></svg>
+                  <div style={{ fontSize: 15, color: 'var(--oh-ink)', fontWeight: 600, marginBottom: 4 }}>{t('uploadTitle')}</div>
+                  <div style={{ fontSize: 13, color: 'var(--oh-ink-soft)' }}>{t('uploadDesc')}</div>
                 </label>
+                {uploadedFiles.length > 0 && (
+                  <div style={{ display: 'grid', gap: 10, marginTop: 12 }}>
+                    {uploadedFiles.map((file) => (
+                      <div key={file.id} style={{ display: 'flex', alignItems: 'center', gap: 12, minWidth: 0, padding: 10, border: '1px solid var(--oh-line)', borderRadius: 10, background: '#fff' }}>
+                        {file.preview ? (
+                          <img src={file.preview} alt="" style={{ width: 56, height: 56, objectFit: 'cover', borderRadius: 7, flexShrink: 0 }} />
+                        ) : (
+                          <div aria-hidden="true" style={{ width: 56, height: 56, display: 'grid', placeItems: 'center', borderRadius: 7, flexShrink: 0, background: 'rgba(181,134,74,.09)', color: 'var(--oh-gold-deep)', fontSize: 12, fontWeight: 700 }}>PDF</div>
+                        )}
+                        <div style={{ minWidth: 0, flex: 1, fontSize: 14, color: 'var(--oh-ink)', fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{file.filename}</div>
+                        <button type="button" aria-label={`${t('uploadRemove')}: ${file.filename}`} onClick={() => setUploadedFiles((current) => current.filter((item) => item.id !== file.id))} style={{ flexShrink: 0, fontSize: 13, color: 'var(--oh-ink-soft)', background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline' }}>{t('uploadRemove')}</button>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               <div style={{ marginTop: 28, paddingTop: 24, borderTop: '1px solid var(--oh-line)' }}>
