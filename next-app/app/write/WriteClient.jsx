@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import Navbar from '@/components/layout/Navbar';
 import { useIsMobile } from '@/hooks/useIsMobile';
@@ -19,6 +19,7 @@ function getHebrewDate() {
 
 export default function WriteClient() {
   const m = useIsMobile();
+  const locale = useLocale();
   const t = useTranslations('write');
 
   const LETTER_STEPS = [
@@ -77,14 +78,14 @@ export default function WriteClient() {
     if (!selectedFiles.length) return;
 
     if (uploadedFiles.length + selectedFiles.length > MAX_UPLOAD_FILES) {
-      showToast(t('uploadTooMany', { max: MAX_UPLOAD_FILES }), 'error');
+      showToast(locale === 'he' ? t('errorSend') : t('uploadTooMany', { max: MAX_UPLOAD_FILES }), 'error');
       return;
     }
 
     const currentSize = uploadedFiles.reduce((total, file) => total + file.size, 0);
     const selectedSize = selectedFiles.reduce((total, file) => total + file.size, 0);
     if (currentSize + selectedSize > MAX_TOTAL_UPLOAD_BYTES) {
-      showToast(t('uploadTooLarge', { max: 15 }), 'error');
+      showToast(locale === 'he' ? t('errorSend') : t('uploadTooLarge', { max: 15 }), 'error');
       return;
     }
 
@@ -107,7 +108,7 @@ export default function WriteClient() {
       })));
       setUploadedFiles((current) => [...current, ...newUploads]);
     } catch {
-      showToast(t('errorUpload'), 'error');
+      showToast(locale === 'he' ? t('errorSend') : t('errorUpload'), 'error');
     }
   };
 

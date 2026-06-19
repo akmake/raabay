@@ -197,19 +197,20 @@ export default function Navbar() {
           width: '100%', height: '100%',
           padding: '0 16px',
           display: 'grid',
-          gridTemplateColumns: '1fr auto 1fr',
+          gridTemplateColumns: 'minmax(0, 1fr) auto minmax(0, 1fr)',
           alignItems: 'center',
+          boxSizing: 'border-box',
         }}>
 
           <Link
             href="/"
             aria-label={t('siteLabel')}
-            style={{ justifySelf: 'start', display: 'inline-flex', alignItems: 'center', gap: 9, textDecoration: 'none' }}
+            style={{ justifySelf: 'start', display: 'inline-flex', alignItems: 'center', gap: 9, minWidth: 0, maxWidth: '100%', textDecoration: 'none' }}
           >
             <span className="nb-brand-mark" style={{ width: 36, height: 36, borderRadius: '50%', flexShrink: 0, overflow: 'hidden', display: 'inline-block' }}>
               <Image src="/rebbe.webp" alt="" width={36} height={36} aria-hidden="true" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
             </span>
-            <span className="nb-brand-name" style={{ fontFamily: C.serif, fontWeight: 700, fontSize: 17.5, color: C.ink, letterSpacing: '0.01em' }}>
+            <span className="nb-brand-name" style={{ minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', fontFamily: C.serif, fontWeight: 700, fontSize: 17.5, color: C.ink, letterSpacing: '0.01em' }}>
               {t('siteName')}
             </span>
           </Link>

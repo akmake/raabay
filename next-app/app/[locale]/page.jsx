@@ -32,17 +32,31 @@ export default function HomePage() {
 
         {/* Hero */}
         {m ? (
-          <section style={{ position: 'relative', height: '100svh', marginTop: -60, overflow: 'hidden' }}>
-            <Image src="/rebbe.jpg" alt={t('rebbeAlt')} fill priority style={{ objectFit: 'cover', objectPosition: 'top center' }} />
+          <section
+            className="home-mobile-hero"
+            style={{
+              position: 'relative',
+              left: '50%',
+              width: '100vw',
+              maxWidth: '100vw',
+              height: '100svh',
+              minHeight: '100svh',
+              marginTop: -60,
+              transform: 'translateX(-50%)',
+              overflow: 'hidden',
+              isolation: 'isolate',
+            }}
+          >
+            <Image src="/rebbe.jpg" alt={t('rebbeAlt')} fill priority sizes="100vw" style={{ objectFit: 'cover', objectPosition: 'top center' }} />
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(14,22,42,.08) 0%, rgba(14,22,42,.15) 35%, rgba(14,22,42,.72) 62%, rgba(14,22,42,.97) 100%)' }} />
-            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: isHebrew ? '0 24px 24px' : '0 24px 22px', textAlign: 'center' }}>
-              <h1 style={{ fontFamily: V.serif, fontWeight: 800, fontSize: isHebrew ? 52 : 44, lineHeight: isHebrew ? 1.1 : 1.04, color: '#fff', marginBottom: isHebrew ? 16 : 14, letterSpacing: '-.02em' }}>
+            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, width: '100%', boxSizing: 'border-box', padding: '0 24px 24px', textAlign: 'center' }}>
+              <h1 style={{ fontFamily: V.serif, fontWeight: 800, fontSize: 52, lineHeight: 1.1, color: '#fff', marginBottom: 16, letterSpacing: '-.02em' }}>
                 {t('h1')}<br /><span style={{ color: V.gold }}>{t('h1Gold')}</span>
               </h1>
-              <p style={{ fontSize: isHebrew ? 15 : 14.5, color: 'rgba(255,255,255,.82)', lineHeight: isHebrew ? 1.8 : 1.65, marginBottom: isHebrew ? 28 : 22, maxWidth: '28em', marginInline: 'auto' }}>
+              <p style={{ fontSize: 15, color: 'rgba(255,255,255,.82)', lineHeight: 1.8, marginBottom: 28, maxWidth: '28em', marginInline: 'auto' }}>
                 {isHebrew ? t('desc') : t('mobileDesc')}
               </p>
-              <Link href="/write" style={{ display: 'block', background: V.gold, color: V.navy, padding: isHebrew ? '17px 32px' : '15px 28px', borderRadius: 10, textDecoration: 'none', fontWeight: 700, fontSize: isHebrew ? 17 : 16, boxShadow: '0 4px 28px rgba(176,141,74,.45)' }}>
+              <Link href="/write" style={{ display: 'block', width: '100%', boxSizing: 'border-box', background: V.gold, color: V.navy, padding: '17px 32px', borderRadius: 10, textDecoration: 'none', fontWeight: 700, fontSize: 17, boxShadow: '0 4px 28px rgba(176,141,74,.45)' }}>
                 ✦&nbsp;&nbsp;{t('writeCta')}
               </Link>
             </div>
