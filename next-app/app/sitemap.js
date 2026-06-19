@@ -18,11 +18,9 @@ function getUrl(locale, path) {
 }
 
 export default function sitemap() {
-  const now = new Date();
   return pages.flatMap(({ path, priority, freq }) =>
     LOCALES.map(locale => ({
       url: getUrl(locale, path),
-      lastModified: now,
       changeFrequency: freq,
       priority: locale === 'he' ? priority : Math.round(priority * 85) / 100,
     }))

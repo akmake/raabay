@@ -1,18 +1,17 @@
-import { headers } from 'next/headers';
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import HtmlDir from '@/components/HtmlDir';
-import { getAlternates } from '@/app/seo-utils';
+import { createPageMetadata } from '@/app/seo-metadata';
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
-  const headersList = await headers();
-  const strippedPath = headersList.get('x-stripped-path') || '/';
-  return {
-    alternates: getAlternates(locale, strippedPath),
-  };
+  return createPageMetadata(locale, 'home', '/');
 }
 
 export default async function LocaleLayout({ children, params }) {
@@ -22,7 +21,8 @@ export default async function LocaleLayout({ children, params }) {
     notFound();
   }
 
-  const messages = await getMessages();
+  setRequestLocale(locale);
+  const messages = await getMessages({ locale });
 
   return (
     <NextIntlClientProvider messages={messages}>

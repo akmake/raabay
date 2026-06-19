@@ -11,7 +11,7 @@ const Li = ({ children }) => <li style={{ color: '#3d3835', lineHeight: 1.8, mar
 
 export const metadata = {
   title: 'מדיניות פרטיות',
-  robots: { index: false, follow: false },
+  robots: { index: false, follow: true },
 };
 
 export default function PrivacyPage() {

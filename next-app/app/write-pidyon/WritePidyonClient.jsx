@@ -63,6 +63,8 @@ export default function WritePidyonClient() {
   const [gender, setGender] = useState('בן');
   const [letterText, setLetterText] = useState('');
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState(false);
   const textareaRef = useRef(null);
   const nameRef = useRef(null);
   const [hebrewDate, setHebrewDate] = useState('');
@@ -91,9 +93,29 @@ export default function WritePidyonClient() {
 
   useEffect(() => { growTextarea(); }, [letterText]);
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!letterText.trim()) { textareaRef.current?.focus(); return; }
-    setSent(true);
+    setSending(true);
+    setSendError(false);
+    try {
+      const response = await fetch('/api/letter/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          mode: 'pan',
+          name: fullName,
+          motherName,
+          gender,
+          text: letterText.trim(),
+        }),
+      });
+      if (!response.ok) throw new Error('send failed');
+      setSent(true);
+    } catch {
+      setSendError(true);
+    } finally {
+      setSending(false);
+    }
   };
 
   const nusachName = fullName.trim() || '[שמכם]';
@@ -272,15 +294,16 @@ export default function WritePidyonClient() {
               </div>
               <button
                 onClick={handleSend}
+                disabled={sending || sent}
                 style={{
-                  fontFamily: 'var(--oh-sans)', fontSize: 16, fontWeight: 600, cursor: 'pointer', border: 'none',
+                  fontFamily: 'var(--oh-sans)', fontSize: 16, fontWeight: 600, cursor: sending || sent ? 'default' : 'pointer', border: 'none',
                   background: sent ? '#1f8a5b' : 'var(--oh-night)', color: 'var(--oh-paper-warm)',
                   padding: '14px 30px', borderRadius: 6,
                   display: 'inline-flex', alignItems: 'center', gap: 10,
-                  transition: 'all .22s ease',
+                  transition: 'all .22s ease', opacity: sending ? .75 : 1,
                 }}
               >
-                {sent ? t('successPan') : <>
+                {sent ? t('successPan') : sending ? t('sending') : <>
                   {t('btnSendPan')}
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7Z" />
@@ -288,6 +311,11 @@ export default function WritePidyonClient() {
                 </>}
               </button>
             </div>
+            {sendError && (
+              <p role="alert" style={{ color: '#a63d32', fontSize: 14, textAlign: 'end', marginTop: 12 }}>
+                {t('errorSend')}
+              </p>
+            )}
           </div>
 
           <div style={{ textAlign: 'center', color: 'var(--oh-ink-soft)', fontSize: 14, marginTop: 24 }}>

@@ -31,8 +31,8 @@
   },
   "home": {
     "heroBadge": "Una reunión privada y personal",
-    "h1": "Hay una dirección",
-    "h1Gold": "a la que dirigirse",
+    "h1": "Escribir al Rebe",
+    "h1Gold": "Enviar una carta en línea",
     "desc": "Cientos de miles de personas de todos los rincones del mundo — cercanos y lejanos, de todos los orígenes — escriben al Rebe de Lubavitch. Cada carta se envía al lugar de descanso del Rebe en el Ohel en Queens, NY, con fe y confianza para recibir bendición, guía y salvación.",
     "writeCta": "Escribir una carta",
     "maalaLink": "El valor de escribir al Rebe",
@@ -65,7 +65,7 @@
   },
   "write": {
     "uploadNote": "¿Prefiere escribir a mano? En la parte inferior de la página de escritura puede subir una foto de su carta — y será enviada al Ohel.",
-    "chooseTitle": "¿Qué desea escribir?",
+    "chooseTitle": "Enviar una carta al Rebe en línea",
     "chooseBadge": "Un momento de cercanía",
     "chooseDesc": "¿No está seguro de qué elegir? Elija según cuándo está escribiendo.",
     "letterTitle": "Carta",
@@ -81,7 +81,7 @@
     "letterModeBadge": "Un momento de cercanía",
     "letterModeTitle": "Escriba lo que está en su corazón",
     "panModeBadge": "Pidión Nefesh",
-    "panModeTitle": "Escriba su Pan",
+    "panModeTitle": "Escribir un Pan en línea",
     "nameFull": "Nombre completo",
     "namePanFull": "Nombre hebreo completo",
     "sonDaughter": "Hijo / Hija de",

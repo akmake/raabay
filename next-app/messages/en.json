@@ -31,8 +31,8 @@
   },
   "home": {
     "heroBadge": "A private, personal meeting",
-    "h1": "There is an address",
-    "h1Gold": "to turn to",
+    "h1": "Writing to the Rebbe",
+    "h1Gold": "Send a Letter Online",
     "desc": "Hundreds of thousands of people from every corner of the world — near and far, from all backgrounds — write to the Lubavitcher Rebbe. Every letter is sent to the Rebbe's resting place at the Ohel in Queens, NY, with faith and trust to receive blessing, guidance, and salvation.",
     "writeCta": "Write a Letter",
     "maalaLink": "The Value of Writing to the Rebbe",
@@ -65,7 +65,7 @@
   },
   "write": {
     "uploadNote": "Prefer to write by hand? At the bottom of the writing page you can upload a photo of your letter — and it will be sent to the Ohel.",
-    "chooseTitle": "What would you like to write?",
+    "chooseTitle": "Send a Letter to the Rebbe Online",
     "chooseBadge": "A moment of closeness",
     "chooseDesc": "Not sure which to choose? Choose based on when you're writing.",
     "letterTitle": "Letter",
@@ -81,7 +81,7 @@
     "letterModeBadge": "A moment of closeness",
     "letterModeTitle": "Write what is in your heart",
     "panModeBadge": "Pidyon Nefesh",
-    "panModeTitle": "Write your Pan",
+    "panModeTitle": "Write a Pan Online",
     "nameFull": "Full name",
     "namePanFull": "Full Hebrew name",
     "sonDaughter": "Son / Daughter of",

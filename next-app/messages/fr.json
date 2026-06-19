@@ -31,8 +31,8 @@
   },
   "home": {
     "heroBadge": "Une rencontre privée et personnelle",
-    "h1": "Il existe une adresse",
-    "h1Gold": "à laquelle se tourner",
+    "h1": "Écrire au Rabbi",
+    "h1Gold": "Envoyer une lettre en ligne",
     "desc": "Des centaines de milliers de personnes de tous les coins du monde — proches et lointains, de tous horizons — écrivent au Rabbi de Loubavitch. Chaque lettre est envoyée au lieu de repos du Rabbi à l'Ohel à Queens, NY, avec foi et confiance pour recevoir bénédiction, guidance et salut.",
     "writeCta": "Écrire une lettre",
     "maalaLink": "La valeur d'écrire au Rabbi",
@@ -65,7 +65,7 @@
   },
   "write": {
     "uploadNote": "Vous préférez écrire à la main ? En bas de la page d'écriture, vous pouvez télécharger une photo de votre lettre — et elle sera envoyée à l'Ohel.",
-    "chooseTitle": "Que souhaitez-vous écrire ?",
+    "chooseTitle": "Envoyer une lettre au Rabbi en ligne",
     "chooseBadge": "Un moment de proximité",
     "chooseDesc": "Pas sûr de votre choix ? Choisissez selon le moment où vous écrivez.",
     "letterTitle": "Lettre",
@@ -81,7 +81,7 @@
     "letterModeBadge": "Un moment de proximité",
     "letterModeTitle": "Écrivez ce qui est dans votre cœur",
     "panModeBadge": "Pidyon Nefesh",
-    "panModeTitle": "Écrivez votre Pan",
+    "panModeTitle": "Écrire un Pan en ligne",
     "nameFull": "Nom complet",
     "namePanFull": "Nom hébreu complet",
     "sonDaughter": "Fils / Fille de",

@@ -31,8 +31,8 @@
   },
   "home": {
     "heroBadge": "Un incontro privato e personale",
-    "h1": "C'è un indirizzo",
-    "h1Gold": "a cui rivolgersi",
+    "h1": "Scrivere al Rebbe",
+    "h1Gold": "Inviare una lettera online",
     "desc": "Centinaia di migliaia di persone da ogni angolo del mondo — vicini e lontani, di ogni origine — scrivono al Rabbino di Lubavitch. Ogni lettera viene inviata al luogo di riposo del Rabbino all'Ohel a Queens, NY, con fede e fiducia per ricevere benedizione, guida e salvezza.",
     "writeCta": "Scrivi una lettera",
     "maalaLink": "Il valore di scrivere al Rabbino",
@@ -65,7 +65,7 @@
   },
   "write": {
     "uploadNote": "Preferisci scrivere a mano? In fondo alla pagina di scrittura puoi caricare una foto della tua lettera — e verrà inviata all'Ohel.",
-    "chooseTitle": "Cosa vorresti scrivere?",
+    "chooseTitle": "Inviare una lettera al Rebbe online",
     "chooseBadge": "Un momento di vicinanza",
     "chooseDesc": "Non sei sicuro di cosa scegliere? Scegli in base a quando stai scrivendo.",
     "letterTitle": "Lettera",
@@ -81,7 +81,7 @@
     "letterModeBadge": "Un momento di vicinanza",
     "letterModeTitle": "Scrivi ciò che è nel tuo cuore",
     "panModeBadge": "Pidyon Nefesh",
-    "panModeTitle": "Scrivi il tuo Pan",
+    "panModeTitle": "Scrivere un Pan online",
     "nameFull": "Nome completo",
     "namePanFull": "Nome ebraico completo",
     "sonDaughter": "Figlio / Figlia di",

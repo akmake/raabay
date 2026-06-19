@@ -29,14 +29,6 @@ export const metadata = {
   },
   description:
     'שלחו מכתב בקשת ברכה לרבי מליובאוויטש — כתיבה לרבי וקבלת ברכה ועצה. נוסח מכתב לרבי, נוסח פ"נ, שלבי הכתיבה — הכל במקום אחד. מכתב לרבי אונליין.',
-  keywords: [
-    'מכתב לרבי', 'כתיבה לרבי', 'כתיבת מכתב לרבי', 'מכתב לרבי אונליין',
-    'שלח מכתב בקשת ברכה לרבי מליובאוויטש', 'בקשת ברכה מהרבי מליובאוויטש',
-    'כתיבה לרבי וקבלת ברכה ועצה', 'איך כותבים מכתב לרבי',
-    'נוסח כתיבה לרבי', 'נוסח מכתב לרבי מלובביץ',
-    'שלבי הכתיבה לרבי', 'אוהל', 'פדיון נפש', 'נוסח פן לרבי',
-    'ליובאוויטש', 'חב״ד',
-  ],
   icons: {
     icon: '/rebbe.webp',
     apple: '/rebbe.webp',
@@ -57,87 +49,42 @@ export const metadata = {
   },
 };
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'WebSite',
-      '@id': 'https://writingtotherabbi.com/#website',
-      url: 'https://writingtotherabbi.com',
-      name: 'כתיבה לרבי — מכתב לרבי מליובאוויטש אונליין',
-      description: 'שלחו מכתב בקשת ברכה לרבי מליובאוויטש — כתיבה לרבי וקבלת ברכה ועצה',
-      inLanguage: 'he',
-    },
-    {
-      '@type': 'Organization',
-      '@id': 'https://writingtotherabbi.com/#organization',
-      name: 'כתיבה לרבי',
-      url: 'https://writingtotherabbi.com',
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://writingtotherabbi.com/rebbe.webp',
-      },
-    },
-    {
-      '@type': 'FAQPage',
-      mainEntity: [
-        {
-          '@type': 'Question',
-          name: 'איך כותבים מכתב לרבי מליובאוויטש?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'כותבים בלשון חופשית — בקשה, תפילה, תודה או שאלה. פותחים ב"לכבוד כבוד קדושת אדמו"ר", מציינים שם עברי ושם האם, וכותבים את הבקשה. אין נוסח נכון ואין מילים שגויות — הרבי ביקש לפרט ולכתוב על כל דבר.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'מהו נוסח כתיבת פ"נ (פדיון נפש) לרבי?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'נוסח פדיון נפש לרבי: "אנא לעורר רחמים רבים על [שם] בן/בת [שם האם]" — ואחר כך ממשיכים לכתוב את הבקשה האישית. כותבים בגוף שלישי, ללא "אני".',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'מהם שלבי הכתיבה לרבי?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'שלבי הכתיבה לרבי: א. נטילת ידיים והכנה רוחנית. ב. קבלת החלטה טובה — "כלי" לברכה. ג. כתיבת המכתב בלשון חופשית עם שם עברי ושם האם. ד. שליחה — המכתב מודפס ומונח בציון הקדוש הקדוש.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'כיצד שולחים מכתב בקשת ברכה לרבי מליובאוויטש?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'נכנסים לאתר writingtotherabbi.com, כותבים את המכתב או הפ"נ אונליין, ושולחים. המכתב מודפס ונשלח פיזית לאוהל הקדוש בקווינס, ניו יורק — שם הוא מונח על ציון הרבי.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'מה ההבדל בין מכתב לרבי לפדיון נפש?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'מכתב לרבי הוא כתיבה חופשית בכל לשון ובכל עת. פדיון נפש (פ"נ) הוא כתיבה בנוסח מסורתי מובנה, נהוג בזמנים מיוחדים כמו ערב ראש השנה, יום הולדת וימים חסידיים.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'האם ניתן לשלוח מכתב לרבי מליובאוויטש אונליין?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'כן. באתר writingtotherabbi.com ניתן לכתוב ולשלוח מכתב לרבי מליובאוויטש אונליין. המכתב מודפס ונשלח פיזית לאוהל הקדוש בקווינס, ניו יורק.',
-          },
-        },
-      ],
-    },
-  ],
+const SITE_NAMES = {
+  he: 'כתיבה לרבי',
+  en: 'Writing to the Rebbe',
+  fr: 'Écrire au Rabbi',
+  es: 'Escribir al Rebe',
+  it: 'Scrivere al Rebbe',
+  ru: 'Написать Ребе',
 };
 
 export default async function RootLayout({ children }) {
   const locale = await getLocale();
   const dir = locale === 'he' ? 'rtl' : 'ltr';
   const serifClass = locale === 'ru' ? notoSerif.className : frankRuhl.className;
+  const siteName = SITE_NAMES[locale] || SITE_NAMES.he;
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': 'https://writingtotherabbi.com/#website',
+        url: 'https://writingtotherabbi.com',
+        name: siteName,
+        inLanguage: locale,
+      },
+      {
+        '@type': 'Organization',
+        '@id': 'https://writingtotherabbi.com/#organization',
+        name: siteName,
+        url: 'https://writingtotherabbi.com',
+        logo: {
+          '@type': 'ImageObject',
+          url: 'https://writingtotherabbi.com/rebbe.webp',
+        },
+      },
+    ],
+  };
 
   return (
     <html lang={locale} dir={dir} className={`${serifClass} ${assistant.className}`}>
