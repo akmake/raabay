@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
 import LocaleHtml from '@/components/LocaleHtml';
 import LocaleBootstrap from '@/components/LocaleBootstrap';
+import Seo from '@/components/Seo';
 
 import HomePage from '@/pages/HomePage';
 import WritePage from '@/pages/WritePage';
@@ -20,6 +21,7 @@ export default function App() {
     <>
       <LocaleHtml />
       <LocaleBootstrap />
+      <Seo />
 
       <Routes>
         {/* Standalone pages (each renders its own Navbar) */}
