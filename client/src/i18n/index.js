@@ -3,22 +3,14 @@ import { initReactI18next, useTranslation } from 'react-i18next';
 
 import he from '@/messages/he.json';
 import en from '@/messages/en.json';
-import fr from '@/messages/fr.json';
-import es from '@/messages/es.json';
-import it from '@/messages/it.json';
-import ru from '@/messages/ru.json';
 
-export const LOCALES = ['he', 'en', 'fr', 'es', 'it', 'ru'];
+export const LOCALES = ['he', 'en'];
 export const DEFAULT_LOCALE = 'he';
 export const LOCALE_STORAGE_KEY = 'SITE_LOCALE';
 
 const resources = {
   he: { translation: he },
   en: { translation: en },
-  fr: { translation: fr },
-  es: { translation: es },
-  it: { translation: it },
-  ru: { translation: ru },
 };
 
 function getInitialLocale() {

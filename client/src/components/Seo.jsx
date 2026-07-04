@@ -9,7 +9,7 @@ const OG_IMAGE = `${SITE_URL}/rebbe.webp`;
 // has, so everything is localized. The prerender step (prerender.mjs) runs a
 // real browser, so these effect-applied tags get baked into the static HTML.
 const PAGES = {
-  '/': { title: (t) => `${t('home.h1')} ${t('home.h1Gold')}`, desc: (t) => t('home.desc') },
+  '/': { title: (t) => t('home.metaTitle'), desc: (t) => t('home.metaDesc'), fullTitle: true },
   '/write': { title: (t) => t('write.chooseTitle'), desc: (t) => t('write.chooseDesc') },
   '/write-pidyon': { title: (t) => t('write.panModeTitle'), desc: (t) => t('write.chooseDesc') },
   '/mikhtav': { title: (t) => `${t('mikhtav.h1')} ${t('mikhtav.h1Gold')}`, desc: (t) => t('mikhtav.desc') },
@@ -49,7 +49,8 @@ export default function Seo() {
   useEffect(() => {
     const siteName = t('nav.siteName');
     const page = PAGES[pathname] || PAGES['/'];
-    const title = `${page.title(t).trim()} | ${siteName}`;
+    const rawTitle = page.title(t).trim();
+    const title = page.fullTitle ? rawTitle : `${rawTitle} | ${siteName}`;
     const desc = (page.desc(t) || '').trim();
     const url = SITE_URL + (pathname === '/' ? '/' : pathname);
     const ogLocale = i18n.language === 'he' ? 'he_IL' : 'en_US';
