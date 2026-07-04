@@ -17,9 +17,9 @@ const PAGES = {
   '/maala': { title: (t) => `${t('maala.h1')} ${t('maala.h1Gold')}`, desc: (t) => t('maala.desc') },
   '/ohel': { title: (t) => `${t('ohel.h1')} ${t('ohel.h1Gold')}`, desc: (t) => t('ohel.desc') },
   '/contact': { title: (t) => t('contact.h1'), desc: (t) => t('contact.desc') },
-  '/accessibility': { title: () => 'הצהרת נגישות', desc: () => 'הצהרת הנגישות של אתר כתיבה לרבי.' },
-  '/privacy': { title: () => 'מדיניות פרטיות', desc: () => 'מדיניות הפרטיות של אתר כתיבה לרבי — איזה מידע נאסף וכיצד.' },
-  '/terms': { title: () => 'תנאי שימוש', desc: () => 'תנאי השימוש של אתר כתיבה לרבי.' },
+  '/accessibility': { title: () => 'הצהרת נגישות', desc: () => 'הצהרת הנגישות של אתר כתיבה לרבי.', noindex: true },
+  '/privacy': { title: () => 'מדיניות פרטיות', desc: () => 'מדיניות הפרטיות של אתר כתיבה לרבי — איזה מידע נאסף וכיצד.', noindex: true },
+  '/terms': { title: () => 'תנאי שימוש', desc: () => 'תנאי השימוש של אתר כתיבה לרבי.', noindex: true },
 };
 
 function upsertMeta(attr, key, content) {
@@ -57,6 +57,9 @@ export default function Seo() {
 
     document.title = title;
     upsertMeta('name', 'description', desc);
+    // Legal pages stay out of the index (matches the old site's behaviour);
+    // everything else is explicitly indexable.
+    upsertMeta('name', 'robots', page.noindex ? 'noindex, follow' : 'index, follow');
     upsertLink('canonical', url);
 
     upsertMeta('property', 'og:type', 'website');
