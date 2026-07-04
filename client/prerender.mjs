@@ -45,6 +45,10 @@ try {
   for (const route of ROUTES) {
     const page = await browser.newPage();
     await page.setViewport({ width: 1280, height: 900 });
+    // Render as a crawler so LocaleBootstrap leaves the page on the neutral
+    // default language (Hebrew). Without this, LocaleBootstrap reads the build
+    // host's time zone (not Israel) and bakes English into the static HTML.
+    await page.setUserAgent('Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)');
     await page.goto(base + route, { waitUntil: 'networkidle0', timeout: 60000 });
     await page.evaluateHandle('document.fonts.ready');
     await new Promise((r) => setTimeout(r, 500));
