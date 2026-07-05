@@ -40,6 +40,12 @@ export default function PidyonClient() {
 
   return (
     <div style={{ background: V.bg, color: V.ink, fontFamily: V.sans, lineHeight: 1.6, WebkitFontSmoothing: 'antialiased' }}>
+      {/* Two-card rows stack on phones via CSS so the prerendered HTML is
+          correct before React mounts (no desktop-layout flash). */}
+      <style>{`
+        .pg-cards { display: flex; flex-direction: row; }
+        @media (max-width: 767px) { .pg-cards { flex-direction: column; } }
+      `}</style>
 
       <section style={{ background: V.navy, position: 'relative', overflow: 'hidden', padding: m ? '72px 0 72px' : '100px 0 100px' }}>
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(65% 110% at 50% 0%, rgba(201,168,92,.2), transparent 60%)', pointerEvents: 'none' }} />
@@ -126,7 +132,7 @@ export default function PidyonClient() {
           <Section title={t('name_title')} label={t('name_label')} m={m}>
             <P m={m}>{t('name_p1')}</P>
             {/* Name examples stay in Hebrew — they show the Hebrew naming format */}
-            <div style={{ display: 'flex', flexDirection: m ? 'column' : 'row', gap: 16, marginBottom: 24 }}>
+            <div className="pg-cards" style={{ gap: 16, marginBottom: 24 }}>
               {[
                 { label: t('name_male_label'), example: 'יצחק בן שרה' },
                 { label: t('name_female_label'), example: 'מרים בת שרה' },

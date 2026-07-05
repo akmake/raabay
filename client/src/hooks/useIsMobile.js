@@ -1,16 +1,18 @@
 
-import { useState, useLayoutEffect, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
-// useLayoutEffect fires synchronously before the browser paints —
-// prevents the flash of desktop layout on mobile on first render.
-// Falls back to useEffect on server (where window doesn't exist).
-const useIsomorphicLayoutEffect =
-  typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+// Compute the current match synchronously so the very first render is already
+// correct on the real device. Guarded for SSR / prerender (no window), where it
+// falls back to false (desktop) — matching the 1280px prerender viewport.
+const isMobileNow = (breakpoint) =>
+  typeof window !== 'undefined' && window.innerWidth < breakpoint;
 
 export function useIsMobile(breakpoint = 768) {
-  const [mobile, setMobile] = useState(false);
+  // Lazy initializer runs on first render — on the client this yields the right
+  // value immediately, so we never paint the desktop tree on a phone (no flash).
+  const [mobile, setMobile] = useState(() => isMobileNow(breakpoint));
 
-  useIsomorphicLayoutEffect(() => {
+  useEffect(() => {
     const fn = () => setMobile(window.innerWidth < breakpoint);
     fn();
     window.addEventListener('resize', fn, { passive: true });

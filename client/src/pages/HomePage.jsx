@@ -13,6 +13,12 @@ const V = {
   serif: '"Frank Ruhl Libre", Georgia, serif', sans: '"Assistant", system-ui, sans-serif',
 };
 
+// Structural responsiveness lives in CSS media queries (not JS) so the
+// prerendered static HTML is already correct at any width — no desktop-layout
+// flash on phones before React mounts. Cosmetic sizes still use `m`, which is
+// correct from the first client render (see useIsMobile).
+const HERO_BP = 767;
+
 export default function HomePage() {
   const m  = useIsMobile();
   const locale = useLocale();
@@ -20,94 +26,104 @@ export default function HomePage() {
   const t  = useTranslations('home');
   const tl = useTranslations('layout');
   const tf = useTranslations('footer');
-  const wrap = { maxWidth: 1160, margin: '0 auto', padding: m ? '0 20px' : '0 48px' };
 
   return (
-    <div style={{ background: V.white, color: V.ink, fontFamily: V.sans, WebkitFontSmoothing: 'antialiased' }}>
+    <div className="hp" style={{ background: V.white, color: V.ink, fontFamily: V.sans, WebkitFontSmoothing: 'antialiased' }}>
+      <style>{`
+        .hp-wrap { max-width: 1160px; margin: 0 auto; padding: 0 48px; }
+        .hp-hero-m { display: none; }
+        .hp-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); }
+        @media (max-width: ${HERO_BP}px) {
+          .hp-wrap    { padding: 0 20px; }
+          .hp-hero-m  { display: block; }
+          .hp-hero-d  { display: none; }
+          .hp-grid-3  { grid-template-columns: 1fr; }
+        }
+      `}</style>
+
       <a href="#main-content" className="skip-to-main">{tl('skipToMain')}</a>
       <Navbar />
 
       <main id="main-content" tabIndex={-1} style={{ paddingTop: 60 }}>
 
-        {/* Hero */}
-        {m ? (
-          <section
-            className="home-mobile-hero"
-            style={{
-              position: 'relative',
-              left: '50%',
-              width: '100vw',
-              maxWidth: '100vw',
-              height: '100svh',
-              minHeight: '100svh',
-              marginTop: -60,
-              transform: 'translateX(-50%)',
-              overflow: 'hidden',
-              isolation: 'isolate',
-            }}
-          >
-            <Image src="/rebbe.jpg" alt={t('rebbeAlt')} fill priority sizes="100vw" style={{ objectFit: 'cover', objectPosition: 'top center' }} />
-            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(14,22,42,.08) 0%, rgba(14,22,42,.15) 35%, rgba(14,22,42,.72) 62%, rgba(14,22,42,.97) 100%)' }} />
-            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, width: '100%', boxSizing: 'border-box', padding: '0 24px 24px', textAlign: 'center' }}>
-              <h1 style={{ fontFamily: V.sans, fontWeight: 800, fontSize: 52, lineHeight: 1.1, color: '#fff', marginBottom: 16, letterSpacing: '-.02em' }}>
+        {/* Hero — mobile (full-bleed) */}
+        <section
+          className="hp-hero-m"
+          style={{
+            position: 'relative',
+            left: '50%',
+            width: '100vw',
+            maxWidth: '100vw',
+            height: '100svh',
+            minHeight: '100svh',
+            marginTop: -60,
+            transform: 'translateX(-50%)',
+            overflow: 'hidden',
+            isolation: 'isolate',
+          }}
+        >
+          <Image src="/rebbe.jpg" alt={t('rebbeAlt')} fill priority sizes="100vw" style={{ objectFit: 'cover', objectPosition: 'top center' }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(14,22,42,.08) 0%, rgba(14,22,42,.15) 35%, rgba(14,22,42,.72) 62%, rgba(14,22,42,.97) 100%)' }} />
+          <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, width: '100%', boxSizing: 'border-box', padding: '0 24px 24px', textAlign: 'center' }}>
+            <h1 style={{ fontFamily: V.sans, fontWeight: 800, fontSize: 52, lineHeight: 1.1, color: '#fff', marginBottom: 16, letterSpacing: '-.02em' }}>
+              {t('h1')}<br /><span style={{ color: V.gold }}>{t('h1Gold')}</span>
+            </h1>
+            <p style={{ fontSize: 15, color: 'rgba(255,255,255,.82)', lineHeight: 1.8, marginBottom: 28, maxWidth: '28em', marginInline: 'auto' }}>
+              {isHebrew ? t('desc') : t('mobileDesc')}
+            </p>
+            <Link href="/write" style={{ display: 'block', width: '100%', boxSizing: 'border-box', background: V.gold, color: V.navy, padding: '17px 32px', borderRadius: 10, textDecoration: 'none', fontWeight: 700, fontSize: 17, boxShadow: '0 4px 28px rgba(176,141,74,.45)' }}>
+              ✦&nbsp;&nbsp;{t('writeCta')}
+            </Link>
+          </div>
+        </section>
+
+        {/* Hero — desktop (two column) */}
+        <section className="hp-hero-d" style={{ background: V.white, padding: '88px 0 80px' }}>
+          <div className="hp-wrap" style={{ display: 'grid', gridTemplateColumns: '1fr 420px', gap: 80, alignItems: 'center' }}>
+            <div>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, marginBottom: 22, background: V.goldMuted, border: '1px solid rgba(176,141,74,.3)', padding: '6px 14px', borderRadius: 100 }}>
+                <span style={{ width: 5, height: 5, borderRadius: '50%', background: V.gold, display: 'block', flexShrink: 0 }} />
+                <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.14em', color: V.gold }}>{t('heroBadge')}</span>
+              </div>
+              <h1 style={{ fontFamily: V.sans, fontWeight: 800, fontSize: 72, lineHeight: 1.08, color: V.ink, marginBottom: 28, letterSpacing: '-.025em' }}>
                 {t('h1')}<br /><span style={{ color: V.gold }}>{t('h1Gold')}</span>
               </h1>
-              <p style={{ fontSize: 15, color: 'rgba(255,255,255,.82)', lineHeight: 1.8, marginBottom: 28, maxWidth: '28em', marginInline: 'auto' }}>
-                {isHebrew ? t('desc') : t('mobileDesc')}
+              <p style={{ fontSize: 19, fontWeight: 500, color: V.inkSoft, lineHeight: 1.65, marginBottom: 34 }}>
+                {t('desc')}
               </p>
-              <Link href="/write" style={{ display: 'block', width: '100%', boxSizing: 'border-box', background: V.gold, color: V.navy, padding: '17px 32px', borderRadius: 10, textDecoration: 'none', fontWeight: 700, fontSize: 17, boxShadow: '0 4px 28px rgba(176,141,74,.45)' }}>
-                ✦&nbsp;&nbsp;{t('writeCta')}
-              </Link>
-            </div>
-          </section>
-        ) : (
-          <section style={{ background: V.white, padding: '88px 0 80px' }}>
-            <div style={{ ...wrap, display: 'grid', gridTemplateColumns: '1fr 420px', gap: 80, alignItems: 'center' }}>
-              <div>
-                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, marginBottom: 22, background: V.goldMuted, border: '1px solid rgba(176,141,74,.3)', padding: '6px 14px', borderRadius: 100 }}>
-                  <span style={{ width: 5, height: 5, borderRadius: '50%', background: V.gold, display: 'block', flexShrink: 0 }} />
-                  <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.14em', color: V.gold }}>{t('heroBadge')}</span>
-                </div>
-                <h1 style={{ fontFamily: V.sans, fontWeight: 800, fontSize: 72, lineHeight: 1.08, color: V.ink, marginBottom: 28, letterSpacing: '-.025em' }}>
-                  {t('h1')}<br /><span style={{ color: V.gold }}>{t('h1Gold')}</span>
-                </h1>
-                <p style={{ fontSize: 19, fontWeight: 500, color: V.inkSoft, lineHeight: 1.65, marginBottom: 34 }}>
-                  {t('desc')}
-                </p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 28, flexWrap: 'wrap' }}>
-                  <Link href="/write" style={{ background: V.navy, color: '#fff', padding: '14px 32px', borderRadius: 6, textDecoration: 'none', fontWeight: 700, fontSize: 15 }}>
-                    {t('writeCta')}
-                  </Link>
-                  <Link href="/maala" style={{ color: V.inkSoft, fontSize: 14, fontWeight: 600, textDecoration: 'none', borderBottom: `1.5px solid ${V.gold}`, paddingBottom: 2 }}>
-                    {t('maalaLink')}
-                  </Link>
-                </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 28, flexWrap: 'wrap' }}>
+                <Link href="/write" style={{ background: V.navy, color: '#fff', padding: '14px 32px', borderRadius: 6, textDecoration: 'none', fontWeight: 700, fontSize: 15 }}>
+                  {t('writeCta')}
+                </Link>
+                <Link href="/maala" style={{ color: V.inkSoft, fontSize: 14, fontWeight: 600, textDecoration: 'none', borderBottom: `1.5px solid ${V.gold}`, paddingBottom: 2 }}>
+                  {t('maalaLink')}
+                </Link>
               </div>
-              <div>
-                <div style={{ position: 'relative' }}>
-                  <div style={{ position: 'absolute', inset: -24, background: 'radial-gradient(ellipse at center, rgba(176,141,74,.13), transparent 68%)', pointerEvents: 'none' }} />
-                  <div style={{ position: 'absolute', top: 0, left: '18%', right: '18%', height: 2, background: 'linear-gradient(90deg, transparent, #b08d4a, transparent)', zIndex: 2 }} />
-                  <div style={{ position: 'relative', borderRadius: 14, overflow: 'hidden', boxShadow: '0 32px 72px -20px rgba(20,34,63,.5), 0 0 0 1px rgba(176,141,74,.22)', zIndex: 1 }}>
-                    <Image src="/rebbe.jpg" alt={t('rebbeAlt')} width={420} height={520} priority style={{ display: 'block', width: '100%', height: 520, objectFit: 'cover', objectPosition: 'top center' }} />
-                    <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(transparent, rgba(14,22,42,.88))', padding: '56px 28px 26px' }}>
-                      <div style={{ width: 36, height: 1.5, background: V.gold, margin: '0 auto 10px', opacity: .85 }} />
-                      <div style={{ fontFamily: V.serif, fontSize: 16, color: '#fff', textAlign: 'center', letterSpacing: '.05em' }}>{t('rebbeAlt')}</div>
-                    </div>
+            </div>
+            <div>
+              <div style={{ position: 'relative' }}>
+                <div style={{ position: 'absolute', inset: -24, background: 'radial-gradient(ellipse at center, rgba(176,141,74,.13), transparent 68%)', pointerEvents: 'none' }} />
+                <div style={{ position: 'absolute', top: 0, left: '18%', right: '18%', height: 2, background: 'linear-gradient(90deg, transparent, #b08d4a, transparent)', zIndex: 2 }} />
+                <div style={{ position: 'relative', borderRadius: 14, overflow: 'hidden', boxShadow: '0 32px 72px -20px rgba(20,34,63,.5), 0 0 0 1px rgba(176,141,74,.22)', zIndex: 1 }}>
+                  <Image src="/rebbe.jpg" alt={t('rebbeAlt')} width={420} height={520} priority style={{ display: 'block', width: '100%', height: 520, objectFit: 'cover', objectPosition: 'top center' }} />
+                  <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(transparent, rgba(14,22,42,.88))', padding: '56px 28px 26px' }}>
+                    <div style={{ width: 36, height: 1.5, background: V.gold, margin: '0 auto 10px', opacity: .85 }} />
+                    <div style={{ fontFamily: V.serif, fontSize: 16, color: '#fff', textAlign: 'center', letterSpacing: '.05em' }}>{t('rebbeAlt')}</div>
                   </div>
                 </div>
               </div>
             </div>
-          </section>
-        )}
+          </div>
+        </section>
 
         {/* About */}
         <section id="about" style={{ background: V.bg, padding: m ? '52px 0' : '80px 0' }}>
-          <div style={wrap}>
+          <div className="hp-wrap">
             <div style={{ textAlign: 'center', marginBottom: m ? 36 : 56 }}>
               <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.2em', color: V.gold, textTransform: 'uppercase' }}>{t('aboutBadge')}</span>
               <h2 style={{ fontFamily: V.serif, fontSize: m ? 28 : 40, fontWeight: 600, color: V.ink, marginTop: 12, lineHeight: 1.25 }}>{t('aboutTitle')}</h2>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: m ? '1fr' : 'repeat(3,1fr)', gap: m ? 28 : 40 }}>
+            <div className="hp-grid-3" style={{ gap: m ? 28 : 40 }}>
               {[
                 { num: t('card1Num'), title: t('card1Title'), body: t('card1Body') },
                 { num: t('card2Num'), title: t('card2Title'), body: t('card2Body') },
@@ -125,12 +141,12 @@ export default function HomePage() {
 
         {/* Steps */}
         <section id="how" style={{ background: V.white, padding: m ? '52px 0 60px' : '80px 0 96px', borderTop: `1px solid ${V.line}` }}>
-          <div style={wrap}>
+          <div className="hp-wrap">
             <div style={{ textAlign: 'center', marginBottom: m ? 36 : 56 }}>
               <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.2em', color: V.gold, textTransform: 'uppercase' }}>{t('stepsBadge')}</span>
               <h2 style={{ fontFamily: V.serif, fontSize: m ? 28 : 40, fontWeight: 600, color: V.ink, marginTop: 12 }}>{t('stepsTitle')}</h2>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: m ? '1fr' : 'repeat(3,1fr)', gap: m ? 24 : 0 }}>
+            <div className="hp-grid-3" style={{ gap: m ? 24 : 0 }}>
               {[
                 { n: t('step1Icon'), title: t('step1Title'), body: t('step1Body') },
                 { n: t('step2Icon'), title: t('step2Title'), body: t('step2Body') },
@@ -149,7 +165,7 @@ export default function HomePage() {
         {/* CTA */}
         <section style={{ background: V.navy, padding: m ? '60px 0' : '88px 0', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 80% 140% at 50% 0%, rgba(176,141,74,.16), transparent 60%)', pointerEvents: 'none' }} />
-          <div style={{ ...wrap, textAlign: 'center', position: 'relative', zIndex: 1 }}>
+          <div className="hp-wrap" style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
             <h2 style={{ fontFamily: V.serif, fontWeight: 600, fontSize: m ? 30 : 46, color: '#fff', marginBottom: 16, lineHeight: 1.25 }}>{t('ctaTitle')}</h2>
             <p style={{ fontSize: m ? 15 : 17, color: V.mist, marginBottom: 36, maxWidth: '30em', marginInline: 'auto', lineHeight: 1.85 }}>{t('ctaDesc')}</p>
             <Link href="/write" style={{ display: 'inline-block', background: V.gold, color: V.navy, padding: m ? '13px 30px' : '15px 40px', borderRadius: 6, textDecoration: 'none', fontWeight: 700, fontSize: 16, boxShadow: '0 4px 24px rgba(176,141,74,.4)' }}>
@@ -161,7 +177,7 @@ export default function HomePage() {
 
       {/* Simple home-page footer */}
       <footer role="contentinfo" style={{ background: V.white, borderTop: `1px solid ${V.line}`, padding: '36px 0 28px' }}>
-        <div style={wrap}>
+        <div className="hp-wrap">
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
             <div>
               <div style={{ fontFamily: V.serif, fontSize: 19, fontWeight: 700, color: V.ink, marginBottom: 3 }}>{tf('logo')}</div>

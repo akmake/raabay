@@ -152,7 +152,17 @@ export default function WriteClient() {
   ];
 
   return (
-    <div style={{ fontFamily: 'var(--oh-sans)', minHeight: '100vh' }}>
+    <div className="wp" style={{ fontFamily: 'var(--oh-sans)', minHeight: '100vh' }}>
+      {/* Structural breakpoints in CSS so the prerendered HTML is correct on
+          phones before React mounts (no desktop-layout flash). */}
+      <style>{`
+        .wp-modes   { display: grid; grid-template-columns: 1fr 1fr; }
+        .wp-actions { display: flex; flex-direction: row; align-items: center; }
+        @media (max-width: 767px) {
+          .wp-modes   { grid-template-columns: 1fr; }
+          .wp-actions { flex-direction: column; align-items: stretch; }
+        }
+      `}</style>
       <Navbar />
       <div style={{ minHeight: '100vh', background: '#ffffff', paddingTop: 60, paddingBottom: 80 }}>
 
@@ -220,7 +230,7 @@ export default function WriteClient() {
               </p>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: m ? '1fr' : '1fr 1fr', gap: m ? 16 : 24 }}>
+            <div className="wp-modes" style={{ gap: m ? 16 : 24 }}>
               {[
                 {
                   key: 'letter',
@@ -374,7 +384,7 @@ export default function WriteClient() {
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--oh-gold-deep)" strokeWidth="2"><rect x="4" y="10" width="16" height="11" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3" /></svg>
                   {t('privacy')}
                 </div>
-                <div style={{ display: 'flex', flexDirection: m ? 'column' : 'row', alignItems: m ? 'stretch' : 'center', gap: 10 }}>
+                <div className="wp-actions" style={{ gap: 10 }}>
                   {!m && (
                     <button onClick={handlePreview} disabled={sending} style={{ fontFamily: 'var(--oh-sans)', fontSize: 15, fontWeight: 600, cursor: sending ? 'default' : 'pointer', background: 'transparent', color: 'var(--oh-ink)', border: '1.5px solid var(--oh-line)', padding: '13px 22px', borderRadius: 6, display: 'inline-flex', alignItems: 'center', gap: 9 }}>
                       {t('btnPreview')}
