@@ -25,6 +25,8 @@ const ROUTES = [
   '/terms',
 ];
 
+const H1_ROUTES = ['/', '/mikhtav', '/pidyon', '/maala', '/ohel'];
+
 const PORT = 4179;
 const distDir = path.resolve('dist');
 
@@ -54,20 +56,45 @@ try {
     await new Promise((r) => setTimeout(r, 500));
 
     const html = await page.evaluate(() => '<!DOCTYPE html>\n' + document.documentElement.outerHTML);
+
+    if (!html.includes('<title>')) {
+      throw new Error(`Missing <title> in prerendered route: ${route}`);
+    }
+
+    if (!html.includes('name="description"')) {
+      throw new Error(`Missing meta description in route: ${route}`);
+    }
+
+    if (!html.includes('rel="canonical"')) {
+      throw new Error(`Missing canonical in route: ${route}`);
+    }
+
+    if (H1_ROUTES.includes(route) && !html.includes('<h1')) {
+      throw new Error(`Missing H1/content in route: ${route}`);
+    }
+
     const outPath = route === '/' ? path.join(distDir, 'index.html') : path.join(distDir, route, 'index.html');
     fs.mkdirSync(path.dirname(outPath), { recursive: true });
     fs.writeFileSync(outPath, html, 'utf8');
+
+    if (!fs.existsSync(outPath)) {
+      throw new Error(`Prerender file was not created: ${outPath}`);
+    }
+
+    const stat = fs.statSync(outPath);
+    if (stat.size < 1000) {
+      throw new Error(`Prerendered HTML is suspiciously small: ${route}`);
+    }
+
     console.log('prerendered', route.padEnd(16), '->', path.relative(distDir, outPath));
     await page.close();
   }
 
-  console.log('prerender done');
+  console.log(`prerender done — ${ROUTES.length} routes generated successfully`);
 } catch (err) {
-  console.warn('\n⚠️  prerender skipped — build still OK, site works as SPA.');
-  console.warn('   reason:', err.message.split('\n')[0]);
+  console.error('prerender failed:', err);
+  process.exitCode = 1;
 } finally {
   if (browser) await browser.close().catch(() => {});
   if (server) await new Promise((res) => server.httpServer.close(res));
 }
-
-process.exit(0);
